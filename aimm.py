@@ -50,7 +50,7 @@ def show_help(program_name):
     print("  info <model_name>:[version]                 Get info about a model.")
     print("  install <model_name>:[version]              Install a model.")
     print("  uninstall <model_name>:[version]            Uninstall a model.")
-    print("  credentials <user>:<password>@<domain>      Set credentials.")
+    print("  credentials <user>@<domain>                 Set credentials.")
     print()
     print("Search:")
     print("  search <query>                              Search for a model.")
