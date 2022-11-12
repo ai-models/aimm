@@ -43,7 +43,7 @@ def search(name: str, include_adult: bool = typer.Option(False, "--include-adult
                 else:
                     typer.echo(f"  {model_name}:{version}")
                 typer.echo(f"    Size: {item['size']}  License: {item['license']}")
-                typer.echo(f"    {main.WEBSITE}/models/{model['id']}")
+                typer.echo(f"    {main.WEBSITE}/m/{model_name}")
                 typer.echo(f"    {model['attributes']['description']}")
                 typer.echo()
                 count += 1
@@ -59,7 +59,7 @@ def search(name: str, include_adult: bool = typer.Option(False, "--include-adult
                 if item['adult']:
                     typer.echo(f"  {model_name}:{version} (Adult content)")
                     typer.echo(f"    Size: {item['size']}  License: {item['license']}")
-                    typer.echo(f"    {main.WEBSITE}/models/{model['id']}")
+                    typer.echo(f"    {main.WEBSITE}/m/{model_name}")
                     typer.echo(f"    {model['attributes']['description']}")
                     typer.echo()
                     count += 1
@@ -74,7 +74,7 @@ def search(name: str, include_adult: bool = typer.Option(False, "--include-adult
                 if not item['adult']:
                     typer.echo(f"  {model_name}:{version}")
                     typer.echo(f"    Size: {item['size']}  License: {item['license']}")
-                    typer.echo(f"    {main.WEBSITE}/models/{model['id']}")
+                    typer.echo(f"    {main.WEBSITE}/m/{model_name}")
                     typer.echo(f"    {model['attributes']['description']}")
                     typer.echo()
                     count += 1

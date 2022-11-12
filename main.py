@@ -2,7 +2,7 @@ import aimm
 import cli
 import sys
 
-WEBSITE = "https://ai-models-web-frontend-nyotuddeyq-ue.a.run.app"
+WEBSITE = "https://aimodels.org"
 API_SERVER = "https://api.aimodels.org"
 PROGRAM_NAME = "aimm"
 
