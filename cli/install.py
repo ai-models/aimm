@@ -80,7 +80,7 @@ def install(name_version: Optional[str] = typer.Argument(None),
                             with open(os.path.join(aimm.config_dir, "password.json"), "r") as f:
                                 password = json.load(f)
                             # if there's a huggingface entry get the creds
-                            if password["huggingface"]:
+                            if password["huggingface.co"]:
                                 if password["huggingface"]["username"] is None or password["huggingface"]["password"] is None:
                                     typer.echo("Error: Huggingface username or password is not properly set")
                                     return
@@ -99,7 +99,7 @@ def install(name_version: Optional[str] = typer.Argument(None),
                             with open(os.path.join(aimm.config_dir, "password.json"), "r") as f:
                                 password = json.load(f)
                             # if there's a github entry get the creds
-                            if password["github"]:
+                            if password["github.com"]:
                                 if password["github"]["username"] is None or password["github"]["password"] is None:
                                     typer.echo("Error: Github username or password is not properly set")
                                     return
