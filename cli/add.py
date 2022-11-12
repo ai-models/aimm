@@ -42,7 +42,7 @@ def add(name_version: str):
     # append name and version to aimodels.json if not already there
     add_it = True
     for package_name, package_version in aimodels.items():
-        if package_name == name and package_version == version:
+        if package_name.lower() == name.lower() and package_version == version:
             typer.echo(f"{name}:{version} already added.")
             add_it = False
             return
