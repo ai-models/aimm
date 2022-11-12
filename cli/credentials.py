@@ -14,10 +14,10 @@ credentials_json = os.path.join(aimm.config_dir, "passwords.json")
 @credentials_app.command()
 def add(username_domain: str):
     """
-    Add a credential to the app. The format is user:password@domain
+    Add a credential to the app. The format is user@domain
     """
     
-    # example of argument: "user:password@domain"
+    # example of argument: "user@domain"
     try:
         username, domain = username_domain.split("@")
     except Exception as e:

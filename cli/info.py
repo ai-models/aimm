@@ -32,11 +32,13 @@ def info(name: str, fetch : bool = typer.Option(False, "--fetch", help="Fetch th
                 typer.echo("  "+package["description"])
                 typer.echo(f"  Current: {package['version']}")
                 typer.echo(f"  Size: {package['size']}  License: {package['license']}")
-                typer.echo("  Links:")
-                for link in package["links"]:
-                    # only show if url isn't None
-                    if package['links'][link] is not None:
-                        typer.echo(f"      {link} : {package['links'][link]}")
+                # if links is not empty
+                if package["links"]:
+                    typer.echo("  Links:")
+                    for link in package["links"]:
+                        # only show if url isn't None
+                        if package['links'][link] is not None:
+                            typer.echo(f"      {link} : {package['links'][link]}")
                 break
         else:
             info(name,True)
@@ -75,8 +77,10 @@ def info(name: str, fetch : bool = typer.Option(False, "--fetch", help="Fetch th
         typer.echo(f"  {url['description']}")
         typer.echo(f"  Current: {url['version'][-1]['version_number']}")
         typer.echo(f"  Size: {url['version'][-1]['size']}  License: {url['version'][-1]['license']}")
-        typer.echo("  Links:")
-        for link in url["links"]:
-            if link != "id":
-                if url["links"][link] is not None:
-                    typer.echo(f"      {link} : {url['links'][link]}")
+        # if links is not empty
+        if url["links"]:
+            typer.echo("  Links:")
+            for link in url["links"]:
+                if link != "id":
+                    if url["links"][link] is not None:
+                        typer.echo(f"      {link} : {url['links'][link]}")
