@@ -124,11 +124,6 @@ def list(show_pass: bool = typer.Option(False, "--show-password", "--show-pass")
         if passwords_json["credentials"]:
             typer.echo()
             typer.echo("Credentials:")
-            # for domain, credentials in passwords_json["credentials"].items():
-            #     if show_pass:
-            #         typer.echo(f"{domain}: {credentials['username']}:{credentials['password']}")
-            #     else:
-            #         typer.echo(f"{domain}: {credentials['username']}:********")
             for _domain in passwords_json["credentials"]:
                 if show_pass:
                     typer.echo(f"  {_domain}: {passwords_json['credentials'][_domain]['username']}:{passwords_json['credentials'][_domain]['password']}")
