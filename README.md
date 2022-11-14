@@ -1,7 +1,7 @@
 <div align="center">
   
 # `🤖 Aimm (AI Model Manager)`
-## **A python package to manage your machine learning models**
+## **A CLI App to manage your machine learning models**
 
 <p align="center">
   <img width=40% height=40% src="" alt="logo">
