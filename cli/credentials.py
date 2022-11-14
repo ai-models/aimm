@@ -10,6 +10,16 @@ app.add_typer(credentials_app, name="credentials", help="Manage credentials in t
 
 credentials_json = os.path.join(aimm.config_dir, "passwords.json")
 
+def parse_username_domain(username_domain) -> tuple:
+    try:
+        # the following works for email addresses too
+        domain = username_domain.split("@")[-1]
+        # remove domain from the end of string to get username
+        username = username_domain[:-len(domain)-1]
+    except Exception as e:
+        typer.echo("The provided argument is not in the correct format. The format is user@domain")
+        sys.exit(1)
+    return username, domain
 
 @credentials_app.command()
 def add(username_domain: str):
