@@ -99,7 +99,7 @@ def hf_get_user() -> str:
 
 def hf_get_pass() -> str:
     # get auth_pass from user
-    auth_pass = typer.prompt("Huggingface password", hide_input=True)
+    auth_pass = typer.prompt("Huggingface password (Input is hidden)", hide_input=True)
     return auth_pass
 
 def gh_get_user() -> str:
@@ -109,5 +109,5 @@ def gh_get_user() -> str:
 
 def gh_get_pass() -> str:
     # get auth_pass from user
-    auth_pass = typer.prompt("Github password", hide_input=True)
+    auth_pass = typer.prompt("Github password (Input is hidden)", hide_input=True)
     return auth_pass
