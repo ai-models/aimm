@@ -111,3 +111,71 @@ def gh_get_pass() -> str:
     # get auth_pass from user
     auth_pass = typer.prompt("Github password (Input is hidden)", hide_input=True)
     return auth_pass
+
+# a function that updates aimodels-lock.json
+def update_ai_models_lock(name, version, path):
+    # get current working directory
+    cwd = os.getcwd()
+    aimodels_lock_file = os.path.join(cwd, "aimodels-lock.json")
+    # get a list of files in path
+    files = os.listdir(path)
+    
+    # check if aimodels-lock.json exists
+    if not os.path.exists(aimodels_lock_file):
+        # create aimodels-lock.json
+        aimodels_lock = {
+            "packages": {
+                f"{name}:{version}": {
+                    "path": path,
+                    "files": files
+                },
+            "credentials": {}
+            }
+        }
+        # write aimodels-lock.json
+        with open("aimodels-lock.json", "w") as f:
+            json.dump(aimodels_lock, f, indent=4)
+    else:
+        # read aimodels-lock.json
+        with open("aimodels-lock.json", "r") as f:
+            aimodels_lock = json.load(f)
+        # check if name and version already exist if not append
+        if f"{name}:{version}" not in aimodels_lock["packages"]:
+            try:
+                aimodels_lock["packages"][f"{name}:{version}"] = {
+                    "path": path,
+                    "files": files
+                }
+            except:
+                typer.echo("Error: aimodels-lock.json is corrupted")
+                sys.exit(1)
+            # write aimodels-lock.json
+            try:
+                with open("aimodels-lock.json", "w") as f:
+                    json.dump(aimodels_lock, f, indent=4)
+            except Exception as e:
+                typer.echo(f"Error: {e}")
+                sys.exit(1)
+                
+        else:
+            try:
+                aimodels_lock["packages"][f"{name}:{version}"] = {
+                    "path": path,
+                    "files": files
+                }
+            except:
+                typer.echo("Error: aimodels-lock.json is corrupted")
+                sys.exit(1)
+    # add to .gitignore
+    gitignore_file = os.path.join(cwd, ".gitignore")
+    gitignore_text = "# For local aimodels packages\naimodels-lock.json\n"
+    if not os.path.exists(gitignore_file):
+        with open(".gitignore", "w") as f:
+            f.write(gitignore_text)
+    else:
+        with open(".gitignore", "r") as f:
+            gitignore = f.read()
+        if gitignore_text not in gitignore:
+            # append to end
+            with open(".gitignore", "a") as f:
+                f.write(gitignore_text)
