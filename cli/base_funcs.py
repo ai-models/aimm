@@ -92,25 +92,27 @@ def is_adult(name):
 def is_path_valid(path):
     os.path.exists(path)
     
-def hf_get_user() -> str:
+def get_user(download_url) -> str:
     # get auth_user from user
-    auth_user = typer.prompt("Huggingface username")
+    domain = get_domain_from_url(download_url)
+    domain = domain[0].upper() + domain[1:]
+    auth_user = typer.prompt(f"{domain} username")
     return auth_user
 
-def hf_get_pass() -> str:
+def get_pass(download_url) -> str:
     # get auth_pass from user
-    auth_pass = typer.prompt("Huggingface password (Input is hidden)", hide_input=True)
+    domain = get_domain_from_url(download_url)
+    domain = domain[0].upper() + domain[1:]
+    auth_pass = typer.prompt(f"{domain} password (Input is hidden)", hide_input=True)
     return auth_pass
 
-def gh_get_user() -> str:
-    # get auth_user from user
-    auth_user = typer.prompt("Github username")
-    return auth_user
-
-def gh_get_pass() -> str:
-    # get auth_pass from user
-    auth_pass = typer.prompt("Github password (Input is hidden)", hide_input=True)
-    return auth_pass
+def get_domain_from_url(download_url) -> str:
+    # get domain from download_url
+    if download_url.startswith("https://") or download_url.startswith("http://"):
+        domain = download_url.split("/")[2]
+    else:
+        domain = download_url.split("/")[0]
+    return domain
 
 # a function that updates aimodels-lock.json
 def update_ai_models_lock(name, version, path):
