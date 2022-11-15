@@ -181,3 +181,29 @@ def update_ai_models_lock(name, version, path):
             # append to end
             with open(".gitignore", "a") as f:
                 f.write(gitignore_text)
+
+def check_for_creds(download_url):
+    domain = get_domain_from_url(download_url)
+    
+    # check if domain exists in aimodels-lock.json
+    cwd = os.getcwd()
+    aimodels_lock_file = os.path.join(cwd, "aimodels-lock.json")
+    if not os.path.exists(aimodels_lock_file):
+        return False
+    else:
+        with open("aimodels-lock.json", "r") as f:
+            aimodels_lock = json.load(f)
+        if domain in aimodels_lock["credentials"]:
+            return True
+        else:
+            return False
+        
+def get_creds(download_url):
+    domain = get_domain_from_url(download_url)
+    
+    # check if domain exists in aimodels-lock.json
+    if check_for_creds(download_url):
+        with open("aimodels-lock.json", "r") as f:
+            aimodels_lock = json.load(f)
+        # return username and password
+        return aimodels_lock["credentials"][domain]["username"], aimodels_lock["credentials"][domain]["password"]
