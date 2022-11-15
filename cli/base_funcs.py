@@ -19,7 +19,11 @@ def models_json(name, version):
         sys.exit(1)
     return models
 
-def download_file(url, path):
+def download_file(url, path, auth_user=None, auth_pass=None):
+    if auth_user:
+        print(auth_user)
+    if auth_pass:
+        print(auth_pass)
     try:
         pretty_downloader.download(url, path)
     except Exception as e:
