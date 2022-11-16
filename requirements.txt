@@ -1,0 +1,4 @@
+appdirs==1.4.4
+pretty_downloader==0.1.0
+prettytable==3.5.0
+typer==0.7.0
