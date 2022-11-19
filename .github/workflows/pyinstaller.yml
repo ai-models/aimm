@@ -18,7 +18,7 @@ jobs:
         pip install -r requirements.txt
         pip install pyinstaller
     - name: Build Linux
-      run: pyinstaller --onefile main.py --name aimm-linux --distpath .
+      run: pyinstaller --onefile aimm.py --name aimm-linux --distpath .
     - name: Upload Release Linux
       uses: actions/upload-artifact@v3
       with:
@@ -39,7 +39,7 @@ jobs:
         pip install -r requirements.txt
         pip install pyinstaller
     - name: Build Windows
-      run: pyinstaller --onefile main.py --name aimm --distpath .
+      run: pyinstaller --onefile aimm.py --name aimm --distpath .
     - name: Upload Release Windows
       uses: actions/upload-artifact@v3
       with:
@@ -61,7 +61,7 @@ jobs:
         pip install -r requirements.txt
         pip install pyinstaller
     - name: Build MacOS
-      run: pyinstaller --onefile main.py --name aimm-macos --distpath .
+      run: pyinstaller --onefile aimm.py --name aimm-macos --distpath .
     - name: Upload ReleaseMacOS
       uses: actions/upload-artifact@v3
       with:

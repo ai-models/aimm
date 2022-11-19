@@ -3,10 +3,10 @@ import sys
 import json
 import typer
 
-import aimm
+import aimmApp
 from cli import base_funcs as base_funcs
 
-app = aimm.app
+app = aimmApp.app
 
 @app.command()
 def remove(name_version: str):

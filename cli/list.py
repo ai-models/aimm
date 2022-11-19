@@ -1,10 +1,10 @@
 import typer
 from prettytable import PrettyTable
 
-import aimm
+import aimmApp
 from cli import base_funcs as base_funcs
 
-app = aimm.app
+app = aimmApp.app
 @app.command()
 def list():
     """
@@ -14,7 +14,7 @@ def list():
     # show installed packages' name, version, size and path in a table format
     table = PrettyTable(['Name', 'Version', 'Size', 'Path'])
 
-    for package in aimm.installed["packages"]:
+    for package in aimmApp.installed["packages"]:
         # add another entry if more than one path
         table.add_row([package["name"], package["version"], package["size"], package["paths"]])
     

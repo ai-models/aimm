@@ -2,9 +2,9 @@ import os
 import sys
 import json
 import typer
-import aimm
+import aimmApp
 
-app = aimm.app
+app = aimmApp.app
 credentials_app = typer.Typer()
 app.add_typer(credentials_app, name="credentials", help="Manage credentials in the app.")
 
