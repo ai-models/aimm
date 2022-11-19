@@ -2,14 +2,26 @@ import os
 import sys
 import json
 import typer
-import aimm
+import aimmApp
 
-app = aimm.app
+app = aimmApp.app
 credentials_app = typer.Typer()
 app.add_typer(credentials_app, name="credentials", help="Manage credentials in the app.")
 
-credentials_json = os.path.join(aimm.config_dir, "passwords.json")
+# get current working directory
+cwd = os.getcwd()
+aimodels_lock_file = os.path.join(cwd, "aimodels-lock.json")
 
+def parse_username_domain(username_domain) -> tuple:
+    try:
+        # the following works for email addresses too
+        domain = username_domain.split("@")[-1]
+        # remove domain from the end of string to get username
+        username = username_domain[:-len(domain)-1]
+    except Exception as e:
+        typer.echo("The provided argument is not in the correct format. The format is user@domain")
+        sys.exit(1)
+    return username, domain
 
 @credentials_app.command()
 def add(username_domain: str):
@@ -18,11 +30,7 @@ def add(username_domain: str):
     """
     
     # example of argument: "user@domain"
-    try:
-        username, domain = username_domain.split("@")
-    except Exception as e:
-        typer.echo("The provided argument is not in the correct format. The format is user@domain")
-        sys.exit(1)
+    username, domain = parse_username_domain(username_domain)
         
     # if username and domain aren't empty ask for password
     if username and domain:
@@ -31,32 +39,26 @@ def add(username_domain: str):
     else:
         typer.echo("The username or domain is not provided.")
         sys.exit(1)
-    # check if passwords.json exists in the config directory
-    if not os.path.exists(credentials_json):
-        # create the file
-        try:
-            with open(credentials_json, "w") as f:
-                f.write(json.dumps({}))
-                
-        except Exception as e:
-            typer.echo(f"Error: {e}")
-            sys.exit(1)
-        
-        typer.echo(f"Created {credentials_json}")
-    # parse passwords.json as a json
+    # check if aimodels-lock.json exists in the config directory
+    init()
+    # parse aimodels-lock.json as a json
     try:
-        with open(credentials_json, "r") as f:
+        with open(aimodels_lock_file, "r") as f:
             passwords_json = json.load(f)
     except Exception as e:
         typer.echo(f"Error: {e}")
         sys.exit(1)
     # add the credential to the json
-    passwords_json.update({domain:{"username":username,"password":password}})
+    passwords_json["credentials"][domain] = {
+        "username": username,
+        "password": password
+    }
+
     # write the json to the file
     try:
-        with open(credentials_json, "w") as f:
+        with open(aimodels_lock_file, "w") as f:
             f.write(json.dumps(passwords_json, indent=4))
-        typer.echo(f"Added {domain} to {credentials_json}")
+        typer.echo(f"Added {domain} to {aimodels_lock_file}")
     except Exception as e:
         typer.echo(f"Error: {e}")
         sys.exit(1)
@@ -69,31 +71,31 @@ def remove(username_domain: str):
     """
     
     # example of argument: "user@domain"
-    username = username_domain.split("@")[0]
-    domain = username_domain.split("@")[1]
+    username, domain = parse_username_domain(username_domain)
+
     
-    # check if passwords.json exists in the config directory
-    if not os.path.exists(credentials_json):
-        typer.echo(f"{credentials_json} does not exist.")
+    # check if aimodels-lock.json exists in the config directory
+    if not os.path.exists(aimodels_lock_file):
+        typer.echo(f"{aimodels_lock_file} does not exist.")
         sys.exit(1)
-    # parse passwords.json as a json
+    # parse aimodels-lock.json as a json
     try:
-        with open(credentials_json, "r") as f:
+        with open(aimodels_lock_file, "r") as f:
             passwords_json = json.load(f)
     except Exception as e:
         typer.echo(f"Error: {e}")
         sys.exit(1)
     # remove the credential from the json
-    for domain_ in passwords_json:
-        if domain_ == domain:
-            if passwords_json[domain_]["username"] == username:
-                del passwords_json[domain_]
-                break
+    try:
+        del passwords_json["credentials"][domain]
+    except KeyError:
+        typer.echo(f"{domain} does not exist in {aimodels_lock_file}")
+        sys.exit(1)
     # write the json to the file
     try:
-        with open(credentials_json, "w") as f:
+        with open(aimodels_lock_file, "w") as f:
             f.write(json.dumps(passwords_json, indent=4))
-        typer.echo(f"Removed {domain} from {credentials_json}")
+        typer.echo(f"Removed {domain} from {aimodels_lock_file}")
     except Exception as e:
         typer.echo(f"Error: {e}")
         sys.exit(1)
@@ -106,23 +108,48 @@ def list(show_pass: bool = typer.Option(False, "--show-password", "--show-pass")
     List all credentials in the app.
     """
 
-    # check if passwords.json exists in the config directory
-    if not os.path.exists(credentials_json):
-        typer.echo(f"{credentials_json} does not exist.")
+    # check if aimodels-lock.json exists in the config directory
+    if not os.path.exists(aimodels_lock_file):
+        typer.echo(f"{aimodels_lock_file} does not exist.")
         sys.exit(1)
-    # parse passwords.json as a json
+    # parse aimodels-lock.json as a json
     try:
-        with open(credentials_json, "r") as f:
+        with open(aimodels_lock_file, "r") as f:
             passwords_json = json.load(f)
     except Exception as e:
         typer.echo(f"Error: {e}")
         sys.exit(1)
-    # list the credentials
-    typer.echo("Credentials:")
-    for domain in passwords_json:
-        username = passwords_json[domain]["username"]
-        if show_pass:
-            password = passwords_json[domain]["password"]
-            typer.echo(f"  {username}:{password}@{domain}")
+    # list the credentials only if there are any
+    try:
+        if passwords_json["credentials"]:
+            typer.echo()
+            typer.echo("Credentials:")
+            for _domain in passwords_json["credentials"]:
+                if show_pass:
+                    typer.echo(f"  {_domain}: {passwords_json['credentials'][_domain]['username']}:{passwords_json['credentials'][_domain]['password']}")
+                else:
+                    typer.echo(f"  {_domain}: {passwords_json['credentials'][_domain]['username']}")
         else:
-            typer.echo(f"  {username}@{domain}")
+            typer.echo("No credentials found.")
+    except KeyError:
+        typer.echo("No credentials found.")
+        sys.exit(1)
+        
+            
+def init():
+    default_json = {
+        "packages": {},
+        "credentials": {}
+        }
+    # check if aimodels-lock.json exists in the current directory
+    if not os.path.exists(aimodels_lock_file):
+        # create the file
+        try:
+            with open(aimodels_lock_file, "w") as f:
+                f.write(json.dumps(default_json))
+                
+        except Exception as e:
+            typer.echo(f"Error: {e}")
+            sys.exit(1)
+        
+        typer.echo(f"Created {aimodels_lock_file}")

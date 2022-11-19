@@ -6,10 +6,10 @@ import re
 import typer
 import pretty_downloader
 
-import main, aimm
+import aimm, aimmApp
 
 def models_json(name, version):
-    url = f"{main.API_SERVER}/api/models?filters[$and][0][version][version_number][$eqi]={version}&filters[$and][1][model_name][$eqi]={name}&publicationState=live&populate=deep"
+    url = f"{aimm.API_SERVER}/api/models?filters[$and][0][version][version_number][$eqi]={version}&filters[$and][1][model_name][$eqi]={name}&publicationState=live&populate=deep"
     # parse api as a json
     try:
         with urlopen(url) as response:
@@ -19,7 +19,11 @@ def models_json(name, version):
         sys.exit(1)
     return models
 
-def download_file(url, path):
+def download_file(url, path, auth_user=None, auth_pass=None):
+    if auth_user:
+        print(auth_user)
+    if auth_pass:
+        print(auth_pass)
     try:
         pretty_downloader.download(url, path)
     except Exception as e:
@@ -27,7 +31,7 @@ def download_file(url, path):
         sys.exit(1)
 
 def should_install(name,version):
-    for package in aimm.installed["packages"]:
+    for package in aimmApp.installed["packages"]:
         # make case insensitive
         if package["name"].lower() == name.lower() and package["version"] == version:
             return False
@@ -63,7 +67,7 @@ def extract_name_version(name_version):
     return name, version
 
 def get_last_version(name):
-    url = f"{main.API_SERVER}/api/models?filters[$and][0][model_name][$eqi]={name}&publicationState=live&populate=deep"
+    url = f"{aimm.API_SERVER}/api/models?filters[$and][0][model_name][$eqi]={name}&publicationState=live&populate=deep"
     # parse api as a json
     try:
         with urlopen(url) as response:
@@ -85,29 +89,125 @@ def get_last_version(name):
 
 def is_adult(name):
     # check installed.json for name
-    for package in aimm.installed["packages"]:
+    for package in aimmApp.installed["packages"]:
         if package["name"] == name:
             return package["adult"]
 
 def is_path_valid(path):
     os.path.exists(path)
     
-def hf_get_user() -> str:
+def get_user(download_url) -> str:
     # get auth_user from user
-    auth_user = typer.prompt("Huggingface username")
+    domain = get_domain_from_url(download_url)
+    domain = domain[0].upper() + domain[1:]
+    auth_user = typer.prompt(f"{domain} username")
     return auth_user
 
-def hf_get_pass() -> str:
+def get_pass(download_url) -> str:
     # get auth_pass from user
-    auth_pass = typer.prompt("Huggingface password", hide_input=True)
+    domain = get_domain_from_url(download_url)
+    domain = domain[0].upper() + domain[1:]
+    auth_pass = typer.prompt(f"{domain} password (Input is hidden)", hide_input=True)
     return auth_pass
 
-def gh_get_user() -> str:
-    # get auth_user from user
-    auth_user = typer.prompt("Github username")
-    return auth_user
+def get_domain_from_url(download_url) -> str:
+    # get domain from download_url
+    if download_url.startswith("https://") or download_url.startswith("http://"):
+        domain = download_url.split("/")[2]
+    else:
+        domain = download_url.split("/")[0]
+    return domain
 
-def gh_get_pass() -> str:
-    # get auth_pass from user
-    auth_pass = typer.prompt("Github password", hide_input=True)
-    return auth_pass
+# a function that updates aimodels-lock.json
+def update_ai_models_lock(name, version, path):
+    # get current working directory
+    cwd = os.getcwd()
+    aimodels_lock_file = os.path.join(cwd, "aimodels-lock.json")
+    # get a list of files in path
+    files = os.listdir(path)
+    
+    # check if aimodels-lock.json exists
+    if not os.path.exists(aimodels_lock_file):
+        # create aimodels-lock.json
+        aimodels_lock = {
+            "packages": {
+                f"{name}:{version}": {
+                    "path": path,
+                    "files": files
+                },
+            "credentials": {}
+            }
+        }
+        # write aimodels-lock.json
+        with open("aimodels-lock.json", "w") as f:
+            json.dump(aimodels_lock, f, indent=4)
+    else:
+        # read aimodels-lock.json
+        with open("aimodels-lock.json", "r") as f:
+            aimodels_lock = json.load(f)
+        # check if name and version already exist if not append
+        if f"{name}:{version}" not in aimodels_lock["packages"]:
+            try:
+                aimodels_lock["packages"][f"{name}:{version}"] = {
+                    "path": path,
+                    "files": files
+                }
+            except:
+                typer.echo("Error: aimodels-lock.json is corrupted")
+                sys.exit(1)
+            # write aimodels-lock.json
+            try:
+                with open("aimodels-lock.json", "w") as f:
+                    json.dump(aimodels_lock, f, indent=4)
+            except Exception as e:
+                typer.echo(f"Error: {e}")
+                sys.exit(1)
+                
+        else:
+            try:
+                aimodels_lock["packages"][f"{name}:{version}"] = {
+                    "path": path,
+                    "files": files
+                }
+            except:
+                typer.echo("Error: aimodels-lock.json is corrupted")
+                sys.exit(1)
+    # add to .gitignore
+    gitignore_file = os.path.join(cwd, ".gitignore")
+    gitignore_text = "# For local aimodels packages\naimodels-lock.json\n"
+    if not os.path.exists(gitignore_file):
+        with open(".gitignore", "w") as f:
+            f.write(gitignore_text)
+    else:
+        with open(".gitignore", "r") as f:
+            gitignore = f.read()
+        if gitignore_text not in gitignore:
+            # append to end
+            with open(".gitignore", "a") as f:
+                f.write(gitignore_text)
+
+def check_for_creds(download_url):
+    domain = get_domain_from_url(download_url)
+    
+    # check if domain exists in aimodels-lock.json
+    cwd = os.getcwd()
+    aimodels_lock_file = os.path.join(cwd, "aimodels-lock.json")
+    if not os.path.exists(aimodels_lock_file):
+        return False
+    else:
+        with open("aimodels-lock.json", "r") as f:
+            aimodels_lock = json.load(f)
+        if domain in aimodels_lock["credentials"]:
+            return True
+        else:
+            return False
+        
+def get_creds(download_url):
+    domain = get_domain_from_url(download_url)
+    
+    # check if domain exists in aimodels-lock.json
+    if check_for_creds(download_url):
+        with open("aimodels-lock.json", "r") as f:
+            aimodels_lock = json.load(f)
+        # return username and password
+        return aimodels_lock["credentials"][domain]["username"], aimodels_lock["credentials"][domain]["password"]

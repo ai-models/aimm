@@ -4,10 +4,10 @@ import json
 from typing import Optional
 import typer
 
-import aimm
+import aimmApp
 from cli import base_funcs as base_funcs
 
-app = aimm.app
+app = aimmApp.app
 @app.command()
 # pass the user with argument --auth-user with the default value of none
 def install(name_version: Optional[str] = typer.Argument(None),
@@ -70,50 +70,27 @@ def install(name_version: Optional[str] = typer.Argument(None),
                         typer.echo("  Remote URL file could be changed and no checksum provided to validate file.")
                         sys.exit(1)
                 
-                # check if download_url is huggingface.co
-                if file["download_url"].startswith("https://huggingface.co/"):
-                    # check if auth_user and auth_pass are strings
-                    if not isinstance(auth_user, str) or not isinstance(auth_pass, str):
-                    # if auth_user is None or auth_pass is None:
-                        # check password.json for auth_user and auth_pass in config_dir
-                        if os.path.exists(os.path.join(aimm.config_dir, "password.json")):
-                            with open(os.path.join(aimm.config_dir, "password.json"), "r") as f:
-                                password = json.load(f)
-                            # if there's a huggingface entry get the creds
-                            if password["huggingface.co"]:
-                                if password["huggingface"]["username"] is None or password["huggingface"]["password"] is None:
-                                    typer.echo("Error: Huggingface username or password is not properly set")
-                                    return
-                            else:
-                                auth_user = base_funcs.hf_get_user()
-                                auth_pass = base_funcs.hf_get_pass()
-                        else:
-                            auth_user = base_funcs.hf_get_user()
-                            auth_pass = base_funcs.hf_get_pass()
-                # check if download_url is github.com
-                if file["download_url"].startswith("https://github.com/"):
-                    # check if auth_user and auth_pass are provided
-                    if auth_user is None or auth_pass is None:
-                        # check password.json for auth_user and auth_pass in config_dir
-                        if os.path.exists(os.path.join(aimm.config_dir, "password.json")):
-                            with open(os.path.join(aimm.config_dir, "password.json"), "r") as f:
-                                password = json.load(f)
-                            # if there's a github entry get the creds
-                            if password["github.com"]:
-                                if password["github"]["username"] is None or password["github"]["password"] is None:
-                                    typer.echo("Error: Github username or password is not properly set")
-                                    return
-                            else:
-                                auth_user = base_funcs.gh_get_user()
-                                auth_pass = base_funcs.gh_get_pass()
-                        else:
-                            auth_user = base_funcs.gh_get_user()
-                            auth_pass = base_funcs.gh_get_pass()
-                
-                save_path = os.path.join(aimm.main_dir, name, version)
+                save_path = os.path.join(aimmApp.main_dir, name, version)
                 if not os.path.exists(save_path):
                     os.makedirs(save_path)
-                base_funcs.download_file(file["download_url"], save_path)
+                # if auth_required is set, check for creds
+                if file["auth_required"]:
+                    if auth_user is None or auth_pass is None:
+                        if base_funcs.check_for_creds(file["download_url"]):
+                            auth_user, auth_pass = base_funcs.get_creds(file["download_url"])
+                            base_funcs.download_file(file["download_url"], save_path)
+                        else:
+                            typer.echo("No credentials passed or found in lock file.")
+                            auth_user = base_funcs.get_user(file["download_url"])
+                            auth_pass = base_funcs.get_pass(file["download_url"])
+                # download the file
+                if file["auth_required"]:
+                    base_funcs.download_file(file["download_url"], save_path, auth_user, auth_pass)
+                else:
+                    base_funcs.download_file(file["download_url"], save_path)
+                    
+                # add to aimodels-lock.json
+                base_funcs.update_ai_models_lock(name, version, save_path)
             # make a list of links
             links = []
             # only execute if there are links
@@ -122,15 +99,15 @@ def install(name_version: Optional[str] = typer.Argument(None),
                     # if link is not "id" and not None
                     if link != "id" and link is not None:
                         links.append(link)
-            # add path to installed 
-            aimm.installed["packages"].append({"name":name, "version":version, "size":item["size"], "paths":save_path, "description":url["description"], "license":item["license"], "adult":item["adult"], "links":{}})
+            # add path to installed
+            aimmApp.installed["packages"].append({"name":name, "version":version, "size":item["size"], "paths":save_path, "description":url["description"], "license":item["license"], "adult":item["adult"], "links":{}})
             # for every link add it to json only if not empty
             for link in links:
                 if url["links"][link] is not None:
-                    aimm.installed["packages"][-1]["links"][link] = url["links"][link]
+                    aimmApp.installed["packages"][-1]["links"][link] = url["links"][link]
             
-            with open(aimm.installed_json, "w") as file:
-                json.dump(aimm.installed, file, indent=4)
+            with open(aimmApp.installed_json, "w") as file:
+                json.dump(aimmApp.installed, file, indent=4)
             typer.echo(f"Installed {name}:{version}!")
     else: 
         typer.echo(f"{name}:{version} already installed.")
