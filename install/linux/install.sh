@@ -43,8 +43,14 @@ fi
 # download the latest version of the program
 wget https://github.com/visioninit/ai-models-cli/suites/9396117503/artifacts/443295821 -O $install_path/aimm
 
-# make the program executable
-chmod +x $install_path/aimm
+# make the program executable if file exists
+if [ -f "$install_path/aimm" ]; then
+  chmod +x $install_path/aimm
+  echo "Installation complete."
+else
+  echo "Failed to download AIMM. Installation cancelled."
+  exit 1
+fi
 
 # check if folder is in $PATH
 if [[ ":$PATH:" != *":$install_path:"* ]]; then
@@ -56,4 +62,9 @@ if [[ ":$PATH:" != *":$install_path:"* ]]; then
   echo "    source ~/.bashrc"
   echo "    or"
   echo "    source ~/.profile"
+fi
+
+# error message for when the user does not have wget installed
+else
+  echo "wget is not installed. Please install wget and try again."
 fi
