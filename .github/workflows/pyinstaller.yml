@@ -2,7 +2,7 @@ name: pyinstaller
 
 on:
   push:
-    branches: [ dev, main ]
+    branches: [ dev, main, build_exe_2 ]
 jobs:
 #  build-lin:
 #    runs-on: ubuntu-latest
