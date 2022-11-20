@@ -1,15 +1,39 @@
 <div align="center">
   
 # `🤖 Aimm (AI Model Manager)`
-## **A python package to manage your machine learning models**
-
-<p align="center">
-  <img width=40% height=40% src="" alt="logo">
-</p>
-
-***badge_goes_here***
+## **A CLI App to manage your machine learning models**
 
 </div>
+
+```
+Usage: aimm [command] [options]
+
+Current Dir:
+  init                                        Initialize aimodels.json.
+  add <model_name>:[version]                  Add a model to aimodels.json.
+  remove <model_name>:[version]               Remove a model from aimodels.json.
+
+System Wide:
+  list                                        List all models.
+  info <model_name>:[version]                 Get info about a model.
+  install <model_name>:[version]              Install a model.
+  uninstall <model_name>:[version]            Uninstall a model.
+  credentials <user>@<domain>                 Set credentials.
+
+Search:
+  search <query>                              Search for a model.
+  search <query> --include-adult              Search for a model and include adult results.
+  search <query> --only-adult                 Search for a model and only include adult results.
+
+Options:
+  --install-completion          Install completion for the current shell.
+  --show-completion             Show completion for the current shell, to copy it or customize
+                                the installation.
+  --help                        Show this message and exit.
+
+Run 'aimm help [command]' for more information on a command.
+```
+
 
 ## 📖 Table of Contents
 
