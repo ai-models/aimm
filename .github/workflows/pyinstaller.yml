@@ -4,28 +4,49 @@ on:
   push:
     branches: [ dev, main ]
 jobs:
-  build-lin:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v3
-    - name: Set up Python 3.9
-      uses: actions/setup-python@v4
-      with:
-        python-version: 3.9
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
-        pip install pyinstaller
-    - name: Build Linux
-      run: pyinstaller --onefile aimm.py --name aimm-linux --distpath .
-    - name: Upload Release Linux
-      uses: actions/upload-artifact@v3
-      with:
-        name: Linux
-        path: ./aimm-linux
+#  build-lin:
+#    runs-on: ubuntu-latest
+#    steps:
+#    - uses: actions/checkout@v3
+#    - name: Set up Python 3.9
+#      uses: actions/setup-python@v4
+#      with:
+#        python-version: 3.9
+#    - name: Install dependencies
+#      run: |
+#        python -m pip install --upgrade pip
+#        pip install -r requirements.txt
+#        pip install pyinstaller
+#    - name: Build Linux
+#      run: pyinstaller --onefile aimm.py --name aimm-linux --distpath .
+#    - name: Upload Release Linux
+#      uses: actions/upload-artifact@v3
+#      with:
+#        name: Linux
+#        path: ./aimm-linux
 
-  build-win: 
+#  build-win:
+#    runs-on: windows-latest
+#    steps:
+#    - uses: actions/checkout@v3
+#    - name: Set up Python 3.9
+#      uses: actions/setup-python@v4
+#      with:
+#        python-version: 3.9
+#    - name: Install dependencies
+#      run: |
+#        python -m pip install --upgrade pip
+#        pip install -r requirements.txt
+#        pip install pyinstaller
+#    - name: Build Windows
+#      run: pyinstaller --onefile aimm.py --name aimm --distpath .
+#    - name: Upload Release Windows
+#      uses: actions/upload-artifact@v3
+#      with:
+#        name: Windows
+#        path: ./aimm.exe
+
+  build-win-installer:
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@v3
@@ -37,34 +58,33 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
-        pip install pyinstaller
-    - name: Build Windows
-      run: pyinstaller --onefile aimm.py --name aimm --distpath .
-    - name: Upload Release Windows
+        pip install pynsist
+    - name: Build Windows-Installer
+      run: install/win-installer.bat
+    - name: Upload Release Windows-Installer
       uses: actions/upload-artifact@v3
       with:
         name: Windows
-        path: ./aimm.exe
+        path: dist/win-installer/
 
-
-  build-mac:
-    runs-on: macos-11
-    steps:
-    - uses: actions/checkout@v3
-    - name: Set up Python 3.9
-      uses: actions/setup-python@v4
-      with:
-        python-version: 3.9
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
-        pip install pyinstaller
-    - name: Build MacOS
-      run: pyinstaller --onefile aimm.py --name aimm-macos --distpath .
-    - name: Upload ReleaseMacOS
-      uses: actions/upload-artifact@v3
-      with:
-        name: MacOS
-        path: ./aimm-macos
+#  build-mac:
+#    runs-on: macos-11
+#    steps:
+#    - uses: actions/checkout@v3
+#    - name: Set up Python 3.9
+#      uses: actions/setup-python@v4
+#      with:
+#        python-version: 3.9
+#    - name: Install dependencies
+#      run: |
+#        python -m pip install --upgrade pip
+#        pip install -r requirements.txt
+#        pip install pyinstaller
+#    - name: Build MacOS
+#      run: pyinstaller --onefile aimm.py --name aimm-macos --distpath .
+#    - name: Upload ReleaseMacOS
+#      uses: actions/upload-artifact@v3
+#      with:
+#        name: MacOS
+#        path: ./aimm-macos
 
