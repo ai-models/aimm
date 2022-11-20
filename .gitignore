@@ -3,7 +3,6 @@ __pycache__/
 *.py[cod]
 *$py.class
 .idea/
-aimodels.json
 
 # C extensions
 *.so
@@ -131,4 +130,6 @@ dmypy.json
 .pyre/
 
 # For local aimodels packages
+aimodels.json
 aimodels-lock.json
+/ldm/
