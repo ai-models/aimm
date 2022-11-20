@@ -40,8 +40,10 @@ if [ "$makepath" = true ]; then
   fi
 fi
 
-# download the latest version of the program
-wget https://github.com/visioninit/ai-models-cli/suites/9396117503/artifacts/443295821 -O $install_path/aimm
+# download the latest version of the program from github binary
+echo "Downloading latest version of AIMM..."
+download_path=$(curl -s https://api.github.com/repos/visioninit/ai-models-cli/actions/artifacts\?per_page\=9 | jq '[.artifacts[] | {name : .name, archive_download_url : .archive_download_url}]' | jq -r '.[] | select (.name == "Linux") | .archive_download_url')
+wget downlowd_path -O $install_path/aimm
 
 # make the program executable if file exists
 if [ -f "$install_path/aimm" ]; then
@@ -62,9 +64,4 @@ if [[ ":$PATH:" != *":$install_path:"* ]]; then
   echo "    source ~/.bashrc"
   echo "    or"
   echo "    source ~/.profile"
-fi
-
-# error message for when the user does not have wget installed
-else
-  echo "wget is not installed. Please install wget and try again."
 fi
