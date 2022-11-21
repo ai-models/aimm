@@ -22,6 +22,7 @@ jobs:
     - name: Test
       run: |
         dist/linux/aimm
+        dist/linux/aimm init
         dist/linux/aimm add BSRGAN
         dist/linux/aimm list
         dist/linux/aimm remove BSRGAN
