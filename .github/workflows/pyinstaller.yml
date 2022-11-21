@@ -4,26 +4,26 @@ on:
   push:
     branches: [ dev, main, build_exe_2 ]
 jobs:
-#  build-lin:
-#    runs-on: ubuntu-latest
-#    steps:
-#    - uses: actions/checkout@v3
-#    - name: Set up Python 3.9
-#      uses: actions/setup-python@v4
-#      with:
-#        python-version: 3.9
-#    - name: Install dependencies
-#      run: |
-#        python -m pip install --upgrade pip
-#        pip install -r requirements.txt
-#        pip install pyinstaller
-#    - name: Build Linux
-#      run: pyinstaller --onefile aimm.py --name aimm-linux --distpath .
-#    - name: Upload Release Linux
-#      uses: actions/upload-artifact@v3
-#      with:
-#        name: Linux
-#        path: ./aimm-linux
+  build-lin:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python 3.9
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.9
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install pyinstaller
+    - name: Build Linux
+      run: pyinstaller --onefile aimm.py --name aimm --distpath dist/linux/
+    - name: Upload Release Linux
+      uses: actions/upload-artifact@v3
+      with:
+        name: Linux
+        path: dist/linux/aimm
 
 #  build-win:
 #    runs-on: windows-latest
@@ -45,27 +45,27 @@ jobs:
 #      with:
 #        name: Windows
 #        path: ./aimm.exe
-
-  build-win-installer:
-    runs-on: windows-latest
-    steps:
-    - uses: actions/checkout@v3
-    - name: Set up Python 3.9
-      uses: actions/setup-python@v4
-      with:
-        python-version: 3.9
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
-        pip install pynsist
-    - name: Build Windows-Installer
-      run: install/win-installer.bat
-    - name: Upload Release Windows-Installer
-      uses: actions/upload-artifact@v3
-      with:
-        name: Windows
-        path: dist/win-installer/
+#
+#  build-win-installer:
+#    runs-on: windows-latest
+#    steps:
+#    - uses: actions/checkout@v3
+#    - name: Set up Python 3.9
+#      uses: actions/setup-python@v4
+#      with:
+#        python-version: 3.9
+#    - name: Install dependencies
+#      run: |
+#        python -m pip install --upgrade pip
+#        pip install -r requirements.txt
+#        pip install pynsist
+#    - name: Build Windows-Installer
+#      run: install/win-installer.bat
+#    - name: Upload Release Windows-Installer
+#      uses: actions/upload-artifact@v3
+#      with:
+#        name: Windows-Installer
+#        path: dist/win-installer/
 
 #  build-mac:
 #    runs-on: macos-11
