@@ -24,6 +24,9 @@ jobs:
       with:
         name: Linux
         path: dist/linux/aimm
+    - name: Test
+      run: |
+        dist/linux/aimm
 
 #  build-win:
 #    runs-on: windows-latest
