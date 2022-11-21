@@ -4,29 +4,29 @@ on:
   push:
     branches: [ dev, main, build_exe_2 ]
 jobs:
-  build-lin:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v3
-    - name: Set up Python 3.9
-      uses: actions/setup-python@v4
-      with:
-        python-version: 3.9
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
-        pip install pyinstaller
-    - name: Build Linux
-      run: pyinstaller --onefile aimm.py --name aimm --distpath dist/linux/
-    - name: Test
-      run: |
-        dist/linux/aimm
-        dist/linux/aimm init
-        dist/linux/aimm add BSRGAN
-        dist/linux/aimm list
-        dist/linux/aimm remove BSRGAN
-        dist/linux/aimm search GFPGAN
+#  build-lin:
+#    runs-on: ubuntu-latest
+#    steps:
+#    - uses: actions/checkout@v3
+#    - name: Set up Python 3.9
+#      uses: actions/setup-python@v4
+#      with:
+#        python-version: 3.9
+#    - name: Install dependencies
+#      run: |
+#        python -m pip install --upgrade pip
+#        pip install -r requirements.txt
+#        pip install pyinstaller
+#    - name: Build Linux
+#      run: pyinstaller --onefile aimm.py --name aimm --distpath dist/linux/
+#    - name: Test
+#      run: |
+#        dist/linux/aimm
+#        dist/linux/aimm init
+#        dist/linux/aimm add BSRGAN
+#        dist/linux/aimm list
+#        dist/linux/aimm remove BSRGAN
+#        dist/linux/aimm search GFPGAN
 #    - name: Upload Release Linux
 #      uses: actions/upload-artifact@v3
 #      with:
@@ -75,24 +75,32 @@ jobs:
 #        name: Windows-Installer
 #        path: dist/win-installer/
 
-#  build-mac:
-#    runs-on: macos-11
-#    steps:
-#    - uses: actions/checkout@v3
-#    - name: Set up Python 3.9
-#      uses: actions/setup-python@v4
-#      with:
-#        python-version: 3.9
-#    - name: Install dependencies
-#      run: |
-#        python -m pip install --upgrade pip
-#        pip install -r requirements.txt
-#        pip install pyinstaller
-#    - name: Build MacOS
-#      run: pyinstaller --onefile aimm.py --name aimm-macos --distpath .
+  build-mac:
+    runs-on: macos-11
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python 3.9
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.9
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install pyinstaller
+    - name: Build MacOS
+      run: pyinstaller --onefile aimm.py --name aimm --distpath dist/
+    - name: Test
+      run: |
+        dist/aimm
+        dist/aimm init
+        dist/aimm add BSRGAN
+        dist/aimm list
+        dist/aimm remove BSRGAN
+        dist/aimm search GFPGAN
 #    - name: Upload ReleaseMacOS
 #      uses: actions/upload-artifact@v3
 #      with:
 #        name: MacOS
-#        path: ./aimm-macos
+#        path: ./aimm
 
