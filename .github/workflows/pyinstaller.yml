@@ -19,14 +19,14 @@ jobs:
         pip install pyinstaller
     - name: Build Linux
       run: pyinstaller --onefile aimm.py --name aimm --distpath dist/linux/
-    - name: Upload Release Linux
-      uses: actions/upload-artifact@v3
-      with:
-        name: Linux
-        path: dist/linux/aimm
     - name: Test
       run: |
         dist/linux/aimm
+#    - name: Upload Release Linux
+#      uses: actions/upload-artifact@v3
+#      with:
+#        name: Linux
+#        path: dist/linux/aimm
 
 #  build-win:
 #    runs-on: windows-latest
