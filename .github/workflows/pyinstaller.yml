@@ -3,6 +3,7 @@ name: pyinstaller
 on:
   push:
     branches: [ dev, main, build_exe_2 ]
+  workflow_dispatch:
 jobs:
 #  build-lin:
 #    runs-on: ubuntu-latest
