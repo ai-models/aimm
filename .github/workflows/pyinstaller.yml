@@ -71,30 +71,30 @@ jobs:
 #      with:
 #        name: Windows-Installer
 #        path: dist/win-installer/
-
-  build-mac:
-    runs-on: macos-11
-    steps:
-    - uses: actions/checkout@v3
-    - name: Set up Python 3.9
-      uses: actions/setup-python@v4
-      with:
-        python-version: 3.9
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
-        pip install pyinstaller
-    - name: Build MacOS
-      run: pyinstaller --onefile aimm.py --name aimm --distpath dist/
-    - name: Test
-      run: |
-        dist/aimm
-        dist/aimm init
-        dist/aimm add BSRGAN
-        dist/aimm list
-        dist/aimm remove BSRGAN
-        dist/aimm search GFPGAN
+#
+#  build-mac:
+#    runs-on: macos-11
+#    steps:
+#    - uses: actions/checkout@v3
+#    - name: Set up Python 3.9
+#      uses: actions/setup-python@v4
+#      with:
+#        python-version: 3.9
+#    - name: Install dependencies
+#      run: |
+#        python -m pip install --upgrade pip
+#        pip install -r requirements.txt
+#        pip install pyinstaller
+#    - name: Build MacOS
+#      run: pyinstaller --onefile aimm.py --name aimm --distpath dist/
+#    - name: Test
+#      run: |
+#        dist/aimm
+#        dist/aimm init
+#        dist/aimm add BSRGAN
+#        dist/aimm list
+#        dist/aimm remove BSRGAN
+#        dist/aimm search GFPGAN
 #    - name: Upload ReleaseMacOS
 #      uses: actions/upload-artifact@v3
 #      with:
