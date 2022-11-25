@@ -23,7 +23,7 @@ jobs:
         pip install pyinstaller
     - name: Build Linux
       run: pyinstaller --onefile aimm.py --name aimm --add-data LICENSE --distpath dist/
-    - name: Test
+    - name: Tests
       run: |
         dist/aimm
         dist/aimm init
