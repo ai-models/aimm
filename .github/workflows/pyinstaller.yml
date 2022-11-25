@@ -5,35 +5,31 @@ on:
     branches: [ dev, main, build_exe_2 ]
   workflow_dispatch:
 jobs:
-#  build-lin:
-#    runs-on: ubuntu-latest
-#    steps:
-#    - uses: actions/checkout@v3
-#    - name: Set up Python 3.9
-#      uses: actions/setup-python@v4
-#      with:
-#        python-version: 3.9
-#    - name: Install dependencies
-#      run: |
-#        python -m pip install --upgrade pip
-#        pip install -r requirements.txt
-#        pip install pyinstaller
-#    - name: Build Linux
-#      run: pyinstaller --onefile aimm.py --name aimm --distpath dist/linux/
-#    - name: Test
-#      run: |
-#        dist/linux/aimm
-#        dist/linux/aimm init
-#        dist/linux/aimm add BSRGAN
-#        dist/linux/aimm list
-#        dist/linux/aimm remove BSRGAN
-#        dist/linux/aimm search GFPGAN
-#    - name: Upload Release Linux
-#      uses: actions/upload-artifact@v3
-#      with:
-#        name: Linux
-#        path: dist/linux/aimm
-
+  build-lin:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python 3.9
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.9
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install pip-licenses
+        pip-licenses -f plain-vertical -l --no-license-path -u --from all >> LICENSE
+        cat LICENSE
+        pip install pyinstaller
+    - name: Build Linux
+      run: |
+        pyinstaller --onefile aimm.py --name aimm --distpath dist/linux/
+    - name: Upload Release Linux
+      uses: actions/upload-artifact@v3
+      with:
+        name: Linux
+        path: dist/linux/aimm
+#
 #  build-win:
 #    runs-on: windows-latest
 #    steps:
