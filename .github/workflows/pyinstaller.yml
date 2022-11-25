@@ -24,6 +24,7 @@ jobs:
     - name: Build Linux
       run: pyinstaller --onefile aimm.py --name aimm --distpath dist/
     - name: Tests
+      if: contains(github.event.head_commit.message, '[tests]') # only run if commit message contains [build]
       run: |
         dist/aimm
         dist/aimm init
@@ -35,7 +36,7 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: Linux
-        path: dist/linux/aimm
+        path: dist/aimm
 #
 #  build-win:
 #    if: contains(github.event.head_commit.message, '[build]') # only run if commit message contains [build]
