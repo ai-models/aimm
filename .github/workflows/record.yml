@@ -26,7 +26,7 @@ jobs:
     - name: Record 
       run: |
         chmod +x docs/gif_automate.sh
-        asciinema rec terminal.asc -c docs/gif_automate.sh 
+        asciinema rec terminal.asc -c resources/docs/gif_automate.sh
     - name: Download agg
       run: wget https://github.com/asciinema/agg/releases/latest/download/agg-x86_64-unknown-linux-gnu -O agg
     - name: Make agg executable
@@ -46,11 +46,11 @@ jobs:
     - name: Move gif
       run: |
         mkdir -p docs
-        mv terminal.gif docs/terminal.gif
+        mv terminal.gif resources/docs/terminal.gif
     - name: Commit changes
       run: |
         git config --local user.name "GitHub Actions"
-        git add docs/terminal.gif
+        git add resources/docs/terminal.gif
         git commit -m 'Update terminal.gif'
     - name: Push changes
       uses: ad-m/github-push-action@master

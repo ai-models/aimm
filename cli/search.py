@@ -3,8 +3,8 @@ import json
 from urllib.request import urlopen
 import typer
 
-import aimm, aimmApp
-from cli import base_funcs as base_funcs
+import aimm
+from cli import base_funcs as base_funcs, aimmApp
 
 app = aimmApp.app
 @app.command()

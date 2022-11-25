@@ -1,4 +1,5 @@
-import aimmApp, cli, sys
+import cli, sys
+from cli import aimmApp
 
 PROGRAM_NAME = "aimm"
 WEBSITE = "https://aimodels.org"

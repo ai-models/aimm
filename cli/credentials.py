@@ -2,7 +2,7 @@ import os
 import sys
 import json
 import typer
-import aimmApp
+from cli import aimmApp
 
 app = aimmApp.app
 credentials_app = typer.Typer()

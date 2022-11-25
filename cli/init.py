@@ -2,7 +2,7 @@ import os
 import sys
 import typer
 
-import aimmApp
+from cli import aimmApp
 
 app = aimmApp.app
 @app.command()

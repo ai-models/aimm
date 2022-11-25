@@ -70,7 +70,7 @@ instance/
 .scrapy
 
 # Sphinx documentation
-docs/_build/
+resources/docs/_build/
 
 # PyBuilder
 target/
@@ -133,3 +133,4 @@ dmypy.json
 aimodels.json
 aimodels-lock.json
 /ldm/
+/.fleet/
