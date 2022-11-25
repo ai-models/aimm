@@ -22,8 +22,15 @@ jobs:
         pip-licenses -f plain-vertical -l --no-license-path -u --from all >> LICENSE
         pip install pyinstaller
     - name: Build Linux
+      run: pyinstaller --onefile aimm.py --name aimm --distpath dist/linux/
+    - name: Test
       run: |
-        pyinstaller --onefile aimm.py --name aimm --distpath dist/linux/
+        dist/aimm
+        dist/aimm init
+        dist/aimm add BSRGAN
+        dist/aimm list
+        dist/aimm remove BSRGAN
+        dist/aimm search GFPGAN
     - name: Upload Release Linux
       uses: actions/upload-artifact@v3
       with:
