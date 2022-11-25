@@ -3,11 +3,10 @@ import sys
 import json
 import typer
 
-import aimm
-from cli import base_funcs
+from cli import base_funcs, aimmApp
 from cli import install as install
 
-app = aimm.app
+app = aimmApp.app
 @app.command()
 def add(name_version: str):
     """

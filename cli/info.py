@@ -2,10 +2,9 @@ import sys
 import json
 import typer
 
-import aimm
-from cli import base_funcs as base_funcs
+from cli import base_funcs as base_funcs, aimmApp
 
-app = aimm.app
+app = aimmApp.app
 # show default args
 @app.command(context_settings={"show_default": True})
 def info(name: str, fetch : bool = typer.Option(False, "--fetch", help="Fetch the latest info from the model repository")):
@@ -18,7 +17,7 @@ def info(name: str, fetch : bool = typer.Option(False, "--fetch", help="Fetch th
     if fetch is False:
         # get the details from installed.json
         try:
-            with open(aimm.installed_json, "r") as file:
+            with open(aimmApp.installed_json, "r") as file:
                 installed = json.load(file)
         except Exception as e:
             typer.echo(f"Error: {e}")
@@ -54,7 +53,7 @@ def info(name: str, fetch : bool = typer.Option(False, "--fetch", help="Fetch th
         # check if installed by checking name and version
         is_installed = False
         try:
-            with open(aimm.installed_json, "r") as file:
+            with open(aimmApp.installed_json, "r") as file:
                 installed = json.load(file)
         except Exception as e:
             typer.echo(f"Error: {e}")

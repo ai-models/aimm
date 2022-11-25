@@ -4,10 +4,9 @@ import json
 from typing import Optional
 import typer
 
-import aimm
-from cli import base_funcs as base_funcs
+from cli import base_funcs as base_funcs, aimmApp
 
-app = aimm.app
+app = aimmApp.app
 @app.command()
 # pass the user with argument --auth-user with the default value of none
 def install(name_version: Optional[str] = typer.Argument(None),
@@ -70,7 +69,7 @@ def install(name_version: Optional[str] = typer.Argument(None),
                         typer.echo("  Remote URL file could be changed and no checksum provided to validate file.")
                         sys.exit(1)
                 
-                save_path = os.path.join(aimm.main_dir, name, version)
+                save_path = os.path.join(aimmApp.main_dir, name, version)
                 if not os.path.exists(save_path):
                     os.makedirs(save_path)
                 # if auth_required is set, check for creds
@@ -100,14 +99,14 @@ def install(name_version: Optional[str] = typer.Argument(None),
                     if link != "id" and link is not None:
                         links.append(link)
             # add path to installed
-            aimm.installed["packages"].append({"name":name, "version":version, "size":item["size"], "paths":save_path, "description":url["description"], "license":item["license"], "adult":item["adult"], "links":{}})
+            aimmApp.installed["packages"].append({"name":name, "version":version, "size":item["size"], "paths":save_path, "description":url["description"], "license":item["license"], "adult":item["adult"], "links":{}})
             # for every link add it to json only if not empty
             for link in links:
                 if url["links"][link] is not None:
-                    aimm.installed["packages"][-1]["links"][link] = url["links"][link]
+                    aimmApp.installed["packages"][-1]["links"][link] = url["links"][link]
             
-            with open(aimm.installed_json, "w") as file:
-                json.dump(aimm.installed, file, indent=4)
+            with open(aimmApp.installed_json, "w") as file:
+                json.dump(aimmApp.installed, file, indent=4)
             typer.echo(f"Installed {name}:{version}!")
     else: 
         typer.echo(f"{name}:{version} already installed.")

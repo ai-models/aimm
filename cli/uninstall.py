@@ -5,10 +5,9 @@ import json
 from typing import Optional
 import typer
 
-import aimm
-from cli import base_funcs as base_funcs
+from cli import base_funcs as base_funcs, aimmApp
 
-app = aimm.app
+app = aimmApp.app
 @app.command()
 def uninstall(name_version: Optional[str] = typer.Argument(None)):
     """
@@ -19,7 +18,7 @@ def uninstall(name_version: Optional[str] = typer.Argument(None)):
     # check installed.json if multiple versions of name are installed, specify else uninstall
     if version is None:
         versions = []
-        for package in aimm.installed["packages"]:
+        for package in aimmApp.installed["packages"]:
             if package["name"].lower() == name.lower():
                 versions.append(package["version"])
         if len(versions) > 1:
@@ -40,23 +39,23 @@ def uninstall(name_version: Optional[str] = typer.Argument(None)):
             uninstall(f"{name}:{version}")
     else:
         # if installed is empty exit
-        if aimm.installed["packages"] == []:
+        if aimmApp.installed["packages"] == []:
             typer.echo("Error: No packages installed")
             return
         else:
-            for package in aimm.installed["packages"]:
+            for package in aimmApp.installed["packages"]:
                 if name in package["name"] or package["version"] == version:
                     typer.echo(f"Uninstalling {name_version}...")
                 
                     # update installed.json
-                    for entry in aimm.installed["packages"]:
+                    for entry in aimmApp.installed["packages"]:
                         if entry["name"] == name and entry["version"] == version:
-                            aimm.installed["packages"].remove(entry)
+                            aimmApp.installed["packages"].remove(entry)
                     
-                    with open(aimm.installed_json, "w") as file:
-                        json.dump(aimm.installed, file, indent=4)
+                    with open(aimmApp.installed_json, "w") as file:
+                        json.dump(aimmApp.installed, file, indent=4)
                     # remove the model
-                    model_dir = os.path.join(aimm.main_dir, name)
+                    model_dir = os.path.join(aimmApp.main_dir, name)
                     try:
                         shutil.rmtree(model_dir  + "/" + version)
                     except Exception as e:

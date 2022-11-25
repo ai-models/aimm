@@ -3,10 +3,10 @@ import json
 from urllib.request import urlopen
 import typer
 
-import main, aimm
-from cli import base_funcs as base_funcs
+import aimm
+from cli import base_funcs as base_funcs, aimmApp
 
-app = aimm.app
+app = aimmApp.app
 @app.command()
 def search(name: str, include_adult: bool = typer.Option(False, "--include-adult"), only_adult: bool = typer.Option(False, "--only-adult")):
     """
@@ -15,7 +15,7 @@ def search(name: str, include_adult: bool = typer.Option(False, "--include-adult
     if not base_funcs.is_valid(name,None):
         typer.echo(f"Error: {name} not valid")
         sys.exit(1)
-    url = f"{main.API_SERVER}/api/models?pagination[page]=1&pagination[pageSize]=5&populate[0]=version&filters[$or][0][model_name][$containsi]={name}&filters[$or][1][description][$containsi]={name}"
+    url = f"{aimm.API_SERVER}/api/models?pagination[page]=1&pagination[pageSize]=5&populate[0]=version&filters[$or][0][model_name][$containsi]={name}&filters[$or][1][description][$containsi]={name}"
     # parse as json
     try:
         with urlopen(url) as response:
@@ -114,7 +114,7 @@ def search(name: str, include_adult: bool = typer.Option(False, "--include-adult
                     if not item['adult']:
                         typer.echo(f"  {model_name}:{version}")
                         typer.echo(f"    Size: {item['size']}  License: {item['license']}")
-                        typer.echo(f"    {main.WEBSITE}/m/{model_name}")
+                        typer.echo(f"    {aimm.WEBSITE}/m/{model_name}")
                         typer.echo(f"    {model['attributes']['description']}")
                         # print other versions in the same line
                         if len(versions) > 1:

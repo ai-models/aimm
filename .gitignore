@@ -3,7 +3,6 @@ __pycache__/
 *.py[cod]
 *$py.class
 .idea/
-aimodels.json
 
 # C extensions
 *.so
@@ -71,7 +70,7 @@ instance/
 .scrapy
 
 # Sphinx documentation
-docs/_build/
+resources/docs/_build/
 
 # PyBuilder
 target/
@@ -131,4 +130,8 @@ dmypy.json
 .pyre/
 
 # For local aimodels packages
+aimodels.json
 aimodels-lock.json
+/ldm/
+/.fleet/
+

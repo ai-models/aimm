@@ -2,9 +2,9 @@ import os
 import sys
 import typer
 
-import aimm
+from cli import aimmApp
 
-app = aimm.app
+app = aimmApp.app
 @app.command()
 def init():
     """

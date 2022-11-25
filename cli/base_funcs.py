@@ -6,10 +6,12 @@ import re
 import typer
 import pretty_downloader
 
-import main, aimm
+import aimm
+from cli import aimmApp
+
 
 def models_json(name, version):
-    url = f"{main.API_SERVER}/api/models?filters[$and][0][version][version_number][$eqi]={version}&filters[$and][1][model_name][$eqi]={name}&publicationState=live&populate=deep"
+    url = f"{aimm.API_SERVER}/api/models?filters[$and][0][version][version_number][$eqi]={version}&filters[$and][1][model_name][$eqi]={name}&publicationState=live&populate=deep"
     # parse api as a json
     try:
         with urlopen(url) as response:
@@ -31,7 +33,7 @@ def download_file(url, path, auth_user=None, auth_pass=None):
         sys.exit(1)
 
 def should_install(name,version):
-    for package in aimm.installed["packages"]:
+    for package in aimmApp.installed["packages"]:
         # make case insensitive
         if package["name"].lower() == name.lower() and package["version"] == version:
             return False
@@ -67,7 +69,7 @@ def extract_name_version(name_version):
     return name, version
 
 def get_last_version(name):
-    url = f"{main.API_SERVER}/api/models?filters[$and][0][model_name][$eqi]={name}&publicationState=live&populate=deep"
+    url = f"{aimm.API_SERVER}/api/models?filters[$and][0][model_name][$eqi]={name}&publicationState=live&populate=deep"
     # parse api as a json
     try:
         with urlopen(url) as response:
@@ -89,7 +91,7 @@ def get_last_version(name):
 
 def is_adult(name):
     # check installed.json for name
-    for package in aimm.installed["packages"]:
+    for package in aimmApp.installed["packages"]:
         if package["name"] == name:
             return package["adult"]
 
