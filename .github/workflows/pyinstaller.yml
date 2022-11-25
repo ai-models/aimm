@@ -22,7 +22,7 @@ jobs:
         pip-licenses -f plain-vertical -l --no-license-path -u --from all >> LICENSE
         pip install pyinstaller
     - name: Build Linux
-      run: pyinstaller --onefile aimm.py --name aimm --distpath dist/linux/
+      run: pyinstaller --onefile aimm.py --name aimm --add-data LICENSE --distpath dist/
     - name: Test
       run: |
         dist/aimm
