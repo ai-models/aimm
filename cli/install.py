@@ -4,8 +4,7 @@ import json
 from typing import Optional
 import typer
 
-import aimmApp
-from cli import base_funcs as base_funcs
+from cli import base_funcs as base_funcs, aimmApp
 
 app = aimmApp.app
 @app.command()

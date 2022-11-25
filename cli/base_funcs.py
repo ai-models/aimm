@@ -6,7 +6,9 @@ import re
 import typer
 import pretty_downloader
 
-import aimm, aimmApp
+import aimm
+from cli import aimmApp
+
 
 def models_json(name, version):
     url = f"{aimm.API_SERVER}/api/models?filters[$and][0][version][version_number][$eqi]={version}&filters[$and][1][model_name][$eqi]={name}&publicationState=live&populate=deep"

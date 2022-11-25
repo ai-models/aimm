@@ -6,13 +6,13 @@ import appdirs
 # disable arguments from help
 app = typer.Typer(no_args_is_help=True, invoke_without_command=True, rich_markup_mode="rich")
 
-config_dir = appdirs.site_config_dir(appauthor="visioninit",appname="aimm")
+config_dir = appdirs.user_config_dir(appauthor="visioninit",appname="aimm")
 
 if not os.path.exists(config_dir):
     os.makedirs(config_dir)
 
 
-main_dir = appdirs.site_data_dir(appauthor="visioninit",appname="aimm")
+main_dir = appdirs.user_data_dir(appauthor="visioninit",appname="aimm")
 
 if not os.path.exists(main_dir):
     os.makedirs(main_dir)
