@@ -22,7 +22,7 @@ jobs:
         pip-licenses -f plain-vertical -l --no-license-path -u --from all >> LICENSE
         pip install pyinstaller
     - name: Build Linux
-      run: pyinstaller --onefile aimm.py --name aimm --distpath dist/
+      run: pyinstaller --onefile aimm.py --add-data 'LICENSE:.' --name aimm --distpath dist/
     - name: Tests
       if: contains(github.event.head_commit.message, '[tests]') # only run if commit message contains [build]
       run: |
