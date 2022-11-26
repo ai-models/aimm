@@ -22,7 +22,9 @@ jobs:
           pip install pyinstaller
           pip-licenses -f plain-vertical -l --no-license-path -u --from all >> LICENSE
       - name: Build Linux
-        run: pyinstaller --onefile aimm.py --add-data 'LICENSE:.' --name aimm --distpath dist/
+        run: |
+          pyinstaller --onefile aimm.py --add-data 'LICENSE:.' --name aimm --distpath dist/
+          mkdir out && tar -zcvf out/aimm-linux-binary.tar.gz  dist/
       - name: Tests
         if: contains(github.event.head_commit.message, '[tests]') # only run if commit message contains [build]
         run: |
@@ -43,8 +45,8 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USER }}
           password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: "dist/"
-          log-level: "verbose"
+          local-dir: "out/"
+          remote-dir: "linux-binary/"
 
 #  build-win:
 #    if: contains(github.event.head_commit.message, '[build]') # only run if commit message contains [build]
