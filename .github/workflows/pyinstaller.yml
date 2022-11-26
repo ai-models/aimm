@@ -27,7 +27,7 @@ jobs:
           cp LICENSE dist/
           cp resources/install/linux/Installation-Instructions.txt dist/
           cd dist
-          mkdir out && tar -zcvf ../out/aimm-linux-binary.tar.gz  .
+          mkdir out && tar -zcvf ../out/aimm-linux-binary.tar.gz .
       - name: Tests
         if: contains(github.event.head_commit.message, '[tests]') # only run if commit message contains [build]
         run: |
