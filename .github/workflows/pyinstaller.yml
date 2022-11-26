@@ -1,6 +1,4 @@
 name: pyinstaller
-  env:
-    GITHUB_TOKEN: ${{ secrets.FTP_SERVER }}
 
 on:
   push:
@@ -8,6 +6,8 @@ on:
   workflow_dispatch:
 jobs:
   build-lin:
+    env:
+      GITHUB_TOKEN: ${{ secrets.FTP_SERVER }}
     if: contains(github.event.head_commit.message, '[build]') # only run if commit message contains [build]
     runs-on: ubuntu-latest
     steps:
