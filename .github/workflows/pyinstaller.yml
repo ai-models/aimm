@@ -44,7 +44,7 @@ jobs:
           user: ${{ secrets.FTP_USER }}
           password: ${{ secrets.FTP_PASSWORD }}
           localDir: "dist"
-          remoteDir: "/aimm"
+          remoteDir: ""
 
 #  build-win:
 #    if: contains(github.event.head_commit.message, '[build]') # only run if commit message contains [build]
