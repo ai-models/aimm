@@ -32,19 +32,19 @@ jobs:
           dist/aimm list
           dist/aimm remove BSRGAN
           dist/aimm search GFPGAN
-      - name: Upload Release Linux
-        uses: actions/upload-artifact@v3
+#      - name: Upload Release Linux
+#        uses: actions/upload-artifact@v3
+#        with:
+#          name: Linux Binary
+#          path: dist/aimm
+      - name: 📂 Deploy FTP
+        uses: SamKirkland/FTP-Deploy-Action@4.3.2
         with:
-          name: Linux Binary
-          path: dist/aimm
-      - name: Deploy FTP
-        uses: sebastianpopp/ftp-action@v2.0.0
-        with:
-          host: ${{ secrets.FTP_SERVER }}
-          user: ${{ secrets.FTP_USER }}
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USER }}
           password: ${{ secrets.FTP_PASSWORD }}
-          localDir: "dist"
-          remoteDir: ""
+          local-dir: "dist"
+          log-level: "verbose"
 
 #  build-win:
 #    if: contains(github.event.head_commit.message, '[build]') # only run if commit message contains [build]
