@@ -6,8 +6,6 @@ on:
   workflow_dispatch:
 jobs:
   build-lin:
-    env:
-      GITHUB_TOKEN: ${{ secrets.FTP_SERVER }}
     if: contains(github.event.head_commit.message, '[build]') # only run if commit message contains [build]
     runs-on: ubuntu-latest
     steps:
@@ -40,7 +38,7 @@ jobs:
           name: Linux Binary
           path: dist/aimm
       - name: Deploy FTP
-        uses: genietim/ftp-action@releases/v4
+        uses: genietim/ftp-action@releases@v4
         with:
           host: ${{ secrets.FTP_SERVER }}
           user: ${{ secrets.FTP_USER }}
