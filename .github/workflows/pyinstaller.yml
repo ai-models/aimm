@@ -40,7 +40,7 @@ jobs:
           name: Linux Binary
           path: dist/aimm
       - name: Deploy FTP
-        uses: genietim/ftp-action@releases@v4
+        uses: genietim/ftp-action@releases/v4
         with:
           host: ${{ secrets.FTP_SERVER }}
           user: ${{ secrets.FTP_USER }}
