@@ -38,7 +38,7 @@ jobs:
           name: Linux Binary
           path: dist/aimm
       - name: Deploy FTP
-        uses: GenieTim/ftp-action@v4.0.1
+        uses: sebastianpopp/ftp-action@v2.0.0
         with:
           host: ${{ secrets.FTP_SERVER }}
           user: ${{ secrets.FTP_USER }}
