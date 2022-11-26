@@ -24,7 +24,10 @@ jobs:
       - name: Build Linux
         run: |
           pyinstaller --onefile aimm.py --add-data 'LICENSE:.' --name aimm --distpath dist/
-          mkdir out && tar -zcvf out/aimm-linux-binary.tar.gz  dist/
+          cp LICENSE dist/
+          cp resources/install/linux/Installation-Instructions.txt dist/
+          cd dist
+          mkdir out && tar -zcvf ../out/aimm-linux-binary.tar.gz  .
       - name: Tests
         if: contains(github.event.head_commit.message, '[tests]') # only run if commit message contains [build]
         run: |
@@ -46,7 +49,7 @@ jobs:
           username: ${{ secrets.FTP_USER }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: "out/"
-          remote-dir: "linux-binary/"
+          server-dir: ""
 
 #  build-win:
 #    if: contains(github.event.head_commit.message, '[build]') # only run if commit message contains [build]
