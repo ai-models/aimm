@@ -62,6 +62,8 @@ def show_help(program_name):
     print()
     print("Options:")
     print("  -v, --version                 Show version.")
+    print("  --check-update                Check for updates.")
+    print("  --licenses                    Show licenses.")
     print("  --install-completion          Install completion for the current shell.")
     print("""  --show-completion             Show completion for the current shell, to copy it or customize
                                 the installation.""")
