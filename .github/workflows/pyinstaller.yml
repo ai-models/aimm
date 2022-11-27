@@ -19,7 +19,6 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
         pip install pip-licenses
-        pip-licenses -f plain-vertical -l --no-license-path -u --from all >> LICENSE
         pip install pyinstaller
     - name: Build Linux
       run: pyinstaller --onefile aimm.py --add-data 'LICENSE:.' --name aimm --distpath dist/
