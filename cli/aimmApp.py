@@ -74,13 +74,14 @@ def show_help(program_name):
 
 
 def check_for_updates(repo, current_version):
-    # url = f"https://api.github.com/repos/{repo}/releases/latest"
-    url = f"https://api.github.com/repos/{repo}/releases"
+    url = f"https://api.github.com/repos/{repo}/releases/latest"
     try:
         r = requests.get(url, timeout=10)
         if r.status_code == 200:
             latest_version = r.json()[0]["tag_name"]
-            if latest_version != current_version:
+            latest_version_list = latest_version.split(".")
+            current_version_list = current_version.split(".")
+            if (latest_version_list[0] > current_version_list[0]) or (latest_version_list[1] > current_version_list[1]) or (latest_version_list[2] > current_version_list[2]):
                 typer.echo(f"Update available: {current_version} → {latest_version}")
                 typer.echo("  Latest version: https://github.com/visioninit/aimm/releases/latest")
             else:
