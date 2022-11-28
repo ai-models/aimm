@@ -1,10 +1,11 @@
 import os
 import sys
+import subprocess
 import json
 import requests
 import typer
 import appdirs
-import piplicenses
+
 # disable arguments from help
 app = typer.Typer(no_args_is_help=True,
                   invoke_without_command=True, rich_markup_mode="rich")
@@ -98,10 +99,23 @@ def show_licenses(verbose: bool = False):
         path = sys._MEIPASS
     else:
         path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-    with open(os.path.join(path, "LICENSE"), "r") as f:
-        print(f.read())
-    if not verbose:
-        os.system("pip-licenses -f plain -u --from all")
-    else:
-        os.system("pip-licenses -f plain-vertical -l --no-license-path -u --from all")
+    if sys.platform == "win32":
+        temp = os.getenv("TEMP")
+    elif sys.platform in ("linux", "darwin"):
+        temp = "/tmp"
+    license_file = os.path.join(temp, "aimm_licenses.txt")
+    with open(license_file, "w") as aimm_licenses:
+        with open(os.path.join(path, "LICENSE"), "r") as license_file:
+            aimm_licenses.write(license_file.read())
+        if not verbose:
+            command = "pip-licenses -f plain -u --from all"
+        else:
+            command = "pip-licenses -f plain-vertical -l --no-license-path -u --from all"
+        with subprocess.Popen(command, shell=True, stdout=subprocess.PIPE) as popen:
+            while True:
+                retcode = popen.poll() 
+                line = popen.stdout.readline()
+                aimm_licenses.write(line.decode("utf-8"))
+                if retcode is not None:
+                    break
+    os.system(f"more {aimm_licenses.name}") # show licenses with more
