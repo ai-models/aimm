@@ -109,7 +109,7 @@ examples with pictures go here
 
 ## 📚 Documentation
 
-[Documentation](https://docs.<package_name>.com)
+[Documentation](https://docs.aimodels.org)
 
 ## 📜 License
 
