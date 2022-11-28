@@ -19,12 +19,11 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
         pip install pip-licenses
-        pip-licenses -f plain-vertical -l --no-license-path -u --from all >> LICENSE
         pip install pyinstaller
     - name: Build Linux
       run: pyinstaller --onefile aimm.py --add-data 'LICENSE:.' --name aimm --distpath dist/
     - name: Tests
-      if: contains(github.event.head_commit.message, '[tests]') # only run if commit message contains [build]
+      if: contains(github.event.head_commit.message, '[tests]') #  only run if commit message contains [build]
       run: |
         dist/aimm
         dist/aimm init
@@ -32,6 +31,12 @@ jobs:
         dist/aimm list
         dist/aimm remove BSRGAN
         dist/aimm search GFPGAN
+        dist/aimm --version
+        dist/aimm -v
+        dist/aimm --check-update
+        dist/aimm --check-update
+        dist/aimm --licenses
+        dist/aimm --licenses -verbose
     - name: Upload Release Linux
       uses: actions/upload-artifact@v3
       with:
