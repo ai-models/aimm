@@ -2,7 +2,7 @@ name: pyinstaller
 
 on:
   push:
-    branches: [ dev, main, build_exe_2 ]
+    branches: [ dev, main, dev-fixups ]
   workflow_dispatch:
 jobs:
   build-lin:
@@ -43,6 +43,9 @@ jobs:
           dist/aimm list
           dist/aimm remove BSRGAN
           dist/aimm search GFPGAN
+          dist/aimm --version
+          dist/aimm --check-update
+          dist/aimm --license
 #      - name: Upload Release Linux
 #        uses: actions/upload-artifact@v3
 #        with:
