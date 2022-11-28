@@ -44,7 +44,9 @@ jobs:
           dist/aimm remove BSRGAN
           dist/aimm search GFPGAN
           dist/aimm --version
+          echo '--version'
           dist/aimm --check-update
+          echo '--check-update'
           dist/aimm --license
 #      - name: Upload Release Linux
 #        uses: actions/upload-artifact@v3
