@@ -77,7 +77,7 @@ def check_for_updates(repo, current_version):
     try:
         r = requests.get(url, timeout=10)
         if r.status_code == 200:
-            latest_version = r.json()[0]["tag_name"]
+            latest_version = r.json()["tag_name"]
             latest_version_list = latest_version.split(".")
             current_version_list = current_version.split(".")
             if (latest_version_list[0] > current_version_list[0]) or (latest_version_list[1] > current_version_list[1]) or (latest_version_list[2] > current_version_list[2]):
