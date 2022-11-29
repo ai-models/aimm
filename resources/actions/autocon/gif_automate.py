@@ -33,7 +33,7 @@ def autocon_build(filename):
     if 'comment' in ops:
       output += 'echo -n -e ${DEFAULT_ECHO}\n' \
                 'sleep ' + str(ops['wait']) + '\n' \
-                'echo \'... ' + str(ops['comment']) + '\'\n'\
+                'echo \' ... ' + str(ops['comment']) + '\'\n'\
                 'sleep ' + str(ops['wait']) + '\n' \
                 'typer ' + ops['command'] + '\n' +  \
                 ops["command"] + '\n'
