@@ -44,7 +44,6 @@ def autocon_build(filename):
 
   output += 'typer "exit"'
 
-  print(dst)
   # append output to out.txt file
   with open(dst, "a") as f:
     f.write(output)
