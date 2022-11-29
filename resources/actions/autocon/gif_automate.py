@@ -58,7 +58,7 @@ if __name__ == "__main__":
   cwod = os.path.dirname(os.path.abspath(__file__))
 
   # add working directory to path
-    sys.path.append(cwod)
+  sys.path.append(cwod)
 
   # iterate through the json files in the src directory
   for file in os.listdir(cwod + '/src'):
