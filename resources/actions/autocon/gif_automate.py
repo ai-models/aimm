@@ -48,11 +48,11 @@ def autocon_build(filename):
   output += 'typer "exit"'
 
   # append output to out.txt file
-  with open(dst, "a") as f:
+  with open(dst+ filename.replace(".json", ".sh"), "a") as f:
     f.write(output)
 
     # make the script executable
-    os.chmod(dst, 0o755)
+    os.chmod(dst+ filename.replace(".json", ".sh"), 0o755)
 
 
 if __name__ == "__main__":
