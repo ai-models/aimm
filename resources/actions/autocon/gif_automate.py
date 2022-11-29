@@ -26,8 +26,8 @@ def autocon_build(filename):
   prompt = '\[\e[0;38;5;232;107m\]agi\[\e[0;30;107m\]@\[\e[0;1;30;48;5;159m\]ai\[\e[0;1;38;5;232;48;5;255m\]models\[\e[0;7m\]:\[\e[0m\]~\[\e[0m\]\$\[\e[0m\]'
 
   output = 'DEFAULT_ECHO=' + prompt + '\n'
-  output += 'SCRIPT_PATH="aimm.py"' + '\n'
   output += 'sleep .5' + '\n'
+  output += 'alias aimm="aimm.py"' + '\n'
 
   for ops in commands:
     if 'comment' in ops:
@@ -37,13 +37,13 @@ def autocon_build(filename):
                 'sleep ' + str(ops['wait']) + '\n' \
                 'typer ' + ops['command'] + '\n' \
                 'echo\n' \
-                'python3 $SCRIPT_PATH ' + str(ops['command']) + '\n'
+                'python3 str(ops['command']) + '\n'
     else:
       output += 'echo -n -e "${DEFAULT_ECHO}"\n' \
                 'sleep ' + str(ops['wait']) + '\n' \
                 'typer ' + ops['command'] + '\n' \
                 'echo\n' \
-                'python3 $SCRIPT_PATH ' + str(ops['command']) + '\n'
+                'python3 str(ops['command']) + '\n'
 
   output += 'typer "exit"'
 
