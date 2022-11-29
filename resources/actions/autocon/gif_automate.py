@@ -27,7 +27,6 @@ def autocon_build(filename):
 
   output = 'DEFAULT_ECHO=' + prompt + '\n'
   output += 'sleep .5' + '\n'
-  output += 'alias aimm="python3 aimm.py"' + '\n'
 
   for ops in commands:
     if 'comment' in ops:
@@ -35,12 +34,14 @@ def autocon_build(filename):
                 'sleep ' + str(ops['wait']) + '\n' \
                 'echo \' ... ' + str(ops['comment']) + '\'\n'\
                 'sleep ' + str(ops['wait']) + '\n' \
-                'typer ' + ops['command'] + '\n' +  \
+                'typer ' + ops['command'] + '\n' \
+                'echo \n' + \
                 ops["command"] + '\n'
     else:
       output += 'echo -n -e ${DEFAULT_ECHO}\n' \
                 'sleep \'' + str(ops['wait']) + '\'\n' \
                 'typer ' + ops['command'] + '\n' + \
+                'echo \n' + \
                 ops["command"] + '\n'
 
   output += 'typer "exit"'
@@ -55,6 +56,9 @@ def autocon_build(filename):
 
 if __name__ == "__main__":
   cwod = os.path.dirname(os.path.abspath(__file__))
+
+  # add working directory to path
+    sys.path.append(cwod)
 
   # iterate through the json files in the src directory
   for file in os.listdir(cwod + '/src'):
