@@ -59,6 +59,7 @@ if __name__ == "__main__":
 
   # get active working directory
   cwd = os.getcwd()
+
   # add working directory to path
   sys.path.append(cwd)
 
