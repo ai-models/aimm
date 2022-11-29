@@ -14,8 +14,8 @@ def autocon_build(filename):
 
   # rename gif_automate.sh filename.sh
   src = cwd + "/src/gif_automate.sh"
-  print('src: '+src)
-  print('cwd: '+cwd)
+  print('src: ' + src)
+  print('cwd: ' + cwd)
 
   dst = cwd + "/dist/"
   dst_file = dst + filename.replace(".json", ".sh")
