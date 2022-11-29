@@ -18,10 +18,11 @@ def autocon_build(filename):
   print('cwd: '+cwd)
 
   dst = cwd + "/dist/"
+  dst_file = dst + filename.replace(".json", ".sh")
   # make dst directory if it doesn't exist
   if not os.path.exists(dst):
     os.makedirs(dst)
-  shutil.copy(src, dst + filename.replace(".json", ".sh"))
+  shutil.copy(src, dst_file)
 
   prompt = '\[\e[0;38;5;232;107m\]agi\[\e[0;30;107m\]@\[\e[0;1;30;48;5;159m\]ai\[\e[0;1;38;5;232;48;5;255m\]models\[\e[0;7m\]:\[\e[0m\]~\[\e[0m\]\$\[\e[0m\]'
 
@@ -48,11 +49,11 @@ def autocon_build(filename):
   output += 'typer "exit"'
 
   # append output to out.txt file
-  with open(dst+ filename.replace(".json", ".sh"), "a") as f:
+  with open(dst_file, "a") as f:
     f.write(output)
 
     # make the script executable
-    os.chmod(dst+ filename.replace(".json", ".sh"), 0o755)
+    os.chmod(dst_file, 0o755)
 
 
 if __name__ == "__main__":
