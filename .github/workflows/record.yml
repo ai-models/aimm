@@ -23,7 +23,7 @@ jobs:
         sudo apt-add-repository ppa:zanchey/asciinema -y
         sudo apt-get update -y
         sudo apt-get install asciinema -y
-    - name: Record 
+    - name: Recording
       run: |
         python resources/actions/autocon/gif_automate.py
         asciinema rec terminal.asc -c resources/actions/dist/overview.sh
