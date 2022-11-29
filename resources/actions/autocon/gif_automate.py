@@ -4,7 +4,6 @@ import sys
 import shutil
 import os
 
-
 # create a template function for each command
 def autocon_build(filename):
   cwd = os.path.dirname(os.path.abspath(__file__))
