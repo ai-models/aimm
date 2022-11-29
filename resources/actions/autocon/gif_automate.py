@@ -17,13 +17,11 @@ def autocon_build(filename):
   print('src: '+src)
   print('cwd: '+cwd)
 
+  dst = cwd + "/dist/"
   # make dst directory if it doesn't exist
   if not os.path.exists(dst):
     os.makedirs(dst)
-
-  dst = cwd + "/dist/" + filename.replace(".json", ".sh")
-  print('dst: '+dst)
-  shutil.copy(src, dst)
+  shutil.copy(src, dst + filename.replace(".json", ".sh"))
 
   prompt = '\[\e[0;38;5;232;107m\]agi\[\e[0;30;107m\]@\[\e[0;1;30;48;5;159m\]ai\[\e[0;1;38;5;232;48;5;255m\]models\[\e[0;7m\]:\[\e[0m\]~\[\e[0m\]\$\[\e[0m\]'
 
