@@ -16,6 +16,11 @@ def autocon_build(filename):
   src = cwd + "/src/gif_automate.sh"
   print('src: '+src)
   print('cwd: '+cwd)
+
+  # make dst directory if it doesn't exist
+  if not os.path.exists(dst):
+    os.makedirs(dst)
+
   dst = cwd + "/dist/" + filename.replace(".json", ".sh")
   print('dst: '+dst)
   shutil.copy(src, dst)
