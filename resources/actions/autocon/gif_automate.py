@@ -24,6 +24,7 @@ def autocon_build(filename):
   shutil.copy(src, dst_file)
 
   prompt = '\'\[\e[0;38;5;232;107m\]agi\[\e[0;30;107m\]@\[\e[0;1;30;48;5;159m\]ai\[\e[0;1;38;5;232;48;5;255m\]models\[\e[0;7m\]:\[\e[0m\]~\[\e[0m\]\$\[\e[0m\]\''
+  prompt = 'user:'
 
   output = 'DEFAULT_ECHO=' + prompt + '\n'
   output += 'sleep .5' + '\n'
