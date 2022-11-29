@@ -5,10 +5,6 @@
 
 </div>
 
-![Basic Use](resources/docs/terminal.gif)
-
-
-
 ```
 Usage: aimm [command] [options]
 
