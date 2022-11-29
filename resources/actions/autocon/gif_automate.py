@@ -26,9 +26,9 @@ def autocon_build(filename):
 
   prompt = '\[\e[0;38;5;232;107m\]agi\[\e[0;30;107m\]@\[\e[0;1;30;48;5;159m\]ai\[\e[0;1;38;5;232;48;5;255m\]models\[\e[0;7m\]:\[\e[0m\]~\[\e[0m\]\$\[\e[0m\]'
 
-  output = 'DEFAULT_ECHO=' + prompt
-  output += 'SCRIPT_PATH="aimm.py"'
-  output += 'sleep .5'
+  output = 'DEFAULT_ECHO=' + prompt + '\n'
+  output += 'SCRIPT_PATH="aimm.py"' + '\n'
+  output += 'sleep .5' + '\n'
 
   for ops in commands:
     if 'comment' in ops:
