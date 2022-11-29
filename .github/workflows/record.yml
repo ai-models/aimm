@@ -30,7 +30,7 @@ jobs:
         # go through all json in src, put sh into dist
         python resources/actions/autocon/gif_automate.py
         # needs to be updated to use the new json files
-        cp resources/actions/autocon/src/aimm . && chmod +x aimm
+        cp resources/actions/autocon/src/aimm .  && chmod +x aimm
         asciinema rec terminal.asc -c resources/actions/autocon/dist/overview.sh
     - name: Download agg
       run: wget https://github.com/asciinema/agg/releases/latest/download/agg-x86_64-unknown-linux-gnu -O agg
