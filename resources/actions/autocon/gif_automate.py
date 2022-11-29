@@ -27,7 +27,7 @@ def autocon_build(filename):
 
   output = 'DEFAULT_ECHO=' + prompt + '\n'
   output += 'sleep .5' + '\n'
-  output += 'alias aimm="aimm.py"' + '\n'
+  output += 'alias aimm="python3 aimm.py"' + '\n'
 
   for ops in commands:
     if 'comment' in ops:
@@ -37,7 +37,7 @@ def autocon_build(filename):
                 'sleep ' + str(ops['wait']) + '\n' \
                 'typer ' + ops['command'] + '\n' \
                 'echo\n' \
-                'python3 str(ops['command']) + '\n'
+                'str(ops['command']) + '\n'
     else:
       output += 'echo -n -e "${DEFAULT_ECHO}"\n' \
                 'sleep ' + str(ops['wait']) + '\n' \
