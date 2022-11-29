@@ -57,8 +57,10 @@ def autocon_build(filename):
 if __name__ == "__main__":
   cwod = os.path.dirname(os.path.abspath(__file__))
 
+  # get active working directory
+  cwd = os.getcwd()
   # add working directory to path
-  sys.path.append(cwod)
+  sys.path.append(cwd)
 
   # iterate through the json files in the src directory
   for file in os.listdir(cwod + '/src'):
