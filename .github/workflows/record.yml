@@ -2,7 +2,7 @@ name: Record
 
 on:
   push:
-    branches: [ dev, main, dev_fixups ]
+    branches: [ dev, main, dev-fixups ]
   workflow_dispatch:
 jobs:
   make-gif:
