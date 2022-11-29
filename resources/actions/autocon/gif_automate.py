@@ -35,15 +35,13 @@ def autocon_build(filename):
                 'sleep ' + str(ops['wait']) + '\n' \
                 'echo ... ' + str(ops['comment']) + '\n'\
                 'sleep ' + str(ops['wait']) + '\n' \
-                'typer ' + ops['command'] + '\n' \
-                'echo\n' \
-                'ops['command'] + '\n'
+                'typer ' + ops['command'] + '\n' +  \
+                ops["command"] + '\n'
     else:
       output += 'echo -n -e "${DEFAULT_ECHO}"\n' \
                 'sleep ' + str(ops['wait']) + '\n' \
-                'typer ' + ops['command'] + '\n' \
-                'echo\n' \
-                'ops['command'] + '\n'
+                'typer ' + ops['command'] + '\n' + \
+                ops["command"] + '\n'
 
   output += 'typer "exit"'
 
