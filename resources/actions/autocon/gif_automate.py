@@ -23,7 +23,7 @@ def autocon_build(filename):
     os.makedirs(dst)
   shutil.copy(src, dst_file)
 
-  prompt = '\[\e[0;38;5;232;107m\]agi\[\e[0;30;107m\]@\[\e[0;1;30;48;5;159m\]ai\[\e[0;1;38;5;232;48;5;255m\]models\[\e[0;7m\]:\[\e[0m\]~\[\e[0m\]\$\[\e[0m\]'
+  prompt = '\'\[\e[0;38;5;232;107m\]agi\[\e[0;30;107m\]@\[\e[0;1;30;48;5;159m\]ai\[\e[0;1;38;5;232;48;5;255m\]models\[\e[0;7m\]:\[\e[0m\]~\[\e[0m\]\$\[\e[0m\]\''
 
   output = 'DEFAULT_ECHO=' + prompt + '\n'
   output += 'sleep .5' + '\n'
@@ -31,15 +31,15 @@ def autocon_build(filename):
 
   for ops in commands:
     if 'comment' in ops:
-      output += 'echo -n -e "${DEFAULT_ECHO}"\n' \
+      output += 'echo -n -e ${DEFAULT_ECHO}\n' \
                 'sleep ' + str(ops['wait']) + '\n' \
-                'echo ... ' + str(ops['comment']) + '\n'\
+                'echo \'... ' + str(ops['comment']) + '\'\n'\
                 'sleep ' + str(ops['wait']) + '\n' \
                 'typer ' + ops['command'] + '\n' +  \
                 ops["command"] + '\n'
     else:
-      output += 'echo -n -e "${DEFAULT_ECHO}"\n' \
-                'sleep ' + str(ops['wait']) + '\n' \
+      output += 'echo -n -e ${DEFAULT_ECHO}\n' \
+                'sleep \'' + str(ops['wait']) + '\'\n' \
                 'typer ' + ops['command'] + '\n' + \
                 ops["command"] + '\n'
 
