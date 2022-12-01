@@ -25,7 +25,7 @@ jobs:
           git clone https://github.com/visioninit/aimm
           cd aimm
           git log $(git describe --tags --abbrev=0)..HEAD --pretty=format:' * %s' | sed '/Merge/d' > changelog.txt
-          mv changelog.txt ..
+          cp changelog.txt ..
           cd ..
       - name: Build Linux
         run: |
@@ -43,11 +43,24 @@ jobs:
           dist/aimm list
           dist/aimm remove BSRGAN
           dist/aimm search GFPGAN
+      - name: set package version
+        run: |
+          echo "DEBIAN_PACKAGE_VERSION=$(dist/aimm --version | awk -F: '{print $2}' | tr -d ' ')+$(date +%Y%m%d%H%M)" >> $GITHUB_ENV
+      - name: Build Debian package
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y dpkg-dev devscripts
+          sudo apt-get build-dep -y --no-install-recommends .
+          dch --newversion $DEBIAN_PACKAGE_VERSION -D unstable -m 'Build Debian package.'
+          debuild -b -us -uc
+          mv ../*.deb .
 #      - name: Upload Release Linux
 #        uses: actions/upload-artifact@v3
 #        with:
 #          name: Linux Binary
-#          path: dist/aimm
+#          path: |
+#            dist/aimm
+#            *.deb
       - name: 📂 Deploy FTP
         uses: SamKirkland/FTP-Deploy-Action@4.3.2
         with:
