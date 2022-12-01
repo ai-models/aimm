@@ -3,10 +3,11 @@ Upstream-Name: AI Model Manager
 Upstream-Contact: https://aimodels.org/
 Source: https://github.com/visioninit/aimm
 Comment: The binary file is created via pyinstaller and ships copies of
- multiple PyPi modules, released under various OSS licenses.
+ multiple PyPi modules, released under various OSS licenses. Please refer
+ to the output of `aimm --license` for a full list of licenses.
 
 Files: *
-Copyright: 2020-2022 
+Copyright: 2022, Justin Riddiough (VisionInit)
 License: Apache-2.0
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -21,3 +22,9 @@ License: Apache-2.0
  limitations under the License.
 Comment: The full text of the Apache 2.0 license can be found in the
  file '/usr/share/common-licenses/Apache-2.0'.
+
+Files: icons/*
+Copyright: 2022, Justin Riddiough (VisionInit)
+License: other
+ Logos and images are not licensed under Apache 2.0 License. Please ask
+ the copyright holder for more information.
