@@ -2,7 +2,7 @@ name: pyinstaller
 
 on:
   push:
-    branches: [ dev, main, build_exe_2 ]
+    branches: [ dev, main, debtest ]
   workflow_dispatch:
 jobs:
   build-lin:
