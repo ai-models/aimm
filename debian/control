@@ -2,7 +2,7 @@ Source: aimm
 Section: science
 Priority: optional
 Maintainer: Daniel Leidert <dleidert@debian.org>
-Build-Depends: debhelper-compat (= 13)
+Build-Depends: debhelper-compat (= 12)
 Standards-Version: 4.6.0
 Homepage: https://aimodels.org/
 Vcs-Browser: https://github.com/visioninit/aimm
