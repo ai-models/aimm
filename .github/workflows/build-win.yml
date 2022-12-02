@@ -18,7 +18,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-#          pip install pyinstaller
+          pip install pyinstaller
 #      - name: Generate change log
 #        run: |
 #          git clone https://github.com/visioninit/aimm
@@ -39,11 +39,8 @@ jobs:
           pip install pynsist
       - name: Build Windows-Installer
         run: |
-          pwd
-          echo '************************************'
-          ls
-          echo '************************************'
-          pynsist resources/install/win/installer.cfg
+          cp resources/install/win/installer.cfg installer.cfg
+          pynsist installer.cfg
       - name: Upload Release Windows
         uses: actions/upload-artifact@v3
         with:
