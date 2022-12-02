@@ -19,7 +19,6 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           pip install pyinstaller
-#          pip-licenses -f plain-vertical -l --no-license-path -u --from all >> LICENSE
       - name: Generate change log
         run: |
           git clone https://github.com/visioninit/aimm
