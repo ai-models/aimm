@@ -31,7 +31,7 @@ jobs:
           pyinstaller --onefile aimm.py --add-data 'LICENSE;.' --name aimm --distpath dist/
           cp changelog.txt dist/
           cp LICENSE dist/
-          cp resources/install/windows/Installation-Instructions.txt dist/
+          cp resources/install/win/Installation-Instructions.txt dist/
           mkdir out && cd dist && zip -r ../out/aimm-windows-binary.zip *
       - name: Build Installer
         run: |
