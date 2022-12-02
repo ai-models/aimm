@@ -41,7 +41,7 @@ jobs:
         run: |
           cp resources/install/win/installer.cfg installer.cfg
           pynsist installer.cfg
-          cp /build/nsis/AIMM-Install.exe out/
+          cp build/nsis/AIMM-Install.exe out/
       - name: 📂 Deploy FTP
         uses: SamKirkland/FTP-Deploy-Action@4.3.2
         with:
