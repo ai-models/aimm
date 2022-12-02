@@ -37,7 +37,6 @@ jobs:
         run: |
           pip install pynsist
       - name: Build Windows-Installer
-#        run: resources/install/win-installer.bat
         run: |
           pynsist resources/install/win/installer.cfg
           mv dist/AIMM-Install.exe out/
