@@ -32,7 +32,7 @@ jobs:
           cp changelog.txt dist/
           cp LICENSE dist/
           cp resources/install/win/Installation-Instructions.txt dist/
-          mkdir out && cd dist && Compress-Archive -Path dist/ -DestinationPath ../out/aimm-windows-binary.zip
+          mkdir out && cd dist && Compress-Archive -Path . -DestinationPath ../out/aimm-windows-binary.zip
 #      - name: Build Installer
 #        run: |
 #          pip install pynsist
