@@ -52,7 +52,7 @@ jobs:
           sudo apt-get build-dep -y --no-install-recommends .
           dch --newversion $DEBIAN_PACKAGE_VERSION -D unstable -m 'Build Debian package.'
           debuild -b -us -uc
-          mv ../*.deb out/.
+          mv ../*.deb out/aimm-linux-installer.deb
       - name: 📂 Deploy FTP
         uses: SamKirkland/FTP-Deploy-Action@4.3.2
         with:
