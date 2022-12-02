@@ -18,12 +18,23 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-          pip install pip-licenses
-          pip-licenses -f plain-vertical -l --no-license-path -u --from all >> LICENSE
           pip install pyinstaller
-      - name: Build MacOS
-        run: pyinstaller --onefile aimm.py --name aimm --distpath dist/
+      - name: Generate change log
+        run: |
+          git clone https://github.com/visioninit/aimm
+          cd aimm
+          git log $(git describe --tags --abbrev=0)..HEAD --pretty=format:' * %s' | sed '/Merge/d' > changelog.txt
+          cp changelog.txt ..
+          cd ..
+      - name: Build MacOS Binary
+        run: |
+          pyinstaller --onefile aimm.py --add-data 'LICENSE:.' --name aimm --distpath dist/
+          cp changelog.txt dist/
+          cp LICENSE dist/
+          cp resources/install/linux/Installation-Instructions.txt dist/
+          mkdir out && cd dist && tar -zcvf ../out/aimm-macos-binary.tar.gz *
       - name: Test
+        if: contains(github.event.head_commit.message, '[tests]') # only run if commit message contains [build]
         run: |
           dist/aimm
           dist/aimm init
@@ -42,5 +53,6 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USER }}
           password: ${{ secrets.FTP_PASSWORD }}
+          state-name: '.ftp-deploy-sync-state-mac.json'
           local-dir: "out/"
           server-dir: ""
