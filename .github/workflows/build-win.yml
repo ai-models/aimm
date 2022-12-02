@@ -39,17 +39,11 @@ jobs:
           pip install pynsist
       - name: Build Windows-Installer
         run: |
+          pwd
+          echo '************************************'
+          ls
+          echo '************************************'
           pynsist resources/install/win/installer.cfg
-          mv dist/AIMM-Install.exe out/
-      - name: Tests
-        if: contains(github.event.head_commit.message, '[tests]') # only run if commit message contains [build]
-        run: |
-          dist/aimm
-          dist/aimm init
-          dist/aimm add BSRGAN
-          dist/aimm list
-          dist/aimm remove BSRGAN
-          dist/aimm search GFPGAN
       - name: Upload Release Windows
         uses: actions/upload-artifact@v3
         with:
