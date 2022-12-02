@@ -53,6 +53,15 @@ jobs:
           dch --newversion $DEBIAN_PACKAGE_VERSION -D unstable -m 'Build Debian package.'
           debuild -b -us -uc
           mv ../*.deb out/.
+      - name: 📂 Deploy FTP
+        uses: SamKirkland/FTP-Deploy-Action@4.3.2
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USER }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          state-name: '.ftp-deploy-sync-state-linux.json'
+          local-dir: "out/"
+          server-dir: ""
 #      - name: Upload Release Linux
 #        uses: actions/upload-artifact@v3
 #        with:
@@ -60,11 +69,3 @@ jobs:
 #          path: |
 #            dist/aimm
 #            *.deb
-      - name: 📂 Deploy FTP
-        uses: SamKirkland/FTP-Deploy-Action@4.3.2
-        with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USER }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: "out/"
-          server-dir: ""
