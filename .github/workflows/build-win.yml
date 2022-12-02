@@ -32,12 +32,12 @@ jobs:
           cp changelog.txt dist/
           cp LICENSE dist/
           cp resources/install/win/Installation-Instructions.txt dist/
-          mkdir out && cd dist && zip -r ../out/aimm-windows-binary.zip *
-      - name: Build Installer
-        run: |
-          pip install pynsist
-      - name: Build Windows-Installer
-        run: install/win-installer.bat
+          mkdir out && cd dist && Compress-Archive -Path dist/ -DestinationPath ../out/aimm-windows-binary.zip
+#      - name: Build Installer
+#        run: |
+#          pip install pynsist
+#      - name: Build Windows-Installer
+#        run: install/win-installer.bat
       - name: Tests
         if: contains(github.event.head_commit.message, '[tests]') # only run if commit message contains [build]
         run: |
