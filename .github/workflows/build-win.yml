@@ -33,11 +33,11 @@ jobs:
           cp LICENSE dist/
           cp resources/install/win/Installation-Instructions.txt dist/
           mkdir out && cd dist && Compress-Archive -Path . -DestinationPath ../out/aimm-windows-binary.zip
-#      - name: Build Installer
-#        run: |
-#          pip install pynsist
-#      - name: Build Windows-Installer
-#        run: install/win-installer.bat
+      - name: Build Windows Installer
+        run: |
+          pip install pynsist
+      - name: Build Windows-Installer
+        run: install/win-installer.bat
       - name: Tests
         if: contains(github.event.head_commit.message, '[tests]') # only run if commit message contains [build]
         run: |
@@ -58,5 +58,5 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USER }}
           password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: "dist/"
+          local-dir: "out/"
           server-dir: ""
