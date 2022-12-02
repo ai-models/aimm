@@ -28,7 +28,7 @@ jobs:
           cd ..
       - name: Build Windows Binary
         run: |
-          pyinstaller --onefile aimm.py --add-data 'LICENSE:.' --name aimm --distpath dist/
+          pyinstaller --onefile aimm.py --add-data 'LICENSE;.' --name aimm --distpath dist/
           cp changelog.txt dist/
           cp LICENSE dist/
           cp resources/install/windows/Installation-Instructions.txt dist/
