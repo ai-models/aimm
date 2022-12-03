@@ -88,8 +88,8 @@ def install(name_version: Optional[str] = typer.Argument(None),
                 else:
                     base_funcs.download_file(file["download_url"], save_path)
                     
-                # add to aimodels-lock.json
-                base_funcs.update_ai_models_lock(name, version, save_path)
+            # add to aimodels-lock.json
+            base_funcs.update_ai_models_lock(name, version, save_path)
             # make a list of links
             links = []
             # only execute if there are links
