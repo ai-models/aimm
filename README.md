@@ -16,7 +16,7 @@
 
 ## 📝 Description
 
-AI Model Manager CLI, it's like pip or npm - but for AI models!
+AI Model Manager, it's like pip or npm - but for AI models!
 
 #### User Benefits 
 * Save disk space, potentially many gigabytes 
