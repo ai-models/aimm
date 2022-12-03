@@ -1,8 +1,8 @@
 import re
 
 
-HUGGINGFACE_REGEX = r"/https:\/\/huggingface\.co\/\w+\/.+\/+resolve+\/[0-9a-zA-z]{40}+\/.+/g"
-GITHUB_REGEX = r"https:\/\/github\.com+\/+\w+\/+\w+\/+releases+\/"
+HUGGINGFACE_REGEX = r"https:\/\/huggingface\.co\/\w+\/.+\/+resolve+\/[0-9a-zA-z]{40}\/.+"
+GITHUB_REGEX = r"https:\/\/github\.com+\/+.+\/+.+\/+releases+\/.+"
 
 
 def is_url_safe(url) -> bool:

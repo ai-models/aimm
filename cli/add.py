@@ -8,7 +8,7 @@ from cli import install as install
 
 app = aimmApp.app
 @app.command()
-def add(name_version: str, mut_path: bool = typer.Option(False, "--allow-mutable-paths")):
+def add(name_version: str, mut_path: bool = typer.Option(False, "--unsafe-url")):
     """
     Add a model to local aimodels.json.
     """
