@@ -12,3 +12,4 @@ typer==0.7.0
 urllib3==1.26.12
 wcwidth==0.2.5
 pip-licenses==4.0.1
+picklescan==0.0.5

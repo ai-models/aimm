@@ -1,4 +1,4 @@
-# initialize the info command
+# initialize the commands
 from cli import (base_funcs,
                  install,
                  uninstall,
@@ -9,5 +9,6 @@ from cli import (base_funcs,
                  add,
                  remove,
                  security,
-                 credentials
+                 credentials,
+                 pickle
                  )
