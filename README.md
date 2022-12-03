@@ -1,7 +1,7 @@
 <div align="center">
   
 # `🤖 Aimm (AI Model Manager)`
-## **Manage AI Models like pip<sup><sub>TM</sub></sup> or npm<sup><sub>TM</sub></sup>*
+## **Manage AI Models like pip<sup><sub>TM</sub></sup> or npm<sup><sub>TM</sub></sup>**
 
 </div>
 
