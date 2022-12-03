@@ -127,7 +127,8 @@ def update_ai_models_lock(name, version, path):
     aimodels_lock_file = os.path.join(cwd, "aimodels-lock.json")
     # get a list of files in path
     files = os.listdir(path)
-    
+    # path should use forward slashes instead of backslashes
+    path = path.replace("\\", "/")
     # check if aimodels-lock.json exists
     if not os.path.exists(aimodels_lock_file):
         # create aimodels-lock.json
