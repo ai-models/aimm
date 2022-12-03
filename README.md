@@ -28,6 +28,8 @@ For developers, it means less code that you have to handle initializing your app
 
 ## 📦 Installation
 
+Visit [https://aimodels.org/download](AIModels.org - Downloads) and select and install the version right for you
+
 ```bash
 pip install <package_name>
 ```
