@@ -4,7 +4,6 @@ import sys
 import shutil
 import os
 
-
 # create a template function for each command
 def autocon_build(filename):
   cwd = os.path.dirname(os.path.abspath(__file__))
@@ -14,49 +13,56 @@ def autocon_build(filename):
 
   # rename gif_automate.sh filename.sh
   src = cwd + "/src/gif_automate.sh"
-  print('src: '+src)
-  print('cwd: '+cwd)
+  print('src: ' + src)
+  print('cwd: ' + cwd)
 
   dst = cwd + "/dist/"
+  dst_file = dst + filename.replace(".json", ".sh")
   # make dst directory if it doesn't exist
   if not os.path.exists(dst):
     os.makedirs(dst)
-  shutil.copy(src, dst + filename.replace(".json", ".sh"))
+  shutil.copy(src, dst_file)
 
-  prompt = '\[\e[0;38;5;232;107m\]agi\[\e[0;30;107m\]@\[\e[0;1;30;48;5;159m\]ai\[\e[0;1;38;5;232;48;5;255m\]models\[\e[0;7m\]:\[\e[0m\]~\[\e[0m\]\$\[\e[0m\]'
+  prompt = '\'\[\e[0;38;5;232;107m\]agi\[\e[0;30;107m\]@\[\e[0;1;30;48;5;159m\]ai\[\e[0;1;38;5;232;48;5;255m\]models\[\e[0;7m\]:\[\e[0m\]~\[\e[0m\]\$\[\e[0m\]\''
+  prompt = 'user: '
 
-  output = 'DEFAULT_ECHO=' + prompt
-  output += 'SCRIPT_PATH="aimm.py"'
-  output += 'sleep .5'
+  output = 'DEFAULT_ECHO=' + prompt + '\n'
+  output += 'sleep .5' + '\n'
 
   for ops in commands:
     if 'comment' in ops:
-      output += 'echo -n -e "${DEFAULT_ECHO}"\n' \
+      output += 'echo -n -e ${DEFAULT_ECHO}\n' \
                 'sleep ' + str(ops['wait']) + '\n' \
-                'sleep ' + str(ops['comment']) + '\n' \
+                'echo \' ... ' + str(ops['comment']) + '\'\n'\
                 'sleep ' + str(ops['wait']) + '\n' \
                 'typer ' + ops['command'] + '\n' \
-                'echo\n' \
-                'python3 $SCRIPT_PATH ' + str(ops['command']) + '\n'
+                'echo \n' + \
+                ops["command"] + '\n'
     else:
-      output += 'echo -n -e "${DEFAULT_ECHO}"\n' \
-                'sleep ' + str(ops['wait']) + '\n' \
-                'typer ' + ops['command'] + '\n' \
-                'echo\n' \
-                'python3 $SCRIPT_PATH ' + str(ops['command']) + '\n'
+      output += 'echo -n -e ${DEFAULT_ECHO}\n' \
+                'sleep \'' + str(ops['wait']) + '\'\n' \
+                'typer ' + ops['command'] + '\n' + \
+                'echo \n' + \
+                ops["command"] + '\n'
 
   output += 'typer "exit"'
 
   # append output to out.txt file
-  with open(dst+ filename.replace(".json", ".sh"), "a") as f:
+  with open(dst_file, "a") as f:
     f.write(output)
 
     # make the script executable
-    os.chmod(dst+ filename.replace(".json", ".sh"), 0o755)
+    os.chmod(dst_file, 0o755)
 
 
 if __name__ == "__main__":
   cwod = os.path.dirname(os.path.abspath(__file__))
+
+  # get active working directory
+  cwd = os.getcwd()
+
+  # add working directory to path
+  sys.path.append(cwd)
 
   # iterate through the json files in the src directory
   for file in os.listdir(cwod + '/src'):

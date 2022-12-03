@@ -1,0 +1,11 @@
+[
+  {
+    "command": "aimm --version",
+    "wait": 1
+  },
+  {
+    "comment": "Check version short",
+    "command": "aimm -v",
+    "wait": 1
+  }
+]

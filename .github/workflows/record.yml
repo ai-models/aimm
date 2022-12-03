@@ -8,6 +8,8 @@ jobs:
   make-gif:
     if: contains(github.event.head_commit.message, '[docs]') # only run if commit message contains [docs]
     runs-on: ubuntu-latest
+    env:
+      BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
     steps:
     - uses: actions/checkout@v3
     - name: Set up Python 3.9
@@ -25,8 +27,11 @@ jobs:
         sudo apt-get install asciinema -y
     - name: Recording
       run: |
+        # go through all json in src, put sh into dist
         python resources/actions/autocon/gif_automate.py
-        asciinema rec terminal.asc -c resources/actions/dist/overview.sh
+        # needs to be updated to use the new json files
+        cp resources/actions/autocon/src/aimm .  && chmod +x aimm
+        asciinema rec terminal.asc -c resources/actions/autocon/dist/overview.sh
     - name: Download agg
       run: wget https://github.com/asciinema/agg/releases/latest/download/agg-x86_64-unknown-linux-gnu -O agg
     - name: Make agg executable
@@ -56,5 +61,5 @@ jobs:
       uses: ad-m/github-push-action@master
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        branch: build_exe_2
+        branch: ${{ env.BRANCH_NAME }}
 
