@@ -24,6 +24,9 @@ def add(name_version: str):
     if base_funcs.should_install(name, version):
         install.install(name_version)
     else:
+        # add to aimodels-lock.json
+        save_path = os.path.join(aimmApp.main_dir, name, version)
+        base_funcs.update_ai_models_lock(name, version, save_path)
         typer.echo(f"{name}:{version} already installed.")
     
     # parse aimodels.json as a json
