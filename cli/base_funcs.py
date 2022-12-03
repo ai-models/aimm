@@ -218,7 +218,7 @@ def get_creds(download_url):
 def get_model_path(name_version):
     name, version = extract_name_version(name_version)
     for package in aimmApp.installed["packages"]:
-        if package["name"] == name and package["version"] == version:
+        if package["name"].lower() == name.lower() and package["version"] == version:
             return package["paths"]
     else:
         typer.echo(f"Error: {name}:{version} not found")
