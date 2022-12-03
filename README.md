@@ -7,7 +7,6 @@
 
 ## 📖 Table of Contents
 
-- [📖 Table of Contents](#-table-of-contents)
 - [📝 Description](#-description)
 - [📦 Installation](#-installation)
 - [💻 Quickstart](#-quickstart)
