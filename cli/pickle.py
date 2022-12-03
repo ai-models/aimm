@@ -1,9 +1,10 @@
+import os
 import hashlib
 import json
 import typer
 from picklescan import scanner
 
-from cli import aimmApp
+from cli import aimmApp, base_funcs
 
 app = aimmApp.app
 
@@ -34,29 +35,43 @@ def get_maximum_danger(result_globals) -> str:
             safety = "dangerous"
     return safety
 
+def get_model_path(name_version):
+    name, version = base_funcs.extract_name_version(name_version)
+    for package in aimmApp.installed["packages"]:
+        if package["name"] == name and package["version"] == version:
+            return package["paths"]
+    else:
+        typer.echo(f"Error: {name}:{version} not found")
+        return None
+
 @app.command()
-def scan(path: str, raw: bool = typer.Option(False, "--raw", "-r")):
+def scan(name_version: str, raw: bool = typer.Option(False, "--raw", "-r")):
     """
     Scan a file for malicious code.
     """
-    result = scanner.scan_file_path(path)
-    if not raw:
-        print(f"scanned files: {result.scanned_files}")
-        print(f"issues count: {result.issues_count}")
-        print(f"infected files: {result.infected_files}")
-        print("safety level of modules:")
-        for module in result.globals:
-            print(
-                f"  * {module.module}.{module.name} - {(module.safety.value).title()}")
-        print(f"Hash: {hash_file(path)}")
-    else:
-        safety = get_maximum_danger(result.globals)
-        print(json.dumps({
-            "hash": hash_file(path),
-            "picklescan": {
-                "scanned_files": result.scanned_files,
-                "issues_count": result.issues_count,
-                "infected_files": result.infected_files,
-                "safety_level": safety
-            }
-        },indent=4))
+    model_path = get_model_path(name_version)
+    if model_path:
+        for file in os.listdir(model_path):
+            path = os.path.join(model_path, file)
+            result = scanner.scan_file_path(path)
+            if not raw:
+                print(f"Scanning {path}...")
+                print(f"scanned files: {result.scanned_files}")
+                print(f"issues count: {result.issues_count}")
+                print(f"infected files: {result.infected_files}")
+                print("safety level of modules:")
+                for module in result.globals:
+                    print(
+                        f"  * {module.module}.{module.name} - {(module.safety.value).title()}")
+                print(f"Hash: {hash_file(path)}")
+            else:
+                safety = get_maximum_danger(result.globals)
+                print(json.dumps({
+                    "hash": hash_file(path),
+                    "picklescan": {
+                        "scanned_files": result.scanned_files,
+                        "issues_count": result.issues_count,
+                        "infected_files": result.infected_files,
+                        "safety_level": safety
+                    }
+                },indent=4))
