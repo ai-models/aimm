@@ -49,7 +49,7 @@ aimm add BSRGAN
 
 ## 📚 Documentation
 
-[Documentation](https://docs.aimodels.org)
+[Documentation](https://docs.aimodels.org/es/AIMM/gettingstarted/)
 
 ## 📜 License
 
