@@ -2,7 +2,7 @@ name: Record
 
 on:
   push:
-    branches: [ dev, main, build_exe_2 ]
+    branches: [ dev, main, dev-fixups ]
   workflow_dispatch:
 jobs:
   make-gif:
@@ -23,10 +23,10 @@ jobs:
         sudo apt-add-repository ppa:zanchey/asciinema -y
         sudo apt-get update -y
         sudo apt-get install asciinema -y
-    - name: Record 
+    - name: Recording
       run: |
-        chmod +x docs/gif_automate.sh
-        asciinema rec terminal.asc -c resources/docs/gif_automate.sh
+        python resources/actions/autocon/gif_automate.py
+        asciinema rec terminal.asc -c resources/actions/dist/overview.sh
     - name: Download agg
       run: wget https://github.com/asciinema/agg/releases/latest/download/agg-x86_64-unknown-linux-gnu -O agg
     - name: Make agg executable

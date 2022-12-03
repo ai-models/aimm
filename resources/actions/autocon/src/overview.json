@@ -1,0 +1,46 @@
+[
+  {
+    "command": "ls",
+    "wait": 1
+  },
+  {
+    "comment": "Initialize aimm in current directory",
+    "command": "aimm init",
+    "wait": 1
+  },
+  {
+    "comment": "Behold the created aimodels.json file",
+    "command": "ls",
+    "wait": 1
+  },
+  {
+    "comment": "Search for models",
+    "command": "aimm search gan",
+    "wait": 1
+  },
+  {
+    "comment": "Add model to aimodels.json and install",
+    "command": "aimm add bsrgan",
+    "wait": 1
+  },
+  {
+    "comment": "Observe the new model in aimodels.json",
+    "command": "cat aimodels.json",
+    "wait": 1
+  },
+  {
+    "comment": "Retrieve model path details from aimodels-lock.json",
+    "command": "cat aimodels-lock.json",
+    "wait": 1
+  },
+  {
+    "comment": "Search",
+    "command": "aimm search coqui",
+    "wait": 1
+  },
+  {
+    "comment": "Search",
+    "command": "aimm list",
+    "wait": 1
+  }
+]
