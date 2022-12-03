@@ -109,4 +109,6 @@ def install(name_version: Optional[str] = typer.Argument(None),
                 json.dump(aimmApp.installed, file, indent=4)
             typer.echo(f"Installed {name}:{version}!")
     else: 
+        save_path = os.path.join(aimmApp.main_dir, name, version)
+        base_funcs.update_ai_models_lock(name, version, save_path)
         typer.echo(f"{name}:{version} already installed.")
