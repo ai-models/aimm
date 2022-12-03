@@ -42,7 +42,7 @@ def install(name_version: Optional[str] = typer.Argument(None),
         return
 
     if base_funcs.should_install(name, version):
-        typer.echo(f"Installing {name}:{version}...")
+        typer.echo(f"Install Pre-Check: {name}:{version}...")
         # download the model
         # if data doesn't have entries exit
         if base_funcs.models_json(name,version)["data"] == []:
@@ -61,13 +61,23 @@ def install(name_version: Optional[str] = typer.Argument(None),
                 if not file["download_url"]:
                     typer.echo(f"Error: Model {name}:{version} not found")
                     return
-                # check if md5 exists
-                # check if mut_path is passed 
+                # check if mut_path is passed
                 if not mut_path:
-                    if not file["md5"]:
-                        typer.echo(f"Error: {name}:{version}")
-                        typer.echo("  Remote URL file could be changed and no checksum provided to validate file.")
-                        sys.exit(1)
+                    typer.echo(f"Error: Unverifiable download path in request")
+                    typer.echo("  * Remote file is mutable\n"
+                               "    Immutable download paths always point to the same file. In cases\n"
+                               "    where the file is mutable, the file could be changed.\n\n"
+                               "    Example of immutable paths:\n"
+                               "    - github.com/{user}}/{repo_name}/tree/{commit_hash}\n" 
+                               "    - huggingface.co/spaces/{space_name}/{repo_name}/tree/{commit_hash}\n\n" 
+                               "    Mutable paths in your request:\n"
+                               "    - somemodel:version\n"
+                               "      "+file['download_url']+"\n"
+                               "    -  othermodel:version\n"
+                               "      "+file['download_url']+"\n")
+                    typer.echo("   To allow mutable files, run command again with argument:\n"
+                               "\t --allow-mutable-paths")
+                    sys.exit(1)
                 
                 save_path = os.path.join(aimmApp.main_dir, name, version)
                 if not os.path.exists(save_path):
@@ -88,8 +98,8 @@ def install(name_version: Optional[str] = typer.Argument(None),
                 else:
                     base_funcs.download_file(file["download_url"], save_path)
                     
-                # add to aimodels-lock.json
-                base_funcs.update_ai_models_lock(name, version, save_path)
+            # add to aimodels-lock.json
+            base_funcs.update_ai_models_lock(name, version, save_path)
             # make a list of links
             links = []
             # only execute if there are links
@@ -109,4 +119,6 @@ def install(name_version: Optional[str] = typer.Argument(None),
                 json.dump(aimmApp.installed, file, indent=4)
             typer.echo(f"Installed {name}:{version}!")
     else: 
-        typer.echo(f"{name}:{version} already installed.")
+        save_path = os.path.join(aimmApp.main_dir, name, version)
+        base_funcs.update_ai_models_lock(name, version, save_path)
+        typer.echo(f"Found Local: {name}:{version}")

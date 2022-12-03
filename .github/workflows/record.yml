@@ -2,59 +2,64 @@ name: Record
 
 on:
   push:
-    branches: [ dev, main, build_exe_2 ]
+    branches: [ dev, main, dev-fixups ]
   workflow_dispatch:
 jobs:
   make-gif:
-    if: contains(github.event.head_commit.message, '[docs]') # only run if commit message contains [docs]
+    if: ${{ contains(github.event.head_commit.message, '[docs]') || github.event_name == 'workflow_dispatch' }} # only run if commit message contains [docs] or workflow_dispatch
     runs-on: ubuntu-latest
+    env:
+      BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
     steps:
     - uses: actions/checkout@v3
-    - name: Set up Python 3.9
+    - name: Set up Python 3.10
       uses: actions/setup-python@v4
       with:
-        python-version: 3.9
+        python-version: "3.10"
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
+        pip install termcolor
     - name: Install asciinema
       run: |
         sudo apt-add-repository ppa:zanchey/asciinema -y
         sudo apt-get update -y
         sudo apt-get install asciinema -y
-    - name: Record 
+    - name: Recording
       run: |
-        chmod +x docs/gif_automate.sh
-        asciinema rec terminal.asc -c resources/docs/gif_automate.sh
+        # go through all json in src, put sh into dist
+        python3 resources/actions/autocon/gif_automate.py asc
     - name: Download agg
       run: wget https://github.com/asciinema/agg/releases/latest/download/agg-x86_64-unknown-linux-gnu -O agg
     - name: Make agg executable
       run: chmod +x agg
     - name: Convert to gif
-      run: ./agg terminal.asc terminal.gif
+      run: python3 resources/actions/autocon/gif_automate.py gif
     - name: Upload gif
       uses: actions/upload-artifact@v3
       with:
-        name: terminal.gif
-        path: terminal.gif
+      # upload all gifs in resources/actions/autocon/dist
+        name: gifs
+        path: resources/actions/autocon/dist
     - name: Upload asciinema
       uses: actions/upload-artifact@v3
       with:
-        name: terminal.asc
-        path: terminal.asc
+      # upload all ascs in resources/actions/autocon/src
+        name: ascs
+        path: resources/actions/autocon/src/*.asc
     - name: Move gif
       run: |
         mkdir -p docs
-        mv terminal.gif resources/docs/terminal.gif
+        mv resources/actions/autocon/dist/*.gif resources/docs/
     - name: Commit changes
       run: |
         git config --local user.name "GitHub Actions"
-        git add resources/docs/terminal.gif
-        git commit -m 'Update terminal.gif'
+        git add resources/docs/
+        git commit -m 'Update gifs'
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        branch: build_exe_2
+        branch: ${{ env.BRANCH_NAME }}
 

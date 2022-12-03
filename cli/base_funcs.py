@@ -127,7 +127,8 @@ def update_ai_models_lock(name, version, path):
     aimodels_lock_file = os.path.join(cwd, "aimodels-lock.json")
     # get a list of files in path
     files = os.listdir(path)
-    
+    # path should use forward slashes instead of backslashes
+    path = path.replace("\\", "/")
     # check if aimodels-lock.json exists
     if not os.path.exists(aimodels_lock_file):
         # create aimodels-lock.json
@@ -137,8 +138,8 @@ def update_ai_models_lock(name, version, path):
                     "path": path,
                     "files": files
                 },
+            },
             "credentials": {}
-            }
         }
         # write aimodels-lock.json
         with open("aimodels-lock.json", "w") as f:
@@ -183,7 +184,7 @@ def update_ai_models_lock(name, version, path):
     else:
         with open(".gitignore", "r") as f:
             gitignore = f.read()
-        if gitignore_text not in gitignore:
+        if "aimodels-lock.json" not in gitignore:
             # append to end
             with open(".gitignore", "a") as f:
                 f.write(gitignore_text)
@@ -213,3 +214,14 @@ def get_creds(download_url):
             aimodels_lock = json.load(f)
         # return username and password
         return aimodels_lock["credentials"][domain]["username"], aimodels_lock["credentials"][domain]["password"]
+
+def get_model_path(name_version):
+    name, version = extract_name_version(name_version)
+    if version is None:
+        version = get_last_version(name)
+    for package in aimmApp.installed["packages"]:
+        if package["name"].lower() == name.lower() and package["version"] == version:
+            return package["paths"]
+    else:
+        typer.echo(f"Error: {name}:{version} not found")
+        return None

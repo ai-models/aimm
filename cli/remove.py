@@ -36,7 +36,7 @@ def remove(name_version: str):
         if package_name.lower() == name.lower() and package_version.lower() == version.lower():
             aimodels.pop(package_name)
             typer.echo(f"Removed {name_version} from aimodels.json")
-            typer.echo(f"The package is still available system-wide, to uninstall it run aimm uninstall {name}:{version}")
+            typer.echo(f"The package is still available system-wide, to uninstall (delete files):\n\t aimm uninstall {name}:{version}")
             break
     else:
         typer.echo(f"{name_version} not found in aimodels.json")
