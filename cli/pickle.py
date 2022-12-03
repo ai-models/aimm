@@ -35,21 +35,12 @@ def get_maximum_danger(result_globals) -> str:
             safety = "dangerous"
     return safety
 
-def get_model_path(name_version):
-    name, version = base_funcs.extract_name_version(name_version)
-    for package in aimmApp.installed["packages"]:
-        if package["name"] == name and package["version"] == version:
-            return package["paths"]
-    else:
-        typer.echo(f"Error: {name}:{version} not found")
-        return None
-
 @app.command()
 def scan(name_version: str, raw: bool = typer.Option(False, "--raw", "-r")):
     """
     Scan a file for malicious code.
     """
-    model_path = get_model_path(name_version)
+    model_path = base_funcs.get_model_path(name_version)
     if model_path:
         for file in os.listdir(model_path):
             path = os.path.join(model_path, file)

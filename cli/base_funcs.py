@@ -213,3 +213,12 @@ def get_creds(download_url):
             aimodels_lock = json.load(f)
         # return username and password
         return aimodels_lock["credentials"][domain]["username"], aimodels_lock["credentials"][domain]["password"]
+
+def get_model_path(name_version):
+    name, version = base_funcs.extract_name_version(name_version)
+    for package in aimmApp.installed["packages"]:
+        if package["name"] == name and package["version"] == version:
+            return package["paths"]
+    else:
+        typer.echo(f"Error: {name}:{version} not found")
+        return None
