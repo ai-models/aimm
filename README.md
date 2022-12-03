@@ -1,8 +1,8 @@
 <div align="center">
   
 # `🤖 Aimm (AI Model Manager)`
-## **Tool for managing AI Models that works like pip<sup><sub>TM</sub></sup> or npm<sup><sub>TM</sub></sup>**
-
+### **Tool for managing AI Models that works like pip<sup><sub>TM</sub></sup> or npm<sup><sub>TM</sub></sup>**
+###  Pre-release alpha: [Downloads - AIModels.org](https://aimodels.org/download)
 </div>
 
 ## 📖 Table of Contents
@@ -28,11 +28,8 @@ For developers, it means less code that you have to handle initializing your app
 
 ## 📦 Installation
 
-Visit [https://aimodels.org/download](AIModels.org - Downloads) and select and install the version right for you
+Visit [Downloads - AIModels.org](https://aimodels.org/download) and select and install the version right for you. (This is still pre-release alpha)
 
-```bash
-pip install <package_name>
-```
 
 ## 📝 Usage
 
