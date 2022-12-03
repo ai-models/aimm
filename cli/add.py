@@ -8,7 +8,7 @@ from cli import install as install
 
 app = aimmApp.app
 @app.command()
-def add(name_version: str):
+def add(name_version: str, mut_path: bool = typer.Option(False, "--allow-mutable-paths")):
     """
     Add a model to local aimodels.json.
     """
@@ -22,7 +22,7 @@ def add(name_version: str):
         sys.exit(1)
     
     if base_funcs.should_install(name, version):
-        install.install(name_version)
+        install.install(name_version,mut_path=mut_path)
     else:
         # add to aimodels-lock.json
         save_path = os.path.join(aimmApp.main_dir, name, version)

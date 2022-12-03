@@ -63,8 +63,8 @@ def install(name_version: Optional[str] = typer.Argument(None),
                     return
                 # check if md5 exists
                 # check if mut_path is passed 
-                if not mut_path:
-                    if not file["md5"]:
+                if not file["md5"]:
+                    if not mut_path:
                         typer.echo(f"Error: {name}:{version}")
                         typer.echo("  Remote URL file could be changed and no checksum provided to validate file.")
                         sys.exit(1)
