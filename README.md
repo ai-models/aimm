@@ -10,6 +10,7 @@
 - [📝 Description](#-description)
 - [📦 Installation](#-installation)
 - [💻 Quickstart](#-quickstart)
+- [👩‍💻 GUI](#-gui)
 - [📚 Documentation](#-documentation)
 - [📜 License](#-license)
 
@@ -52,6 +53,14 @@ Then we install and add it to a local aimodels.json file to keep track of all th
 ```bash
 aimm add BSRGAN
 ```
+
+## 👩‍💻 GUI
+
+The GUI is developed but not ready for release yet. 
+
+![image](https://user-images.githubusercontent.com/654993/205428740-742bc94e-6426-4315-ae4f-72ef858c5638.png)
+
+This will allow modules such as stable horde to be integrated.
 
 ## 📚 Documentation
 
