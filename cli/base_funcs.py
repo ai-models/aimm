@@ -138,8 +138,8 @@ def update_ai_models_lock(name, version, path):
                     "path": path,
                     "files": files
                 },
+            },
             "credentials": {}
-            }
         }
         # write aimodels-lock.json
         with open("aimodels-lock.json", "w") as f:
