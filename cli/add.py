@@ -27,7 +27,7 @@ def add(name_version: str, mut_path: bool = typer.Option(False, "--allow-mutable
         # add to aimodels-lock.json
         save_path = os.path.join(aimmApp.main_dir, name, version)
         base_funcs.update_ai_models_lock(name, version, save_path)
-        typer.echo(f"{name}:{version} already installed.")
+        typer.echo(f"Is this used: {name}:{version}")
     
     # parse aimodels.json as a json
     try:

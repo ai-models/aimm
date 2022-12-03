@@ -135,3 +135,5 @@ aimodels-lock.json
 /ldm/
 /.fleet/
 
+# For local aimodels packages
+aimodels-lock.json
