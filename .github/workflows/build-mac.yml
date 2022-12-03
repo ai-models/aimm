@@ -1,0 +1,58 @@
+name: MacOs Build
+
+on:
+  push:
+    branches: [ dev, main, debtest ]
+  workflow_dispatch:
+jobs:
+  build-mac-installer:
+    if: contains(github.event.head_commit.message, '[build-mac]') # only run if commit message contains [build]
+    runs-on: macos-11
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.9
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pyinstaller
+      - name: Generate change log
+        run: |
+          git clone https://github.com/visioninit/aimm
+          cd aimm
+          git log $(git describe --tags --abbrev=0)..HEAD --pretty=format:' * %s' | sed '/Merge/d' > changelog.txt
+          cp changelog.txt ..
+          cd ..
+      - name: Build MacOS Binary
+        run: |
+          pyinstaller --onefile aimm.py --add-data 'LICENSE:.' --name aimm --distpath dist/
+          cp changelog.txt dist/
+          cp LICENSE dist/
+          cp resources/install/linux/Installation-Instructions.txt dist/
+          mkdir out && cd dist && tar -zcvf ../out/aimm-macos-binary.tar.gz *
+      - name: Test
+        if: contains(github.event.head_commit.message, '[tests]') # only run if commit message contains [build]
+        run: |
+          dist/aimm
+          dist/aimm init
+          dist/aimm add BSRGAN
+          dist/aimm list
+          dist/aimm remove BSRGAN
+          dist/aimm search GFPGAN
+      - name: Upload ReleaseMacOS
+        uses: actions/upload-artifact@v3
+        with:
+          name: MacOS Binary
+          path: ./aimm
+      - name: 📂 Deploy FTP
+        uses: SamKirkland/FTP-Deploy-Action@4.3.2
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USER }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          state-name: '.ftp-deploy-sync-state-mac.json'
+          local-dir: "out/"
+          server-dir: ""

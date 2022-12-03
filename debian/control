@@ -1,0 +1,28 @@
+Source: aimm
+Section: science
+Priority: optional
+Maintainer: Daniel Leidert <dleidert@debian.org>
+Build-Depends: debhelper-compat (= 12)
+Standards-Version: 4.6.0
+Homepage: https://aimodels.org/
+Vcs-Browser: https://github.com/visioninit/aimm
+Vcs-Git: https://github.com/visioninit/aimm.git
+Rules-Requires-Root: binary-targets
+
+Package: aimm
+Architecture: any
+Pre-Depends: ${misc:Pre-Depends}
+Depends: ${misc:Depends},
+         ${shlibs:Depends}
+Description: AI Model Manager
+ AI Model Manager CLI, it's like pip or npm - but for AI models!
+ .
+ For users, this allows easily managing your collection of AI models. It stores
+ your models in a location that all of your AI enabled apps can access, so you
+ don't need to worry about the huge files taking up so much space, or creating
+ symlinks. Finally, no more having to hunt for a model and making sure you
+ rename it and put it in the correct folder correctly.
+ .
+ For developers, it means less code that you have to handle initializing your
+ app and collecting all of the AI model resources needed. AI Model Manager also
+ will provide security through checksum checks and pickle scanning.
