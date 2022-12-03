@@ -217,6 +217,8 @@ def get_creds(download_url):
 
 def get_model_path(name_version):
     name, version = extract_name_version(name_version)
+    if version is None:
+        version = get_last_version(name)
     for package in aimmApp.installed["packages"]:
         if package["name"].lower() == name.lower() and package["version"] == version:
             return package["paths"]
