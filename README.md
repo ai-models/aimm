@@ -5,10 +5,6 @@
 
 </div>
 
-![image](https://user-images.githubusercontent.com/654993/205424825-a50d913d-0168-4d87-844f-ef376a3c8164.png)
-
-
-
 ## 📖 Table of Contents
 
 - [📖 Table of Contents](#-table-of-contents)
@@ -27,6 +23,8 @@ AI Model Manager CLI, it's like pip or npm - but for AI models!
 For users, this allows easily managing your collection of AI models. It stores your models in a location that all of your AI enabled apps can access, so you don't need to worry about the huge files taking up so much space, or creating symlinks. Finally, no more having to hunt for a model and making sure you rename it and put it in the correct folder correctly. 
 
 For developers, it means less code that you have to handle initializing your app and collecting all of the AI model resources needed. AI Model Manager also will provide security through checksum checks and pickle scanning.
+
+![image](https://user-images.githubusercontent.com/654993/205424825-a50d913d-0168-4d87-844f-ef376a3c8164.png)
 
 ## 📦 Installation
 
