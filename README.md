@@ -69,4 +69,4 @@ This will allow modules such as stable horde to be integrated.
 
 ## 📜 License
 
-[Apache License 2.0](./LICENSE.md)
+[Apache License 2.0](https://github.com/visioninit/aimm/blob/main/LICENSE)
