@@ -28,35 +28,34 @@ jobs:
     - name: Recording
       run: |
         # go through all json in src, put sh into dist
-        python resources/actions/autocon/gif_automate.py
-        # needs to be updated to use the new json files
-        cp resources/actions/autocon/src/aimm .  && chmod +x aimm
-        asciinema rec terminal.asc -c resources/actions/autocon/dist/overview.sh
+        python3 resources/actions/autocon/gif_automate.py asc
     - name: Download agg
       run: wget https://github.com/asciinema/agg/releases/latest/download/agg-x86_64-unknown-linux-gnu -O agg
     - name: Make agg executable
       run: chmod +x agg
     - name: Convert to gif
-      run: ./agg terminal.asc terminal.gif
+      run: python3 resources/actions/autocon/gif_automate.py gif
     - name: Upload gif
       uses: actions/upload-artifact@v3
       with:
-        name: terminal.gif
-        path: terminal.gif
+      # upload all gifs in resources/actions/autocon/dist
+        name: gifs
+        path: resources/actions/autocon/dist
     - name: Upload asciinema
       uses: actions/upload-artifact@v3
       with:
-        name: terminal.asc
-        path: terminal.asc
+      # upload all ascs in resources/actions/autocon/src
+        name: ascs
+        path: resources/actions/autocon/src/*.asc
     - name: Move gif
       run: |
         mkdir -p docs
-        mv terminal.gif resources/docs/terminal.gif
+        mv *.gif resources/docs/
     - name: Commit changes
       run: |
         git config --local user.name "GitHub Actions"
-        git add resources/docs/terminal.gif
-        git commit -m 'Update terminal.gif'
+        git add resources/docs/
+        git commit -m 'Update gifs'
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:
