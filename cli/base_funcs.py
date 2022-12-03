@@ -215,7 +215,7 @@ def get_creds(download_url):
         return aimodels_lock["credentials"][domain]["username"], aimodels_lock["credentials"][domain]["password"]
 
 def get_model_path(name_version):
-    name, version = base_funcs.extract_name_version(name_version)
+    name, version = extract_name_version(name_version)
     for package in aimmApp.installed["packages"]:
         if package["name"] == name and package["version"] == version:
             return package["paths"]
