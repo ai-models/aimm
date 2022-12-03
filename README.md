@@ -10,9 +10,7 @@
 - [📖 Table of Contents](#-table-of-contents)
 - [📝 Description](#-description)
 - [📦 Installation](#-installation)
-- [📃 Usage](#-usage)
 - [💻 Quickstart](#-quickstart)
-- [📒 Examples](#-examples)
 - [📚 Documentation](#-documentation)
 - [📜 License](#-license)
 
@@ -30,48 +28,24 @@ For developers, it means less code that you have to handle initializing your app
 
 Visit [Downloads - AIModels.org](https://aimodels.org/download) and select and install the version right for you. (This is still pre-release alpha)
 
-
-## 📝 Usage
-
-```bash
-aimm <command> <args>
-```
-
 ## 💻 Quickstart
 
-First search for a model you want to use. For example the BSRGAN model, a super resolution model that can upscale images.
-
-```bash
-aimm search BSRGAN
-```
-
-Then we install the model
-
-```bash
-aimm install BSRGAN
-```
-
-You can also add it to a local aimodels.json file to keep track of all the models you use in your project.
-
-
-First we have to initialize the aimodels.json file
-
+First we have to initialize the aimodels.json file in the local folder
 
 ```bash
 aimm init
 ```
 
-Then we can add the model to the file
+Search for a model you want to use. For example the BSRGAN model, a super resolution model that can upscale images.
+
+```bash
+aimm search BSRGAN
+```
+
+Then we install and add it to a local aimodels.json file to keep track of all the models you use in your project.
 
 ```bash
 aimm add BSRGAN
-```
-
-
-## 📒 Examples
-
-```bash
-examples with pictures go here
 ```
 
 ## 📚 Documentation
