@@ -183,7 +183,7 @@ def update_ai_models_lock(name, version, path):
     else:
         with open(".gitignore", "r") as f:
             gitignore = f.read()
-        if gitignore_text not in gitignore:
+        if gitignore_text not in gitignore or "aimodels-lock.json" not in gitignore:
             # append to end
             with open(".gitignore", "a") as f:
                 f.write(gitignore_text)
