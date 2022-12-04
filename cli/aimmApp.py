@@ -56,7 +56,7 @@ def show_help(program_name):
     print("  info <model_name>:[version]                 Get info about a model (name, version, description, etc).")
     print("  install <model_name>:[version]              Install a model to system.")
     print("  uninstall <model_name>:[version]            Uninstall a model.")
-    # print("  scan <model_name>:[version]                 Scan model for pickles and potential issues.")
+    print("  scan <model_name>:[version]                 Scan model for pickles and potential issues.")
     print()
     print("Search:")
     print("  search <query>                              Search for a model.")

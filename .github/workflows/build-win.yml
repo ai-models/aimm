@@ -19,17 +19,17 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           pip install pyinstaller
-      - name: Generate change log
-        run: |
-          git clone https://github.com/visioninit/aimm
-          cd aimm
-          git log $(git describe --tags --abbrev=0)..HEAD --pretty=format:' * %s' | sed '/Merge/d' > changelog.txt
-          cp changelog.txt ..
-          cd ..
+#      - name: Generate change log
+#        run: |
+#          git clone https://github.com/visioninit/aimm
+#          cd aimm
+#          git log $(git describe --tags --abbrev=0)..HEAD --pretty=format:' * %s' | sed '/Merge/d' > changelog.txt
+#          cp changelog.txt ..
+#          cd ..
+#          cp changelog.txt dist/
       - name: Build Windows Binary
         run: |
           pyinstaller --onefile aimm.py --add-data 'LICENSE;.' --name aimm --distpath dist/
-          cp changelog.txt dist/
           cp LICENSE dist/
           cp resources/install/win/Installation-Instructions.txt dist/
           mkdir out && cd dist && Compress-Archive -Path . -DestinationPath ../out/aimm-windows-binary.zip
@@ -51,8 +51,8 @@ jobs:
           state-name: '.ftp-deploy-sync-state-win.json'
           local-dir: "out/"
           server-dir: ""
-#      - name: Upload Release Windows
-#        uses: actions/upload-artifact@v3
-#        with:
-#          name: Windows Binary
-#          path: dist/aimm.exe
+      - name: Upload Release Windows
+        uses: actions/upload-artifact@v3
+        with:
+          name: Windows Binary
+          path: out/aimm-windows-installer.exe
