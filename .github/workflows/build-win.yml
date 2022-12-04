@@ -55,4 +55,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: Windows Binary
-          path: out/
+          path: out/aimm-windows-installer.exe
