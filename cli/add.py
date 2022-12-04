@@ -8,13 +8,15 @@ from cli import install as install
 
 app = aimmApp.app
 @app.command()
-def add(name_version: str, mut_path: bool = typer.Option(False, "--allow-mutable-paths")):
+def add(name_version: str, mut_path: bool = typer.Option(False, "--unsafe-url")):
     """
     Add a model to local aimodels.json.
     """
     # if model not installed, install it
     # adds name as key and version as value to aimodels.json
     name, version = base_funcs.extract_name_version(name_version)
+    if version is None:
+        version = base_funcs.get_last_version(name)
     
     # if aimodels.json doesn't exist exit
     if not os.path.exists("aimodels.json"):
@@ -36,11 +38,7 @@ def add(name_version: str, mut_path: bool = typer.Option(False, "--allow-mutable
     except Exception as e:
         typer.echo(f"Error: {e}")
         sys.exit(1)
-    
-    # if version is not specified, get the latest version
-    if version is None:
-        version = base_funcs.get_last_version(name)
-    
+        
     # append name and version to aimodels.json if not already there
     add_it = True
     for package_name, package_version in aimodels.items():
