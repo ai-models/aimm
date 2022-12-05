@@ -22,8 +22,7 @@ def print_data(json_data):
     time.sleep(1)
     if 'comment' in entry:
         # comments should be gray
-        print(colored(f" # {entry['comment']}", 'grey'))
-        print(colored(' #' + entry['comment'], 'yellow'))
+        print(colored(' #' + entry['comment'] + ' \ ', 'yellow'))
     else:
         print()
     time.sleep(1)
