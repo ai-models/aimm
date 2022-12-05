@@ -20,11 +20,15 @@ def scan_json(path_to_file):
 
 def print_data(json_data):
     time.sleep(1)
+    if 'comment' in entry:
+        # comments should be gray
+        print(colored(f" # {entry['comment']}", 'grey'))
+        print(colored(' #' + entry['comment'], 'yellow'))
+    else:
+        print()
+    time.sleep(1)
     print(DEFAULT_ECHO, end='')
     for entry in json_data:
-        if 'comment' in entry:
-            # comments should be gray
-            print(colored(f" # {entry['comment']} \ ", 'grey'))
         typing_effect(entry['command'])
         # if command begins with aimm then it is a command
         if entry['command'].startswith('aimm'):
