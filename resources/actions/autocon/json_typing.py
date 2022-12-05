@@ -38,6 +38,7 @@ def print_data(json_data):
         print()
         print(DEFAULT_ECHO, end='', flush=True)
         time.sleep(entry['wait'])
+    typing_effect('# End of Example\n')
     time.sleep(3)
 
 arguments = sys.argv
