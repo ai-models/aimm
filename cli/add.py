@@ -43,7 +43,7 @@ def add(name_version: str, mut_path: bool = typer.Option(False, "--unsafe-url"))
     add_it = True
     for package_name, package_version in aimodels.items():
         if package_name.lower() == name.lower() and package_version == version:
-            typer.echo(f"{name}:{version} already added.")
+            typer.echo(f"Already in aimodels.json: {name}:{version}")
             add_it = False
             return
     if add_it:
