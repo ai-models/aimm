@@ -33,14 +33,4 @@
     "command": "cat aimodels-lock.json",
     "wait": 1
   },
-  {
-    "comment": "Search",
-    "command": "aimm search coqui",
-    "wait": 1
-  },
-  {
-    "comment": "Search",
-    "command": "aimm list",
-    "wait": 1
-  }
 ]
