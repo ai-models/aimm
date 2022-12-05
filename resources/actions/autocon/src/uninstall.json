@@ -1,7 +1,10 @@
-[
-  {
+{
+  "commands": {
     "comment": "Remove model to system",
     "command": "aimm uninstall Coqui_English_STT:yesno-v0.0.1",
     "wait": 1
+  },
+  "config": {
+    "lines": 12
   }
-]
+}

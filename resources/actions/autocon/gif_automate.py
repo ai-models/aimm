@@ -1,6 +1,8 @@
 import os
 import sys
 
+from resources.actions.autocon.json_typing import scan_json
+
 DEFAULT_COMMAND = "asciinema rec"
 DEFAULT_DIR = "resources/actions/autocon"
 
@@ -16,6 +18,8 @@ if __name__ == '__main__':
                 if file.endswith('.json'):
                     name = file.split('.json')[0]
                     os.system(f'{DEFAULT_COMMAND} {DEFAULT_DIR}/src/{name}.asc -c "python3 {DEFAULT_DIR}/json_typing.py {DEFAULT_DIR}/src/{name}.json"')
+                # read the json file
+                    scan_json(f"{DEFAULT_DIR}/src/{name}.json", "config")
         elif sys.argv[1] == "gif":
             # make dist folder
             if not os.path.exists(f"{DEFAULT_DIR}/dist"):

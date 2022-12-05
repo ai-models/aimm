@@ -1,7 +1,12 @@
-[
-  {
-    "comment": "Get information about the model",
-    "command": "aimm info Coqui_English_STT:yesno-v0.0.1",
-    "wait": 1
+{
+  "commands": [
+    {
+      "comment": "Get information about the model",
+      "command": "aimm info Coqui_English_STT:yesno-v0.0.1",
+      "wait": 1
+    }
+  ],
+  "config": {
+    "lines": 12
   }
-]
+}

@@ -1,7 +1,12 @@
-[
-  {
-    "comment": "Remove model from system",
-    "command": "aimm remove bsrgan",
-    "wait": 1
+{
+  "commands": [
+    {
+      "comment": "Remove model from system",
+      "command": "aimm remove bsrgan",
+      "wait": 1
+    }
+  ],
+  "config": {
+    "lines": 12
   }
-]
+}

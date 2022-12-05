@@ -1,7 +1,12 @@
- [
-  {
-    "comment": "Pickle scan the model",
-    "command": "aimm scan bsrgan",
-    "wait": 1
+{
+  "commands": [
+    {
+      "comment": "Pickle scan the model",
+      "command": "aimm scan bsrgan",
+      "wait": 1
+    }
+  ],
+  "config": {
+    "lines": 12
   }
- ]
+}

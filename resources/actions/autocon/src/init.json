@@ -1,16 +1,21 @@
-[
-  {
-    "command": "ls",
-    "wait": 1
-  },
-  {
-    "comment": "Initialize aimm in current directory",
-    "command": "aimm init",
-    "wait": 1
-  },
-  {
-    "comment": "Note the created aimodels.json file",
-    "command": "ls *.json",
-    "wait": 1
+{
+  "commands": [
+    {
+      "command": "ls",
+      "wait": 1
+    },
+    {
+      "comment": "Initialize aimm in current directory",
+      "command": "aimm init",
+      "wait": 1
+    },
+    {
+      "comment": "Note the created aimodels.json file",
+      "command": "ls *.json",
+      "wait": 1
+    }
+  ],
+  "config": {
+    "lines": 12
   }
-]
+}

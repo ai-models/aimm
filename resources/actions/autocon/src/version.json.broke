@@ -1,7 +1,10 @@
-[
+{ "commands": [
   {
     "comment": "Get version of aimm",
     "command": "aimm --version",
     "wait": 1
+  }],
+    "config": {
+    "lines": 12
   }
-]
+}

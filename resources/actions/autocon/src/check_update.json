@@ -1,7 +1,12 @@
-[
-  {
-    "comment": "Check for updates",
-    "command": "aimm --check-update",
-    "wait": 1
+{
+  "commands": [
+    {
+      "comment": "Check for updates",
+      "command": "aimm --check-update",
+      "wait": 1
+    }
+  ],
+  "config": {
+    "lines": 12
   }
-]
+}

@@ -1,7 +1,12 @@
-[
-  {
-    "comment": "Search for models",
-    "command": "aimm search gan",
-    "wait": 1
+{
+  "commands": [
+    {
+      "comment": "Search for models",
+      "command": "aimm search gan",
+      "wait": 1
+    }
+  ],
+  "config": {
+    "lines": 12
   }
-]
+}

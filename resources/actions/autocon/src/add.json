@@ -1,7 +1,12 @@
-[
-  {
-    "comment": "Add model to aimodels.json and install",
-    "command": "aimm add bsrgan",
-    "wait": 1
+{
+  "commands": [
+    {
+      "comment": "Add model to aimodels.json and install",
+      "command": "aimm add bsrgan",
+      "wait": 1
+    }
+  ],
+  "config": {
+    "lines": 12
   }
-]
+}

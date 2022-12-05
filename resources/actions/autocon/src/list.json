@@ -1,7 +1,12 @@
-[
-  {
-    "comment": "Check the models installed in the system",
-    "command": "aimm list",
-    "wait": 1
+{
+  "commands": [
+    {
+      "comment": "Check the models installed in the system",
+      "command": "aimm list",
+      "wait": 1
+    }
+  ],
+  "config": {
+    "lines": 12
   }
-]
+}

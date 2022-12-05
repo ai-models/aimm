@@ -1,7 +1,12 @@
-[
+{
+  "commands":[
   {
     "comment": "Get aimm license (and bundled licenses)",
     "command": "aimm --licenses",
     "wait": 1
   }
-]
+  ],
+  "config": {
+    "lines": 12
+  }
+}
