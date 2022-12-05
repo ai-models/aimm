@@ -32,7 +32,7 @@ if __name__ == '__main__':
                 if file.endswith('.asc'):
                     name = file.split('.asc')[0]
                     # read the json file
-                    scan_json(f"{DEFAULT_DIR}/src/{name}.json", "config")
+                    json_data = scan_json(f"{DEFAULT_DIR}/src/{name}.json", "config")
 
-                    os.system(f'./agg {DEFAULT_DIR}/src/{name}.asc {DEFAULT_DIR}/dist/{name}.gif')
+                    os.system(f'./agg --rows='+json_data['lines']+' {DEFAULT_DIR}/src/{name}.asc {DEFAULT_DIR}/dist/{name}.gif')
             
