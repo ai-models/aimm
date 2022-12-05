@@ -6,8 +6,7 @@ from termcolor import colored
 
 USERNAME="user"
 HOSTNAME="aimodels"
-FOLDER="aimm"
-DEFAULT_ECHO= f"[{USERNAME}@{HOSTNAME} {FOLDER}]$ "
+DEFAULT_ECHO= f"[{USERNAME}@{HOSTNAME}]$ "
 
 def typing_effect(text):
     for char in text:
@@ -23,12 +22,10 @@ def print_data(json_data):
     time.sleep(1)
     print(DEFAULT_ECHO, end='')
     for entry in json_data:
-        typing_effect(entry['command'])
         if 'comment' in entry:
             # comments should be gray
-            print(colored(' #' + entry['comment'], 'yellow'))
-        else:
-            print()
+            print(colored(f" # {entry['comment']} \ ", 'grey'))
+        typing_effect(entry['command'])
         # if command begins with aimm then it is a command
         if entry['command'].startswith('aimm'):
             command = entry['command'].split('aimm')[1]
