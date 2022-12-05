@@ -1,0 +1,7 @@
+ [
+  {
+    "comment": "Pickle scan the model",
+    "command": "aimm scan bsrgan",
+    "wait": 1
+  }
+ ]

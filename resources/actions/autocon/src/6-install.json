@@ -1,0 +1,7 @@
+[
+  {
+    "comment": "Install model to system",
+    "command": "aimm install Coqui_English_STT:yesno-v0.0.1",
+    "wait": 1
+  }
+]

@@ -1,0 +1,7 @@
+[
+  {
+    "comment": "Check for updates",
+    "command": "aimm --check-update",
+    "wait": 1
+  }
+]

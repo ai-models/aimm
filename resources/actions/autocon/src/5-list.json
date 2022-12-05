@@ -1,0 +1,7 @@
+[
+  {
+    "comment": "Check the models installed in the system",
+    "command": "aimm list",
+    "wait": 1
+  }
+]

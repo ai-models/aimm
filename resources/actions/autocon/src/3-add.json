@@ -1,0 +1,7 @@
+[
+  {
+    "comment": "[4/14] Add model to aimodels.json and install",
+    "command": "aimm add bsrgan",
+    "wait": 1
+  }
+]

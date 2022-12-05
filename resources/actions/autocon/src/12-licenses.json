@@ -1,0 +1,7 @@
+[
+  {
+    "comment": "Get aimm license (and bundled licenses)",
+    "command": "aimm --licenses",
+    "wait": 1
+  }
+]

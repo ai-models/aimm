@@ -1,0 +1,7 @@
+[
+  {
+    "comment": "[3/14] Search for models",
+    "command": "aimm search gan",
+    "wait": 1
+  }
+]

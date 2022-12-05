@@ -1,0 +1,7 @@
+[
+  {
+    "comment": "Get version of aimm",
+    "command": "aimm --version",
+    "wait": 1
+  }
+]
