@@ -6,7 +6,7 @@ DEFAULT_DIR = "resources/actions/autocon"
 
 if __name__ == '__main__':
     # delete directory /home/.runner/local/share/aimm
-    os.system(f"rm -rf /home/.runner/local/share/aimm")
+    # os.system(f"rm -rf /home/.runner/local/share/aimm")
     if len(sys.argv) >= 2:
         # change working directory to the main directory
         os.chdir(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))))
