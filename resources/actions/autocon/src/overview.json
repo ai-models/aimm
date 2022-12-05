@@ -30,7 +30,7 @@
   },
   {
     "comment": "Add model to aimodels.json and install",
-    "command": "Coqui_English_STT:yesno-v0.0.1",
+    "command": "aimm add Coqui_English_STT:yesno-v0.0.1",
     "wait": 1
   },
   {
