@@ -52,14 +52,23 @@ jobs:
       run: |
         mkdir -p docs
         mv resources/actions/autocon/dist/*.gif resources/docs/
+    - name: 📂 Deploy FTP
+      uses: SamKirkland/FTP-Deploy-Action@4.3.2
+      with:
+        server: ${{ secrets.FTP_SERVER }}
+        username: ${{ secrets.FTP_USER }}
+        password: ${{ secrets.FTP_PASSWORD }}
+        state-name: '.ftp-deploy-sync-state-images.json'
+        local-dir: "out/"
+        server-dir: "doc-images/"
 #    - name: Commit changes
 #      run: |
 #        git config --local user.name "GitHub Actions"
 #        git add resources/docs/
 #        git commit -m 'Update gifs'
-    - name: Push changes
-      uses: ad-m/github-push-action@master
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        branch: ${{ env.BRANCH_NAME }}
+#    - name: Push changes
+#      uses: ad-m/github-push-action@master
+#      with:
+#        github_token: ${{ secrets.GITHUB_TOKEN }}
+#        branch: ${{ env.BRANCH_NAME }}
 
