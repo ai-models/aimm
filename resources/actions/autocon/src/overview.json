@@ -69,7 +69,7 @@
     "wait": 1
   },
   {
-    "comment": "[13/14] The models are still in aimodels.json",
+    "comment": "[13/14] The models are still in aimodels.json (but removed from system)",
     "command": "cat aimodels.json",
     "wait": 1
   },
