@@ -11,7 +11,7 @@ VERSION = "alpha-4"
 def init():
     for arg in sys.argv:
         if arg in ('--version', '-v'):
-            print(f"AIMM {VERSION}")
+            print(f"AIMM: {VERSION}")
             sys.exit(0)
         if arg in ('--licenses'):
             if '--verbose' in sys.argv:
