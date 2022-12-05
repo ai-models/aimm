@@ -23,8 +23,6 @@ if __name__ == '__main__':
                 if file.endswith('.json'):
                     name = file.split('.json')[0]
                     os.system(f'{DEFAULT_COMMAND} {DEFAULT_DIR}/src/{name}.asc -c "python3 {DEFAULT_DIR}/json_typing.py {DEFAULT_DIR}/src/{name}.json"')
-                # read the json file
-                    scan_json(f"{DEFAULT_DIR}/src/{name}.json", "config")
         elif sys.argv[1] == "gif":
             # make dist folder
             if not os.path.exists(f"{DEFAULT_DIR}/dist"):
@@ -32,5 +30,8 @@ if __name__ == '__main__':
             for file in os.listdir(f"{DEFAULT_DIR}/src"):
                 if file.endswith('.asc'):
                     name = file.split('.asc')[0]
+                    # read the json file
+                    scan_json(f"{DEFAULT_DIR}/src/{name}.json", "config")
+
                     os.system(f'./agg {DEFAULT_DIR}/src/{name}.asc {DEFAULT_DIR}/dist/{name}.gif')
             
