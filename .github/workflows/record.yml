@@ -36,10 +36,10 @@ jobs:
       run: chmod +x agg
     - name: Convert to gif
       run: python3 resources/actions/autocon/gif_automate.py gif
-#    - name: Move gif
-#      run: |
-#        mkdir -p docs
-#        mv resources/actions/autocon/dist/*.gif resources/docs/
+    - name: Move gif
+      run: |
+        mkdir -p resources/actions/autocon/dist/docs
+        mv resources/actions/autocon/dist/*.gif resources/actions/autocon/dist/docs
     - name: 📂 Deploy FTP
       uses: SamKirkland/FTP-Deploy-Action@4.3.2
       with:
@@ -47,7 +47,7 @@ jobs:
         username: ${{ secrets.FTP_USER }}
         password: ${{ secrets.FTP_PASSWORD }}
         state-name: '.ftp-deploy-sync-state-images.json'
-        local-dir: "resources/actions/autocon/dist/*.gif"
+        local-dir: "resources/actions/autocon/dist/docs/"
         server-dir: "doc-images/"
 #    - name: Upload gif
 #      uses: actions/upload-artifact@v3
