@@ -20,6 +20,7 @@ def scan_json(path_to_file):
 
 def print_data(json_data):
     time.sleep(1)
+    print(DEFAULT_ECHO + 'start', end='')
     for entry in json_data:
         if 'comment' in entry:
             # comments should be gray
