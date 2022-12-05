@@ -36,18 +36,6 @@ jobs:
       run: chmod +x agg
     - name: Convert to gif
       run: python3 resources/actions/autocon/gif_automate.py gif
-    - name: Upload gif
-      uses: actions/upload-artifact@v3
-      with:
-      # upload all gifs in resources/actions/autocon/dist
-        name: gifs
-        path: resources/actions/autocon/dist
-    - name: Upload asciinema
-      uses: actions/upload-artifact@v3
-      with:
-      # upload all ascs in resources/actions/autocon/src
-        name: ascs
-        path: resources/actions/autocon/src/*.asc
     - name: Move gif
       run: |
         mkdir -p docs
@@ -59,8 +47,20 @@ jobs:
         username: ${{ secrets.FTP_USER }}
         password: ${{ secrets.FTP_PASSWORD }}
         state-name: '.ftp-deploy-sync-state-images.json'
-        local-dir: "out/"
+        local-dir: "resources/docs/"
         server-dir: "doc-images/"
+#    - name: Upload gif
+#      uses: actions/upload-artifact@v3
+#      with:
+#      # upload all gifs in resources/actions/autocon/dist
+#        name: gifs
+#        path: resources/actions/autocon/dist
+#    - name: Upload asciinema
+#      uses: actions/upload-artifact@v3
+#      with:
+#      # upload all ascs in resources/actions/autocon/src
+#        name: ascs
+#        path: resources/actions/autocon/src/*.asc
 #    - name: Commit changes
 #      run: |
 #        git config --local user.name "GitHub Actions"
