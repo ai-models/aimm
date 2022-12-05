@@ -37,5 +37,5 @@
     "comment": "Retrieve model path details from aimodels-lock.json",
     "command": "cat aimodels-lock.json",
     "wait": 1
-  },
+  }
 ]
