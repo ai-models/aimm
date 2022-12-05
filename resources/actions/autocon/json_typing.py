@@ -24,7 +24,7 @@ def print_data(json_data):
     for entry in json_data:
         if 'comment' in entry:
             # comments should be gray
-            typing_effect(' #' + entry['comment'] +'\n')
+            typing_effect('# ' + entry['comment'] +'\n')
         else:
             print()
         print(DEFAULT_ECHO, end='')
