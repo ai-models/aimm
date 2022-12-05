@@ -2,7 +2,7 @@
   "commands": [
     {
       "comment": "Get information about the model",
-      "command": "aimm info Coqui_English_STT:yesno-v0.0.1",
+      "command": "aimm info Coqui_English_STT",
       "wait": 1
     }
   ],
