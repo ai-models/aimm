@@ -29,7 +29,7 @@ jobs:
       - name: Build Linux Binary
         run: |
           pyinstaller --onefile aimm.py --add-data 'LICENSE:.' --name aimm --distpath dist/
-          cp changelog.txt dist/
+#          cp changelog.txt dist/
           cp LICENSE dist/
           cp resources/install/linux/Installation-Instructions.txt dist/
           mkdir out && cd dist && tar -zcvf ../out/aimm-linux-binary.tar.gz *
