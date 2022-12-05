@@ -22,6 +22,7 @@ def print_data(json_data):
     time.sleep(1)
     for entry in json_data:
         if 'comment' in entry:
+            print(DEFAULT_ECHO, end='')
             # comments should be gray
             typing_effect('# ' + entry['comment'] +'\n')
         else:
