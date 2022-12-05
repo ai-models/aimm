@@ -27,7 +27,8 @@ def print_data(json_data):
             typing_effect(' #' + entry['comment'] +'\n')
         else:
             print()
-        typing_effect(entry['command'])
+        print(DEFAULT_ECHO, end='')
+        typing_effect(entry['command'] + '\n')
         # if command begins with aimm then it is a command
         if entry['command'].startswith('aimm'):
             command = entry['command'].split('aimm')[1]
