@@ -22,12 +22,12 @@ def print_data(json_data):
     time.sleep(1)
     print(DEFAULT_ECHO, end='')
     for entry in json_data:
-        typing_effect(entry['command'])
         if 'comment' in entry:
             # comments should be gray
-            print(colored(' #' + entry['comment'], 'yellow'))
+            typing_effect(' #' + entry['comment'] +'\n')
         else:
             print()
+        typing_effect(entry['command'])
         # if command begins with aimm then it is a command
         if entry['command'].startswith('aimm'):
             command = entry['command'].split('aimm')[1]
