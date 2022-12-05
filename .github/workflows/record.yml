@@ -52,11 +52,11 @@ jobs:
       run: |
         mkdir -p docs
         mv resources/actions/autocon/dist/*.gif resources/docs/
-    - name: Commit changes
-      run: |
-        git config --local user.name "GitHub Actions"
-        git add resources/docs/
-        git commit -m 'Update gifs'
+#    - name: Commit changes
+#      run: |
+#        git config --local user.name "GitHub Actions"
+#        git add resources/docs/
+#        git commit -m 'Update gifs'
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:
