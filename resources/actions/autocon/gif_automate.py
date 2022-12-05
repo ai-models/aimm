@@ -1,7 +1,7 @@
 import os
 import sys
 
-from resources.actions.autocon.json_typing import scan_json
+from json_typing import scan_json
 
 DEFAULT_COMMAND = "asciinema rec"
 DEFAULT_DIR = "resources/actions/autocon"
