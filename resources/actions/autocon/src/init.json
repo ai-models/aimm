@@ -4,12 +4,12 @@
     "wait": 1
   },
   {
-    "comment": "[1/14] Initialize aimm in current directory",
+    "comment": "Initialize aimm in current directory",
     "command": "aimm init",
     "wait": 1
   },
   {
-    "comment": "[2/14] Note the created aimodels.json file",
+    "comment": "Note the created aimodels.json file",
     "command": "ls *.json",
     "wait": 1
   }
