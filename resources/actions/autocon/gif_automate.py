@@ -1,10 +1,15 @@
 import os
 import sys
 
-from json_typing import scan_json
 
 DEFAULT_COMMAND = "asciinema rec"
 DEFAULT_DIR = "resources/actions/autocon"
+
+def scan_json(path_to_file,key=None):
+    with open(path_to_file, 'r', encoding='utf-8') as f:
+        json_data = json.load(f)
+    return json_data[key]
+
 
 if __name__ == '__main__':
     # delete directory /home/.runner/local/share/aimm
