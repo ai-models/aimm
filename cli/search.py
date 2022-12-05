@@ -58,7 +58,6 @@ def search(name: str, include_adult: bool = typer.Option(False, "--include-adult
                     if len(versions) > 1:
                         typer.echo("    Other versions:")
                         typer.echo("      "+", ".join(list(set(version_list))))
-                    typer.echo()
                     count += 1
                 
     elif only_adult:
@@ -94,7 +93,6 @@ def search(name: str, include_adult: bool = typer.Option(False, "--include-adult
                         if len(versions) > 1:
                             typer.echo("    Other versions:")
                             typer.echo("      "+", ".join(list(set(version_list))))
-                        typer.echo()
                         count += 1
     else:
         for model in data["data"]:
@@ -120,5 +118,4 @@ def search(name: str, include_adult: bool = typer.Option(False, "--include-adult
                         if len(versions) > 1:
                             typer.echo("    Other versions:")
                             typer.echo("      "+", ".join(list(set(version_list))))
-                        typer.echo()
                         count += 1
