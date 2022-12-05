@@ -5,77 +5,77 @@
       "wait": 1
     },
     {
-      "comment": "[1/14] Initialize aimm in current directory",
+      "comment": "[1/15] Initialize aimm in current directory",
       "command": "aimm init",
       "wait": 1
     },
     {
-      "comment": "[2/14] Note the created aimodels.json file",
+      "comment": "[2/15] Note the created aimodels.json file",
       "command": "ls *.json",
       "wait": 1
     },
     {
-      "comment": "[3/14] Search for models",
+      "comment": "[3/15] Search for models",
       "command": "aimm search gan",
       "wait": 1
     },
     {
-      "comment": "[4/14] Add model to aimodels.json and install",
+      "comment": "[4/15] Add model to aimodels.json and install",
       "command": "aimm add bsrgan",
       "wait": 1
     },
     {
-      "comment": "[8/14] Pickle scan the model",
+      "comment": "[5/15] Pickle scan the model",
       "command": "aimm scan bsrgan",
       "wait": 1
     },
     {
-      "comment": "[5/14] Search for another model",
+      "comment": "[6/15] Search for another model",
       "command": "aimm search coqui_english",
       "wait": 1
     },
     {
-      "comment": "[6/14] Add model to aimodels.json and install",
+      "comment": "[7/15] Add model to aimodels.json and install",
       "command": "aimm add Coqui_English_STT:yesno-v0.0.1",
       "wait": 1
     },
     {
-      "comment": "[7/14] Observe the models in aimodels.json",
+      "comment": "[8/15] Observe the models in aimodels.json",
       "command": "cat aimodels.json",
       "wait": 1
     },
     {
-      "comment": "[9/14] Retrieve model path details from aimodels-lock.json",
+      "comment": "[9/15] Retrieve model path details from aimodels-lock.json",
       "command": "cat aimodels-lock.json",
       "wait": 1
     },
     {
-      "comment": "[12/14] Check the models installed in the system",
+      "comment": "[10/15] Check the models installed in the system",
       "command": "aimm list",
       "wait": 1
     },
     {
-      "comment": "[10/14] Remove model from system",
+      "comment": "[11/15] Remove model from system",
       "command": "aimm uninstall bsrgan",
       "wait": 1
     },
     {
-      "comment": "[11/14] Remove model from system",
+      "comment": "[12/15] Remove model from system",
       "command": "aimm uninstall Coqui_English_STT:yesno-v0.0.1",
       "wait": 1
     },
     {
-      "comment": "[12/14] Check the models installed in the system",
+      "comment": "[13/15] Check the models installed in the system",
       "command": "aimm list",
       "wait": 1
     },
     {
-      "comment": "[13/14] The models are still in aimodels.json (but removed from system)",
+      "comment": "[14/15] The models are still in aimodels.json (but removed from system)",
       "command": "cat aimodels.json",
       "wait": 1
     },
     {
-      "comment": "[14/14] The aimm install command installs all files in aimodels.json",
+      "comment": "[15/15] The aimm install command installs all files in aimodels.json",
       "command": "aimm install",
       "wait": 1
     }
