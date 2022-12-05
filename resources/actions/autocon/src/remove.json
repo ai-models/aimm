@@ -1,7 +1,7 @@
 [
   {
     "comment": "Remove model from system",
-    "command": "aimm uninstall bsrgan",
+    "command": "aimm remove bsrgan",
     "wait": 1
   }
 ]
