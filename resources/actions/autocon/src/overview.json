@@ -24,6 +24,11 @@
     "wait": 1
   },
   {
+    "comment": "[8/14] Pickle scan the model",
+    "command": "aimm scan bsrgan",
+    "wait": 1
+  },
+  {
     "comment": "[5/14] Search for another model",
     "command": "aimm search coqui_english",
     "wait": 1
@@ -39,13 +44,13 @@
     "wait": 1
   },
   {
-    "comment": "[8/14] Pickle scan the model",
-    "command": "aimm scan bsrgan",
+    "comment": "[9/14] Retrieve model path details from aimodels-lock.json",
+    "command": "cat aimodels-lock.json",
     "wait": 1
   },
   {
-    "comment": "[9/14] Retrieve model path details from aimodels-lock.json",
-    "command": "cat aimodels-lock.json",
+    "comment": "[12/14] Check the models installed in the system",
+    "command": "aimm list",
     "wait": 1
   },
   {
