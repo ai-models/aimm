@@ -5,7 +5,7 @@ PROGRAM_NAME = "aimm"
 WEBSITE = "https://aimodels.org"
 API_SERVER = "https://api.aimodels.org"
 GITHUB_REPO = "visioninit/aimm"
-VERSION = "0.4.0"
+VERSION = "0.4"
 
 
 def init():
