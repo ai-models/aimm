@@ -1,4 +1,4 @@
-import cli, sys
+import sys
 from cli import aimmApp
 
 PROGRAM_NAME = "aimm"
