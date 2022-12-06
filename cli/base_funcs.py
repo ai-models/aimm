@@ -120,6 +120,19 @@ def get_domain_from_url(download_url) -> str:
         domain = download_url.split("/")[0]
     return domain
 
+
+def get_model_path(name_version):
+    name, version = extract_name_version(name_version)
+    if version is None:
+        version = get_last_version(name)
+    for package in aimmApp.installed["packages"]:
+        if package["name"].lower() == name.lower() and package["version"] == version:
+            return package["paths"]
+    else:
+        typer.echo(f"Error: {name}:{version} not found")
+        return None
+
+
 # a function that updates aimodels-lock.json
 def update_ai_models_lock(name, version, path):
     # get current working directory
