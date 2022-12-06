@@ -4,7 +4,8 @@ import json
 import typer
 from picklescan import scanner
 
-from cli import aimmApp, base_funcs
+from cli import aimmApp
+from cli.base_funcs import extract_name_version, get_last_version
 
 app = aimmApp.app
 
@@ -18,6 +19,16 @@ def hash_file(filename):
 
     return hash_obj.hexdigest()
 
+def get_model_path(name_version):
+    name, version = extract_name_version(name_version)
+    if version is None:
+        version = get_last_version(name)
+    for package in aimmApp.installed["packages"]:
+        if package["name"].lower() == name.lower() and package["version"] == version:
+            return package["paths"]
+    else:
+        typer.echo(f"Error: {name}:{version} not found")
+        return None
 
 def get_maximum_danger(result_globals) -> str:
     safety = None
@@ -40,7 +51,7 @@ def scan(name_version: str, raw: bool = typer.Option(False, "--raw", "-r")):
     """
     Scan a file for malicious code.
     """
-    model_path = base_funcs.get_model_path(name_version)
+    model_path = get_model_path(name_version)
     if model_path:
         for file in os.listdir(model_path):
             path = os.path.join(model_path, file)
