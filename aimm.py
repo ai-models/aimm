@@ -5,13 +5,13 @@ PROGRAM_NAME = "aimm"
 WEBSITE = "https://aimodels.org"
 API_SERVER = "https://api.aimodels.org"
 GITHUB_REPO = "visioninit/aimm"
-VERSION = "alpha-3.1.1."
+VERSION = "4.0.0"
 
 
 def init():
     for arg in sys.argv:
         if arg in ('--version', '-v'):
-            print(f"AIMM (AI Model Manager) Version: {VERSION}")
+            print(f"AIMM Version: {VERSION}")
             sys.exit(0)
         if arg in ('--licenses'):
             if '--verbose' in sys.argv:
