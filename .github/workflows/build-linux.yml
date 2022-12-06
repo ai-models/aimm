@@ -2,7 +2,7 @@ name: Linux Build
 
 on:
   push:
-    branches: [ dev, main, debtest ]
+    branches: [ dev, main, updatedoc ]
   workflow_dispatch:
 jobs:
   build-lin:

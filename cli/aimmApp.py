@@ -53,7 +53,7 @@ def show_help(program_name):
     print()
     print("System Wide:")
     print("  list                                        List all installed models.")
-    print("  info <model_name>:[version]                 Get info about a model (name, version, description, etc).")
+    print("  info <model_name>                           Get info about a model (name, version, description, etc).")
     print("  install <model_name>:[version]              Install a model to system.")
     print("  uninstall <model_name>:[version]            Uninstall a model.")
     print("  scan <model_name>:[version]                 Scan model for pickles and potential issues.")

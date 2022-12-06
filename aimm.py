@@ -1,4 +1,4 @@
-import sys
+import cli, sys
 from cli import aimmApp
 
 PROGRAM_NAME = "aimm"
@@ -11,7 +11,7 @@ VERSION = "0.4.0"
 def init():
     for arg in sys.argv:
         if arg in ('--version', '-v'):
-            print(f"AI Models Manager Version: {VERSION}")
+            print(f"AIMM Version: {VERSION}")
             sys.exit(0)
         if arg in ('--licenses'):
             if '--verbose' in sys.argv:
