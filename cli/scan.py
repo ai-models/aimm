@@ -1,13 +1,12 @@
-import os
 import hashlib
 import json
+import os
+
 import typer
-import picklescan
 
-# from cli import aimmApp, base_funcs
+from cli import aimmApp, base_funcs
 
-import cli
-app = cli.aimmApp.app
+app = aimmApp.app
 
 def hash_file(filename):
     hash_obj = hashlib.sha256()
@@ -27,11 +26,11 @@ def get_maximum_danger(result_globals) -> str:
         elif safety.value < module.safety.value:
             safety = module.safety
     match safety:
-        case cli.scanner.SafetyLevel.Innocuous:
+        case scanner.SafetyLevel.Innocuous:
             safety = "innocuous"
-        case cli.scanner.SafetyLevel.Suspicious:
+        case scanner.SafetyLevel.Suspicious:
             safety = "suspicious"
-        case cli.scanner.SafetyLevel.Dangerous:
+        case scanner.SafetyLevel.Dangerous:
             safety = "dangerous"
     return safety
 
@@ -40,11 +39,11 @@ def scan(name_version: str, raw: bool = typer.Option(False, "--raw", "-r")):
     """
     Scan a file for malicious code.
     """
-    model_path = cli.base_funcs.get_model_path(name_version)
+    model_path = base_funcs.get_model_path(name_version)
     if model_path:
         for file in os.listdir(model_path):
             path = os.path.join(model_path, file)
-            result = cli.scanner.scan_file_path(path)
+            result = scanner.scan_file_path(path)
             if not raw:
                 print(f"Scanning {path}...")
                 print(f"scanned files: {result.scanned_files}")
