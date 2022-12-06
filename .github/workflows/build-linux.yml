@@ -19,8 +19,8 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           pip install pyinstaller
-#      - name: Generate change log
-#        run: |
+      - name: Generate change log
+        run: |
           git clone https://github.com/visioninit/aimm
 #          cd aimm
 #          git log $(git describe --tags --abbrev=0)..HEAD --pretty=format:' * %s' | sed '/Merge/d' > changelog.txt
