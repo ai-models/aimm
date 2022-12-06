@@ -2,11 +2,11 @@ name: Linux Build
 
 on:
   push:
-    branches: [ dev, main, updatedoc ]
+    branches: [ dev, main ]
   workflow_dispatch:
 jobs:
   build-lin:
-    if: contains(github.event.head_commit.message, '[build-linux]') # only run if commit message contains [build]
+    if: contains(github.event.head_commit.message, '[build-linux]' || github.event_name == 'workflow_dispatch') # only run if commit message contains [build]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3

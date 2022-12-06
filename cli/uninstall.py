@@ -30,16 +30,16 @@ def uninstall(name_version: Optional[str] = typer.Argument(None)):
                     break
                 else:
                     typer.echo("Invalid version")
-            uninstall(f"{name}:{version}")
+            uninstall(package["name"]+":"+package["version"])
         elif len(versions) == 0:
-            typer.echo(f"{name} not installed")
+            typer.echo(f"Model package not installed")
             sys.exit(1)
         else:
             version = versions[0]
-            uninstall(f"{name}:{version}")
+            uninstall(package["name"]+":"+package["version"])
     else:
         # if installed is empty exit
-        if aimmApp.installed["packages"] == []:
+        if not aimmApp.installed["packages"]:
             typer.echo("Error: No packages installed")
             return
         else:
@@ -64,4 +64,4 @@ def uninstall(name_version: Optional[str] = typer.Argument(None)):
                     typer.echo(f"Uninstalled {name_version}!")
                     deleted = True
         if not deleted:
-            typer.echo(f"Error: {name_version} not found")
+            typer.echo(f"Error: Model not found")

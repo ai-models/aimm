@@ -2,11 +2,11 @@ name: MacOS Build
 
 on:
   push:
-    branches: [ dev, main, debtest ]
+    branches: [ dev, main ]
   workflow_dispatch:
 jobs:
   build-mac-installer:
-    if: contains(github.event.head_commit.message, '[build-mac]') # only run if commit message contains [build]
+    if: contains(github.event.head_commit.message, '[build-mac]' || github.event_name == 'workflow_dispatch') # only run if commit message contains [build]
     runs-on: macos-11
     steps:
       - uses: actions/checkout@v3
