@@ -44,24 +44,24 @@ def uninstall(name_version: Optional[str] = typer.Argument(None)):
             return
         else:
             for package in aimmApp.installed["packages"]:
-                if name in package["name"] or package["version"] == version:
-                    typer.echo(f"Uninstalling {name_version}...")
-
-                    # update installed.json
-                    for entry in aimmApp.installed["packages"]:
-                        if entry["name"] == name and entry["version"] == version:
-                            aimmApp.installed["packages"].remove(entry)
-
-                    with open(aimmApp.installed_json, "w") as file:
-                        json.dump(aimmApp.installed, file, indent=4)
-                    # remove the model
-                    model_dir = os.path.join(aimmApp.main_dir, name)
+                if name.lower() in package["name"].lower() or package["version"] == version:
+                    model_dir = package["paths"]
+                    typer.echo(f'Uninstalling {package["name"]}:{package["version"]}')
+                    typer.echo(f'from {model_dir}...')
                     try:
-                        shutil.rmtree(model_dir  + "/" + version)
+                        shutil.rmtree(model_dir)
                     except Exception as e:
                         typer.echo(f"Error: {e}")
                         sys.exit(1)
-                    typer.echo(f"Uninstalled {name_version}!")
+                    # update installed.json
+                    try:
+                        aimmApp.installed["packages"].remove(package)
+                    except Exception as e:
+                        typer.echo(f"Error: {e}")
+                    with open(aimmApp.installed_json, "w") as file:
+                        json.dump(aimmApp.installed, file, indent=4)
+                    typer.echo(f"Uninstalled {package['name']}:{package['version']}!")
+                    
                     deleted = True
         if not deleted:
             typer.echo(f"Error: Model not found")
