@@ -22,11 +22,11 @@ jobs:
       - name: Generate change log
         run: |
           git clone https://github.com/visioninit/aimm
-#          cd aimm
-#          git log $(git describe --tags --abbrev=0)..HEAD --pretty=format:' * %s' | sed '/Merge/d' > changelog.txt
-#          cp changelog.txt ..
-#          cd ..
-#          cp changelog.txt dist/
+          cd aimm
+          git log $(git describe --tags --abbrev=0)..HEAD --pretty=format:' * %s' | sed '/Merge/d' > changelog.txt
+          cp changelog.txt ..
+          cd ..
+          cp changelog.txt dist/
       - name: Build Linux Binary
         run: |
           pyinstaller --onefile aimm.py --add-data 'LICENSE:.' --name aimm --distpath dist/
