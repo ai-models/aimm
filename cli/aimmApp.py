@@ -81,7 +81,7 @@ def check_for_updates(repo, current_version):
             latest_version = r.json()["tag_name"]
             if latest_version != current_version:
                 typer.echo(f"Update available: {current_version} → {latest_version}")
-                typer.echo("  Latest version: https://github.com/visioninit/aimm/releases/latest")
+                typer.echo(f"  Latest version: https://github.com/{repo}/releases/latest")
             else:
                 typer.echo("No updates available.")
         else:
