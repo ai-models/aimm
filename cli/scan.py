@@ -2,7 +2,8 @@ import os
 import hashlib
 import json
 import typer
-from picklescan import scanner
+import picklescan
+
 from cli import aimmApp, base_funcs
 
 app = aimmApp.app
