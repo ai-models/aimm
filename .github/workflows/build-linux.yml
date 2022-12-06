@@ -44,6 +44,9 @@ jobs:
           dist/aimm search GFPGAN
       - name: set package version
         run: |
+          echo "***************************************"
+          dist/aimm --version
+          echo "***************************************"
           echo "DEBIAN_PACKAGE_VERSION=$(dist/aimm --version | awk -F: '{print $2}' | tr -d ' ')+$(date +%Y%m%d%H%M)" >> $GITHUB_ENV
       - name: Build Debian Package
         run: |
