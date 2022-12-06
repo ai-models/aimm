@@ -94,8 +94,12 @@ def show_licenses(verbose: bool = False):
     # check if running as a pyinstaller executable
     if getattr(sys, 'frozen', False):
         path = sys._MEIPASS
-    else:
+    # check if running as a python script
+    elif __file__:
         path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    # is running as pynsist
+    else:
+        path = sys.executable
     if sys.platform == "win32":
         temp = os.getenv("TEMP")
     elif sys.platform in ("linux", "darwin"):
