@@ -26,6 +26,7 @@ jobs:
           git log $(git describe --tags --abbrev=0)..HEAD --pretty=format:' * %s' | sed '/Merge/d' > changelog.txt
           cp changelog.txt ..
           cd ..
+          mkdir dist
           cp changelog.txt dist/
       - name: Build Linux Binary
         run: |
