@@ -10,5 +10,5 @@ from cli import (base_funcs,
                  remove,
                  security,
                  credentials,
-                 pickle
+                 scan
                  )
