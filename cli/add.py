@@ -25,6 +25,8 @@ def add(name_version: str, mut_path: bool = typer.Option(False, "--unsafe-url"))
     
     if base_funcs.should_install(name, version):
         install.install(name_version,mut_path=mut_path)
+        if install.header == True:
+            sys.exit(1)
     else:
         # add to aimodels-lock.json
         save_path = os.path.join(aimmApp.main_dir, name, version)
