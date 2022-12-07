@@ -92,7 +92,7 @@ def install(name_version: Optional[str] = typer.Argument(None),
                         typer.echo(f"Error: Model {name}:{version} not found")
                         return
                     
-                    save_path = os.path.join(aimmApp.main_dir, name, version)
+                    save_path = os.path.join(aimmApp.main_dir, name.lower(), version.lower())
                     if not os.path.exists(save_path):
                         os.makedirs(save_path)
                     # if auth_required is set, check for creds
@@ -132,6 +132,6 @@ def install(name_version: Optional[str] = typer.Argument(None),
                     json.dump(aimmApp.installed, file, indent=4)
                 typer.echo(f"Installed {name}:{version}!")
     else: 
-        save_path = os.path.join(aimmApp.main_dir, name, version)
+        save_path = os.path.join(aimmApp.main_dir, name.lower(), version.lower())
         base_funcs.update_ai_models_lock(name, version, save_path)
         typer.echo(f"Found Local: {name}:{version}")

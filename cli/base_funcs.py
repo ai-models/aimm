@@ -135,6 +135,9 @@ def get_model_path(name_version):
 
 # a function that updates aimodels-lock.json
 def update_ai_models_lock(name, version, path):
+    # make name and version case insensitive
+    name = name.lower()
+    version = version.lower()
     # get current working directory
     cwd = os.getcwd()
     aimodels_lock_file = os.path.join(cwd, "aimodels-lock.json")
