@@ -100,6 +100,7 @@ def show_licenses(verbose: bool = False):
     # is running as pynsist
     else:
         path = sys.executable
+        path = os.path.dirname(path)
     if sys.platform == "win32":
         temp = os.getenv("TEMP")
     elif sys.platform in ("linux", "darwin"):
