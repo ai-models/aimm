@@ -162,8 +162,12 @@ def update_ai_models_lock(name, version, path):
             json.dump(aimodels_lock, f, indent=4)
     else:
         # read aimodels-lock.json
-        with open("aimodels-lock.json", "r") as f:
-            aimodels_lock = json.load(f)
+        try:
+            with open("aimodels-lock.json", "r") as f:
+                aimodels_lock = json.load(f)
+        except json.JSONDecodeError:
+            typer.echo("Error: aimodels-lock.json is corrupted")
+            sys.exit(1)
         # check if name and version already exist if not append
         if f"{name}:{version}" not in aimodels_lock["packages"]:
             try:
