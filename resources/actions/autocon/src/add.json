@@ -1,4 +1,8 @@
 {
+  "setup-commands": [
+    "aimm init",
+    "aimm install bsrgan"
+  ],
   "commands": [
     {
       "comment": "Add model to aimodels.json and install",

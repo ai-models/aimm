@@ -1,4 +1,8 @@
 {
+  "setup-commands": [
+    "aimm init",
+    "aimm install bsrgan"
+  ],
   "commands": [
     {
       "comment": "Pickle scan the model",

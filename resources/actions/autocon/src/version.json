@@ -1,10 +1,12 @@
-{ "commands": [
-  {
-    "comment": "Get version of aimm",
-    "command": "aimm --version",
-    "wait": 1
-  }],
-    "config": {
+{
+  "commands": [
+    {
+      "comment": "Check the version installed in the system",
+      "command": "aimm --version",
+      "wait": 1
+    }
+  ],
+  "config": {
     "lines": 12
   }
 }
