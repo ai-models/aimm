@@ -16,8 +16,8 @@ def process_jsons():
   # for every json file run json_typing.py
   for file in os.listdir(f"{DEFAULT_DIR}/src"):
     if file.endswith('.json'):
-      reset_env(f'{DEFAULT_DIR}/src/{name}.json')
       name = file.split('.json')[0]
+      reset_env(f'{DEFAULT_DIR}/src/{name}.json')
       os.system(
         f'asciinema rec {DEFAULT_DIR}/src/{name}.asc -c "python3 {DEFAULT_DIR}/json_typing.py {DEFAULT_DIR}/src/{name}.json"')
 
