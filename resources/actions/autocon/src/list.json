@@ -1,4 +1,7 @@
 {
+  "setup-commands": [
+    "aimm install bsrgan"
+  ],
   "commands": [
     {
       "comment": "Check the models installed in the system",
