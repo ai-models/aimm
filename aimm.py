@@ -10,7 +10,7 @@ VERSION = "0.4.0"
 
 def init():
     for arg in sys.argv:
-        if ('--version', '-v') in arg:
+        if ('--version, -v') in arg:
             print(f"AIMM Version: {VERSION}")
             sys.exit(0)
         if ('--licenses') in arg:
