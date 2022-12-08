@@ -20,9 +20,13 @@ def scan_json(path_to_file,key=None):
         return json_data[key]
 
 def print_data(json_data, setup=None):
-    os.system(f"rm -rf /home/.runner/local/share/aimm")
-    os.system(f"rm aimodels*.json")
-    print('AIMM Demo: Basic Usage')
+    if os.path.exists("/home.runner/local/share/aimm"):
+        os.system("rm -rf /home.runner/local/share/aimm")
+    if os.path.exists("aimodels.json"):
+        os.system("rm aimodels.json")
+    if os.path.exists("aimodels-lock.json"):
+        os.system("rm aimodels-lock.json")
+    print('AIMM Demo')
     # if setup has values iterate through them
     if setup:
         for command in setup:
