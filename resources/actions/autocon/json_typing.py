@@ -19,13 +19,8 @@ def scan_json(path_to_file,key=None):
     if key in json_data:
         return json_data[key]
 
-def print_data(json_data, setup=None):
+def print_data(json_data):
     print('AIMM Demo')
-    # if setup has values iterate through them
-    if setup:
-        for command in setup:
-            os.system(command)
-            print('setup command: ' + command)
     for entry in json_data:
         if 'comment' in entry:
             # comments should be gray
@@ -50,6 +45,5 @@ arguments = sys.argv
 if len(arguments) >= 2:
     path = arguments[1]
     data = scan_json(path,'commands')
-    setup_commands = scan_json(path, 'setup-commands')
     print_data(data, setup_commands)
 
