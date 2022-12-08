@@ -22,11 +22,9 @@ def reset_env(path):
         os.system("rm aimodels-lock.json")
     # if setup has values iterate through them
     setup = scan_json(path, 'setup-commands')
-    print(f'DEBUG: ran {setup}')
     if setup:
         for command in setup:
             os.system(command)
-            print(f'DEBUG: ran {command}')
 
 
 def process_jsons():
