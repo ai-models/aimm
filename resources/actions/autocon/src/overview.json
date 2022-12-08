@@ -78,6 +78,31 @@
       "comment": "[15/15] The aimm install command installs all files in aimodels.json",
       "command": "aimm install",
       "wait": 1
+    },
+    {
+      "comment": "[15/15] The aimm install command installs all files in aimodels.json",
+      "command": "aimm --version",
+      "wait": 1
+    },
+        {
+      "comment": "[15/15] The aimm install command installs all files in aimodels.json",
+      "command": "aimm --check-update",
+      "wait": 1
+    },
+    {
+      "comment": "[15/15] The aimm install command installs all files in aimodels.json",
+      "command": "aimm --licenses",
+      "wait": 1
+    },
+    {
+      "comment": "[15/15] The aimm install command installs all files in aimodels.json",
+      "command": "aimm info",
+      "wait": 1
+    },
+            {
+      "comment": "[15/15] The aimm install command installs all files in aimodels.json",
+      "command": "aimm info bsrgan",
+      "wait": 1
     }
   ],
   "config": {
