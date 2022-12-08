@@ -1,7 +1,7 @@
 import prettytable
 import typer
 from prettytable import PrettyTable
-
+import os
 from cli import base_funcs as base_funcs, aimmApp
 
 app = aimmApp.app
@@ -18,7 +18,8 @@ def list():
     table.align["Version"] = "r"
     table.align["Size"] = "r"
     for package in aimmApp.installed["packages"]:
-        # add another entry if more than one path
-        table.add_row([package["name"], package["version"], package["size"], package["paths"]])
-    
+        # edit paths to use tilde instead of home directory
+        path = package["paths"].replace(os.path.expanduser("~"), "~")
+        table.add_row([package["name"], package["version"], package["size"], path])
+
     typer.echo(table)
