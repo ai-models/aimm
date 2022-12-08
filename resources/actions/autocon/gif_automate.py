@@ -53,7 +53,7 @@ def create_gifs():
 
 if __name__ == '__main__':
   # change working directory to the main directory
-  os.chdir(os.path.dirname(os.path.abspath(__file__)))
+  # os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
   if len(sys.argv) >= 2:
     if sys.argv[1] == "asc":
