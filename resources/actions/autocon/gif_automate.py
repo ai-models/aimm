@@ -8,8 +8,8 @@ DEFAULT_DIR = "/home/runner/work/aimm/aimm/resources/actions/autocon"
 def scan_json(path_to_file, key=None):
   with open(path_to_file, 'r', encoding='utf-8') as f:
     json_data = json.load(f)
-  return json_data[key]
-
+  if key in json_data:
+    return json_data[key]
 
 def process_jsons():
   # for every json file run json_typing.py
