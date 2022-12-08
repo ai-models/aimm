@@ -16,7 +16,8 @@ def typing_effect(text):
 def scan_json(path_to_file,key=None):
     with open(path_to_file, 'r', encoding='utf-8') as f:
         json_data = json.load(f)
-    return json_data[key]
+      #if key is empty return empty list, else return json_data[key]
+    return json_data[key] if key else []
 
 def print_data(json_data, setup=None):
     if setup is None:
