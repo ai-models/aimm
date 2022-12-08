@@ -20,6 +20,8 @@ def scan_json(path_to_file,key=None):
         return json_data[key]
 
 def print_data(json_data, setup=None):
+    os.system(f"rm -rf /home/.runner/local/share/aimm")
+    os.system(f"rm aimodels*.json")
     print('AIMM Demo: Basic Usage')
     # if setup has values iterate through them
     if setup:
