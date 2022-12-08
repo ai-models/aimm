@@ -12,25 +12,7 @@ def scan_json(path_to_file, key=None):
     return json_data[key]
 
 
-def process_jsons():
-  # for every json file run json_typing.py
-  for file in os.listdir(f"{DEFAULT_DIR}/src"):
-    if file.endswith('.json'):
-      name = file.split('.json')[0]
-      reset_env(f'{DEFAULT_DIR}/src/{name}.json')
-      os.system(
-        f'asciinema rec {DEFAULT_DIR}/src/{name}.asc -c "python3 {DEFAULT_DIR}/json_typing.py {DEFAULT_DIR}/src/{name}.json"')
-
-
 def reset_env(path):
-  setup = scan_json(path, 'setup-commands')
-# make a big comment that I can see in log output
-  print('*' * 80)
-  print('setup-commands:')
-  print(setup)
-  print('*' * 80)
-
-
   # reset the terminal environment
   if os.path.exists("/home/runner/.local/share/aimm"):
     os.system("rm -fr /home/runner/.local/share/aimm")
@@ -39,10 +21,19 @@ def reset_env(path):
   if os.path.exists("aimodels-lock.json"):
     os.system("rm aimodels-lock.json")
   # if setup has values iterate through them
+  setup = scan_json(path, 'setup-commands')
   if setup:
     for command in setup:
       os.system(command)
-      print('setup command: ' + command)
+
+def process_jsons():
+  # for every json file run json_typing.py
+  for file in os.listdir(f"{DEFAULT_DIR}/src"):
+    if file.endswith('.json'):
+      name = file.split('.json')[0]
+      reset_env(f'{DEFAULT_DIR}/src/{name}.json')
+      os.system(
+        f'asciinema rec {DEFAULT_DIR}/src/{name}.asc -c "python3 {DEFAULT_DIR}/json_typing.py {DEFAULT_DIR}/src/{name}.json"')
 
 
 def create_gifs():
@@ -58,9 +49,6 @@ def create_gifs():
 
 
 if __name__ == '__main__':
-  # change working directory to the main directory
-  # os.chdir(os.path.dirname(os.path.abspath(__file__)))
-
   if len(sys.argv) >= 2:
     if sys.argv[1] == "asc":
       process_jsons()
