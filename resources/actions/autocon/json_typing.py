@@ -16,13 +16,10 @@ def typing_effect(text):
 def scan_json(path_to_file,key=None):
     with open(path_to_file, 'r', encoding='utf-8') as f:
         json_data = json.load(f)
-      #if key is empty return empty list, else return json_data[key]
-    return json_data[key] if key else []
+    if key in json_data:
+        return json_data[key]
 
 def print_data(json_data, setup=None):
-    if setup is None:
-        setup = []
-    time.sleep(1)
     print('AIMM Demo: Basic Usage')
     # if setup has values iterate through them
     if setup:
@@ -53,6 +50,6 @@ arguments = sys.argv
 if len(arguments) >= 2:
     path = arguments[1]
     data = scan_json(path,'commands')
-    setup_commands = scan_json(path, 'setup_commands')
+    setup_commands = scan_json(path, 'setup-commands')
     print_data(data, setup_commands)
 
