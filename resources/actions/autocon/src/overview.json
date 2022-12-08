@@ -5,6 +5,14 @@
       "wait": 1
     },
     {
+      "command": "aimm list",
+      "wait": 1
+    },
+    {
+      "command": "ls /home/runner/.local/share/",
+      "wait": 1
+    },
+    {
       "comment": "[1/15] Initialize aimm in current directory",
       "command": "aimm init",
       "wait": 1
