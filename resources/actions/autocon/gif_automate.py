@@ -23,6 +23,12 @@ def process_jsons():
 
 def reset_env(path):
   setup = scan_json(path, 'setup-commands')
+# make a big comment that I can see in log output
+  print('*' * 80)
+  print('setup-commands:')
+  print(setup)
+  print('*' * 80)
+
 
   # reset the terminal environment
   if os.path.exists("/home/runner/.local/share/aimm"):
