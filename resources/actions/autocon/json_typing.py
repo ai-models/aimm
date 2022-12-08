@@ -18,9 +18,12 @@ def scan_json(path_to_file,key=None):
         json_data = json.load(f)
     return json_data[key]
 
-def print_data(json_data ,setup ):
+def print_data(json_data, setup=None):
+    if setup is None:
+        setup = []
     time.sleep(1)
     print('AIMM Demo: Basic Usage')
+    # if setup has values iterate through them
     if setup:
         for command in setup:
             os.system(command)
