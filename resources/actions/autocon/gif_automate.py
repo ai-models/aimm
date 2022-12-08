@@ -11,6 +11,7 @@ def scan_json(path_to_file, key=None):
   if key in json_data:
     return json_data[key]
 
+
 def process_jsons():
   # for every json file run json_typing.py
   for file in os.listdir(f"{DEFAULT_DIR}/src"):
@@ -46,8 +47,8 @@ def create_gifs():
       name = file.split('.asc')[0]
       json_data = scan_json(f"{DEFAULT_DIR}/src/{name}.json", "config")
       reset_env(f'{DEFAULT_DIR}/src/{name}.json')
-      os.system(
-        f'./agg --rows=' + str(json_data['lines']) + f' {DEFAULT_DIR}/src/{name}.asc {DEFAULT_DIR}/dist/{name}.gif')
+    os.system(
+      f'./agg --rows=' + str(json_data['lines']) + f' {DEFAULT_DIR}/src/{name}.asc {DEFAULT_DIR}/dist/{name}.gif')
 
 
 if __name__ == '__main__':

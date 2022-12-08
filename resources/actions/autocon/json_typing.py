@@ -2,7 +2,6 @@ import json
 import os
 import sys
 import time
-from termcolor import colored
 
 USERNAME="user"
 HOSTNAME="aimodels"
