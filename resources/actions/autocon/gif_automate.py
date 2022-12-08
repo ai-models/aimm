@@ -2,7 +2,7 @@ import json
 import os
 import sys
 
-DEFAULT_DIR = "/home/runner/work/aimm/resources/actions/autocon"
+DEFAULT_DIR = "/home/runner/work/aimm/aimm/resources/actions/autocon"
 
 
 def scan_json(path_to_file, key=None):
