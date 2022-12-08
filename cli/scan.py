@@ -2,8 +2,8 @@ import hashlib
 import json
 import os
 
-import picklescan
 import typer
+from picklescan import scanner
 
 from cli import aimmApp, base_funcs
 
@@ -27,11 +27,11 @@ def get_maximum_danger(result_globals) -> str:
         elif safety.value < module.safety.value:
             safety = module.safety
     match safety:
-        case picklescan.scanner.SafetyLevel.Innocuous:
+        case scanner.SafetyLevel.Innocuous:
             safety = "innocuous"
-        case picklescan.scanner.SafetyLevel.Suspicious:
+        case scanner.SafetyLevel.Suspicious:
             safety = "suspicious"
-        case picklescan.scanner.SafetyLevel.Dangerous:
+        case scanner.SafetyLevel.Dangerous:
             safety = "dangerous"
     return safety
 
