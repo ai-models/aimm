@@ -1,8 +1,10 @@
+import os
+
 import prettytable
 import typer
 from prettytable import PrettyTable
-import os
-from cli import base_funcs as base_funcs, aimmApp
+
+from cli import aimmApp
 
 app = aimmApp.app
 @app.command()

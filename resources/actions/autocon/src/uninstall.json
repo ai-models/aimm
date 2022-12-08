@@ -1,6 +1,6 @@
 {
   "setup-commands": [
-    "aimm install bsrgan"
+    "python aimm.py install bsrgan"
   ],
   "commands": [
     {
