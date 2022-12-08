@@ -50,5 +50,5 @@ if len(arguments) >= 2:
     path = arguments[1]
     data = scan_json(path,'commands')
     setup_commands = scan_json(path, 'setup_commands')
-    print_data(data, setup)
+    print_data(data, setup_commands)
 
