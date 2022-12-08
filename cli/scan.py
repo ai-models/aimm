@@ -1,10 +1,8 @@
 import hashlib
 import json
 import os
-
 import typer
 from picklescan import scanner
-
 from cli import aimmApp, base_funcs
 
 app = aimmApp.app
@@ -44,7 +42,7 @@ def scan(name_version: str, raw: bool = typer.Option(False, "--raw", "-r")):
     if model_path:
         for file in os.listdir(model_path):
             path = os.path.join(model_path, file)
-            result = picklescan.scanner.scan_file_path(path)
+            result = scanner.scan_file_path(path)
             if not raw:
                 print(f"Scanning {path}...")
                 print(f"scanned files: {result.scanned_files}")
