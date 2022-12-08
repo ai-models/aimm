@@ -20,7 +20,7 @@ def process_jsons():
         f'asciinema rec {DEFAULT_DIR}/src/{name}.asc -c "python3 {DEFAULT_DIR}/json_typing.py {DEFAULT_DIR}/src/{name}.json"')
 
 
-def reset_env():
+def reset_env(path):
   setup = scan_json(path, 'setup-commands')
 
   # reset the terminal environment
@@ -45,7 +45,7 @@ def create_gifs():
     if file.endswith('.asc'):
       name = file.split('.asc')[0]
       json_data = scan_json(f"{DEFAULT_DIR}/src/{name}.json", "config")
-      reset_env()
+      reset_env(f'{DEFAULT_DIR}/src/{name}.json')
       os.system(
         f'./agg --rows=' + str(json_data['lines']) + f' {DEFAULT_DIR}/src/{name}.asc {DEFAULT_DIR}/dist/{name}.gif')
 
