@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 jobs:
   build-win:
-    if: contains(github.event.head_commit.message, '[build-win]' || github.event_name == 'workflow_dispatch') # only run if commit message contains [build]
+    if: contains(github.event.head_commit.message, '[build-win]') || github.event_name == 'workflow_dispatch' # only run if commit message contains [build]
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v3
