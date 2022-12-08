@@ -20,8 +20,8 @@ def scan_json(path_to_file,key=None):
         return json_data[key]
 
 def print_data(json_data, setup=None):
-    if os.path.exists("/home/runner/work/share/aimm"):
-        os.system("rm -rf /home/runner/work/share/aimm")
+    if os.path.exists("/home/runner/.local/share/aimm"):
+        os.system("rm -rf /home/runner/.local/share/aimm")
     if os.path.exists("aimodels.json"):
         os.system("rm aimodels.json")
     if os.path.exists("aimodels-lock.json"):
