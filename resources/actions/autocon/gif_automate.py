@@ -31,10 +31,7 @@ def process_jsons():
   for file in os.listdir(f"{DEFAULT_DIR}/src"):
     if file.endswith('.json'):
       name = file.split('.json')[0]
-      os.system('rm -fr /home/runner/.local/share/aimm &&'
-                'rm -fr /home/runner/.local/share/aimm/ &&'
-                'rm -fr /home/runner/.local/share/aimm/* &&'
-                'rm -f aimodels.json &&'
+      os.system('rm -f aimodels.json &&'
                 'rm -f aimodels-lock.json &&'
                 f'{shutil.rmtree("/home/runner/.local/share")} &&'
                 f'{setup(file)}'
