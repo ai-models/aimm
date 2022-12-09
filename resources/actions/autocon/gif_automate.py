@@ -12,9 +12,6 @@ def scan_json(path_to_file, key=None):
     return json_data[key]
 
 
-def reset_env(path):
-
-
 def process_jsons():
   # for every json file run json_typing.py
   for file in os.listdir(f"{DEFAULT_DIR}/src"):
