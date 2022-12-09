@@ -35,9 +35,7 @@ def process_jsons():
       name = file.split('.json')[0]
       os.system('rm -f aimodels.json &&'
                 'rm -f aimodels-lock.json &&'
-                # check for /home/runner/.local/share/aimm and delete it
                 'rm -rf /home/runner/.local/share/aimm &&'
-                f'{setup(file)} &&'
                 f'asciinema rec {DEFAULT_DIR}/src/{name}.asc -c "python3 {DEFAULT_DIR}/json_typing.py {DEFAULT_DIR}/src/{name}.json"')
 
 
