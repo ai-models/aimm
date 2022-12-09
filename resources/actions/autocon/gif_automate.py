@@ -18,7 +18,7 @@ def reset_env(path):
   # reset the terminal environment
   # if exist
   if os.path.exists(f"/home/runner/.local/share/aimm"):
-    subprocess.run(["rmdir", "-fr", "/home/runner/.local/share/aimm"])
+    subprocess.run(["rm", "-fr", "/home/runner/.local/share/aimm"])
   # if exist aimodels.json
   if os.path.exists(f"aimodels.json"):
     subprocess.run(["rm", "aimodels.json"])
