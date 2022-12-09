@@ -39,7 +39,9 @@ def process_jsons():
       reset_env(f'{DEFAULT_DIR}/src/{name}.json')
       print('recording..')
 
-      os.system('rm -fr /home/runner/.local/share/aimm && echo "TEST" \n'
+      os.system('rm -fr /home/runner/.local/share/aimm &&'
+                'rm -f aimodels.json &&'
+                'rm -f aimodels-lock.json &&'
                 f'asciinema rec {DEFAULT_DIR}/src/{name}.asc -c "python3 {DEFAULT_DIR}/json_typing.py {DEFAULT_DIR}/src/{name}.json"')
 
 
