@@ -11,6 +11,14 @@ def scan_json(path_to_file, key=None):
   if key in json_data:
     return json_data[key]
 
+def setup(file):
+  setup_commands = ''
+  setup = scan_json(f"{DEFAULT_DIR}/src/{file}", 'setup_commands')
+  if setup:
+    print('running setup commands')
+    for command in setup:
+      setup_commands = setup_commands + command + ' && '
+  return setup_commands
 
 def reset_env(path):
   print('resetting env')
@@ -20,18 +28,12 @@ def reset_env(path):
 def process_jsons():
   # for every json file run json_typing.py
   for file in os.listdir(f"{DEFAULT_DIR}/src"):
-    setup_commands = ''
-    setup = scan_json(path, 'setup_commands')
-    if setup:
-      print('running setup commands')
-      for command in setup:
-        setup_commands = setup_commands + command + ' && '
     if file.endswith('.json'):
       name = file.split('.json')[0]
       os.system('rm -fr /home/runner/.local/share/aimm &&'
                 'rm -f aimodels.json &&'
                 'rm -f aimodels-lock.json &&'
-                f'{setup_commands}'
+                f'{setup(file)}'
                 f'asciinema rec {DEFAULT_DIR}/src/{name}.asc -c "python3 {DEFAULT_DIR}/json_typing.py {DEFAULT_DIR}/src/{name}.json"')
 
 
