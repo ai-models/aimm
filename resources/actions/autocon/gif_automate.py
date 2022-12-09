@@ -14,11 +14,13 @@ def scan_json(path_to_file, key=None):
 
 def setup(file):
   setup_commands = ''
+  print('setting up')
   setup = scan_json(f"{DEFAULT_DIR}/src/{file}", 'setup_commands')
   if setup:
     print('running setup commands')
     for command in setup:
       setup_commands = setup_commands + command + ' && '
+  print('setup complete')
   return setup_commands
 
 def reset_env(path):
@@ -33,7 +35,8 @@ def process_jsons():
       name = file.split('.json')[0]
       os.system('rm -f aimodels.json &&'
                 'rm -f aimodels-lock.json &&'
-                f'{shutil.rmtree("/home/runner/.local/share/aimm" if os.path.exists("/home/runner/.local/share/aimm"))} &&'
+                # check for /home/runner/.local/share/aimm and delete it
+                'rm -rf /home/runner/.local/share/aimm &&'
                 f'{setup(file)} &&'
                 f'asciinema rec {DEFAULT_DIR}/src/{name}.asc -c "python3 {DEFAULT_DIR}/json_typing.py {DEFAULT_DIR}/src/{name}.json"')
 
