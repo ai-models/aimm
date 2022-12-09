@@ -1,5 +1,6 @@
 import json
 import os
+import subprocess
 import sys
 
 DEFAULT_DIR = "/home/runner/work/aimm/aimm/resources/actions/autocon"
@@ -17,12 +18,12 @@ def reset_env(path):
   # reset the terminal environment
   # if exist
   if os.path.exists(f"/home/runner/.local/share/aimm"):
-    os.system("rm -fr /home/runner/.local/share/aimm")
+    subprocess.run(["rmdir", "-fr", "/home/runner/.local/share/aimm"])
   # if exist aimodels.json
   if os.path.exists(f"aimodels.json"):
-    os.system("rm aimodels.json")
+    subprocess.run(["rm", "aimodels.json"])
   if os.path.exists(f"aimodels-lock.json"):
-    os.system("rm aimodels-lock.json")
+    subprocess.run(["rm", "aimodels-lock.json"])
   # if setup has values iterate through them
   setup = scan_json(path, 'setup-commands')
   if setup:
@@ -38,8 +39,8 @@ def process_jsons():
       name = file.split('.json')[0]
       reset_env(f'{DEFAULT_DIR}/src/{name}.json')
       print('recording..')
+      subprocess.run(["asciinema", "rec", "{DEFAULT_DIR}/src/{name}.asc", "-c", "python3 json_typing.py", f"{DEFAULT_DIR}/src/{name}.json"])
 
-      os.system(f'asciinema rec {DEFAULT_DIR}/src/{name}.asc -c "python3 {DEFAULT_DIR}/json_typing.py {DEFAULT_DIR}/src/{name}.json"')
 
 
 def create_gifs():
@@ -50,9 +51,7 @@ def create_gifs():
     if file.endswith('.asc'):
       name = file.split('.asc')[0]
       json_data = scan_json(f"{DEFAULT_DIR}/src/{name}.json", "config")
-      os.system(
-        f'./agg --rows=' + str(json_data['lines']) + f' {DEFAULT_DIR}/src/{name}.asc {DEFAULT_DIR}/dist/{name}.gif')
-
+      subprocess.run("./agg", f"--rows={json_data['lines']}", f"{DEFAULT_DIR}/src/{name}.asc", f"{DEFAULT_DIR}/dist/{name}.gif")
 
 if __name__ == '__main__':
   if len(sys.argv) >= 2:
