@@ -19,11 +19,14 @@ def process_jsons():
       name = file.split('.json')[0]
       print('resetting env')
       # reset the terminal environment
-      os.system("rm -fr /home/runner/.local/share/aimm")
-      os.system("rm aimodels.json")
-      os.system("rm aimodels-lock.json")
+      if os.path.exists(f"/home/runner/.local/share/aimm"):
+        os.system(f'rm -rf /home/runner/.local/share/aimm')
+      if os.path.exists(f"aimodels.json"):
+        os.remove(f"aimodels.json")
+      if os.path.exists(f"aimodels-lock.json"):
+        os.remove(f"aimodels-lock.json")
       # if setup has values iterate through them
-      setup = scan_json(file, 'setup-commands')
+      setup = scan_json(f"{DEFAULT_DIR}/src/{file}", 'setup-commands')
       if setup:
         print('running setup commands')
         for command in setup:
