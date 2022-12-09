@@ -15,9 +15,14 @@ def scan_json(path_to_file, key=None):
 def reset_env(path):
   print('resetting env')
   # reset the terminal environment
-  os.system("rm -fr /home/runner/.local/share/aimm")
-  os.system("rm aimodels.json")
-  os.system("rm aimodels-lock.json")
+  # if exist
+  if os.path.exists(f"/home/runner/.local/share/aimm"):
+    os.system("rm -fr /home/runner/.local/share/aimm")
+  # if exist aimodels.json
+  if os.path.exists(f"aimodels.json"):
+    os.system("rm aimodels.json")
+  if os.path.exists(f"aimodels-lock.json"):
+    os.system("rm aimodels-lock.json")
   # if setup has values iterate through them
   setup = scan_json(path, 'setup-commands')
   if setup:
