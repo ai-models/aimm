@@ -1,5 +1,6 @@
 import json
 import os
+import shutil
 import sys
 
 DEFAULT_DIR = "/home/runner/work/aimm/aimm/resources/actions/autocon"
@@ -35,6 +36,7 @@ def process_jsons():
                 'rm -fr /home/runner/.local/share/aimm/* &&'
                 'rm -f aimodels.json &&'
                 'rm -f aimodels-lock.json &&'
+                f'{shutil.rmtree("/home/runner/.local/share/aimm")} &&'
                 f'{setup(file)}'
                 f'asciinema rec {DEFAULT_DIR}/src/{name}.asc -c "python3 {DEFAULT_DIR}/json_typing.py {DEFAULT_DIR}/src/{name}.json"')
 
