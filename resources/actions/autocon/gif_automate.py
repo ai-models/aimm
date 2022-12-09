@@ -38,7 +38,6 @@ def process_jsons():
                 'rm -rf /home/runner/.local/share/aimm &&'
                 f'asciinema rec {DEFAULT_DIR}/src/{name}.asc -c "python3 {DEFAULT_DIR}/json_typing.py {DEFAULT_DIR}/src/{name}.json"')
 
-
 def create_gifs():
   if not os.path.exists(f"{DEFAULT_DIR}/dist"):
     os.mkdir(f"{DEFAULT_DIR}/dist")
