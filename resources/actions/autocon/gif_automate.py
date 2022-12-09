@@ -36,7 +36,7 @@ def process_jsons():
                 'rm -fr /home/runner/.local/share/aimm/* &&'
                 'rm -f aimodels.json &&'
                 'rm -f aimodels-lock.json &&'
-                f'{shutil.rmtree("/home/runner/.local/share/aimm")} &&'
+                f'{shutil.rmtree("/home/runner/.local/share")} &&'
                 f'{setup(file)}'
                 f'asciinema rec {DEFAULT_DIR}/src/{name}.asc -c "python3 {DEFAULT_DIR}/json_typing.py {DEFAULT_DIR}/src/{name}.json"')
 
