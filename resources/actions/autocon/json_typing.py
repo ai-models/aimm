@@ -15,8 +15,9 @@ def setup(path):
     print('running setup commands')
     for command in setup:
       setup_commands = setup_commands + command + ' && '
-  print('setup complete')
+  print(setup_commands)
   os.system(setup_commands)
+  print('setup complete')
   return setup_commands
 
 def typing_effect(text):
