@@ -14,6 +14,10 @@ def scan_json(path_to_file, key=None):
 
 def reset_env(path):
   print('resetting env')
+  # reset the terminal environment
+  os.system("rm -fr /home/runner/.local/share/aimm")
+  os.system("rm aimodels.json")
+  os.system("rm aimodels-lock.json")
   # if setup has values iterate through them
   setup = scan_json(path, 'setup-commands')
   if setup:
@@ -25,13 +29,10 @@ def process_jsons():
   for file in os.listdir(f"{DEFAULT_DIR}/src"):
     if file.endswith('.json'):
       name = file.split('.json')[0]
-      # reset the terminal environment
-      os.system("rm -fr /home/runner/.local/share/aimm")
-      os.system("rm aimodels.json")
-      os.system("rm aimodels-lock.json")
       reset_env(f'{DEFAULT_DIR}/src/{name}.json')
-      os.system(
-        f'asciinema rec {DEFAULT_DIR}/src/{name}.asc -c "python3 {DEFAULT_DIR}/json_typing.py {DEFAULT_DIR}/src/{name}.json"')
+      os.system(f'rm -fr /home/runner/.local/share/aimm)'
+                f'asciinema rec {DEFAULT_DIR}/src/{name}.asc -c "python3 {DEFAULT_DIR}/json_typing.py {DEFAULT_DIR}/src/{name}.json"')
+
 
 
 def create_gifs():
