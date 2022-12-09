@@ -33,8 +33,8 @@ def process_jsons():
       name = file.split('.json')[0]
       os.system('rm -f aimodels.json &&'
                 'rm -f aimodels-lock.json &&'
-                f'{shutil.rmtree("/home/runner/.local/share/aimm", ignore_errors=True)} &&'
-                f'{setup(file)}'
+                f'{shutil.rmtree("/home/runner/.local/share/aimm" if os.path.exists("/home/runner/.local/share/aimm") else "")} &&'
+                f'{setup(file)} &&'
                 f'asciinema rec {DEFAULT_DIR}/src/{name}.asc -c "python3 {DEFAULT_DIR}/json_typing.py {DEFAULT_DIR}/src/{name}.json"')
 
 
