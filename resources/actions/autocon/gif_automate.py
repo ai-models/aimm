@@ -39,9 +39,8 @@ def process_jsons():
       reset_env(f'{DEFAULT_DIR}/src/{name}.json')
       print('recording..')
 
-      os.system('rm -fr /home/runner/.local/share/aimm \n'
-                'ECHO TEST \n'
-                'asciinema rec {DEFAULT_DIR}/src/{name}.asc -c "python3 {DEFAULT_DIR}/json_typing.py {DEFAULT_DIR}/src/{name}.json"')
+      os.system('rm -fr /home/runner/.local/share/aimm && ECHO TEST \n'
+                f'asciinema rec {DEFAULT_DIR}/src/{name}.asc -c "python3 {DEFAULT_DIR}/json_typing.py {DEFAULT_DIR}/src/{name}.json"')
 
 
 def create_gifs():
