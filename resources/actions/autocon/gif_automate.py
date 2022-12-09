@@ -12,16 +12,6 @@ def scan_json(path_to_file, key=None):
   if key in json_data:
     return json_data[key]
 
-def setup(file):
-  setup_commands = ''
-  print('setting up')
-  setup = scan_json(f"{DEFAULT_DIR}/src/{file}", 'setup_commands')
-  if setup:
-    print('running setup commands')
-    for command in setup:
-      setup_commands = setup_commands + command + ' && '
-  print('setup complete')
-  return setup_commands
 
 def reset_env(path):
   print('resetting env')
