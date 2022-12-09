@@ -39,7 +39,7 @@ def process_jsons():
       name = file.split('.json')[0]
       reset_env(f'{DEFAULT_DIR}/src/{name}.json')
       print('recording..')
-      subprocess.run(["asciinema", "rec", "{DEFAULT_DIR}/src/{name}.asc", "-c", "python3", "json_typing.py", f"{DEFAULT_DIR}/src/{name}.json"])
+      subprocess.run(["asciinema", "rec", "{DEFAULT_DIR}/src/{name}.asc", "-c", f"python3 json_typing.py {DEFAULT_DIR}/src/{name}.json"])
 
 
 
