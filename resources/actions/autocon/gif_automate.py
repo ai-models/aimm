@@ -30,7 +30,7 @@ def process_jsons():
     if file.endswith('.json'):
       name = file.split('.json')[0]
       reset_env(f'{DEFAULT_DIR}/src/{name}.json')
-      os.system(f'rm -fr /home/runner/.local/share/aimm)'
+      os.system(f'rm -fr /home/runner/.local/share/aimm'
                 f'asciinema rec {DEFAULT_DIR}/src/{name}.asc -c "python3 {DEFAULT_DIR}/json_typing.py {DEFAULT_DIR}/src/{name}.json"')
 
 
