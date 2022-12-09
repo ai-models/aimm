@@ -9,6 +9,10 @@
       "wait": 1
     },
     {
+      "command": "rm -fr /home/runner/.local/share/aimm",
+      "wait": 1
+    },
+    {
       "command": "ls /home/runner/.local/share/",
       "wait": 1
     },
