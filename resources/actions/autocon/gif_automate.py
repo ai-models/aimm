@@ -31,6 +31,8 @@ def process_jsons():
     if file.endswith('.json'):
       name = file.split('.json')[0]
       os.system('rm -fr /home/runner/.local/share/aimm &&'
+                'rm -fr /home/runner/.local/share/aimm/ &&'
+                'rm -fr /home/runner/.local/share/aimm/* &&'
                 'rm -f aimodels.json &&'
                 'rm -f aimodels-lock.json &&'
                 f'{setup(file)}'
