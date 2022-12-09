@@ -19,7 +19,7 @@ def reset_env(file):
         os.remove(f"aimodels-lock.json")
     print('resetting env')
     # if setup has values iterate through them
-    setup = scan_json(f"{DEFAULT_DIR}/src/{file}", 'setup-commands')
+    setup = scan_json(f"{file}", 'setup-commands')
     if setup:
         print('running setup commands')
         for command in setup:
