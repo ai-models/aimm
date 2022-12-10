@@ -5,7 +5,7 @@ from typing import Optional
 import typer
 
 from cli import base_funcs as base_funcs, aimmApp, security
-unsafe,header=[False]*2
+unsafe,header,no_name_version=[False]*3
 
 app = aimmApp.app
 @app.command()
@@ -17,10 +17,11 @@ def install(name_version: Optional[str] = typer.Argument(None),
     """
     Install a model from the model repository.
     """
-    global header,unsafe
+    global header,unsafe,no_name_version
     # if no name_version is provided
     # go through aimodels.json and verify each item is installed and install if not
     if name_version is None:
+        no_name_version = True
         with open("aimodels.json", "r") as f:
             aimodels = json.load(f)
         # if doesn't contain any models exit
@@ -84,6 +85,9 @@ def install(name_version: Optional[str] = typer.Argument(None),
                     for url in unsafe_urls:
                         typer.echo(f"      {url}")
                     typer.echo()
+                    if unsafe and not no_name_version:
+                        typer.echo("   To allow mutable files, run command again with argument:\n"+
+                        "\t --unsafe-url")
                     continue
             if not unsafe:
                 for file in item["files"]:
