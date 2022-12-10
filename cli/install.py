@@ -77,10 +77,10 @@ def install(name_version: Optional[str] = typer.Argument(None),
                                     "    Example of immutable paths:\n" +
                                     "    - github.com/{user}/{repo_name}/tree/{commit_hash}\n" +
                                     "    - huggingface.co/spaces/{space_name}/{repo_name}/tree/{commit_hash}\n\n" +
-                                    "    Mutable paths in your request:\n")
+                                    "    Mutable paths in your request:")
                         
                         header=True
-                    typer.echo(f"    - {name}:{version}\n")
+                    typer.echo(f"    - {name}:{version}")
                     for url in unsafe_urls:
                         typer.echo(f"      {url}")
                     typer.echo()
