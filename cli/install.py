@@ -37,7 +37,7 @@ def install(name_version: Optional[str] = typer.Argument(None),
                 typer.echo(f"{name}:{version} already installed")
         if unsafe:
             typer.echo("   To allow mutable files, run command again with argument:\n"+
-            "\t --allow-mutable-paths")
+            "\t --unsafe-url")
         return
     name, version = base_funcs.extract_name_version(name_version)
     
