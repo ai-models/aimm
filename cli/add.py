@@ -29,7 +29,7 @@ def add(name_version: str, mut_path: bool = typer.Option(False, "--unsafe-url"))
             sys.exit(1)
     # add to aimodels-lock.json
     save_path = os.path.join(aimmApp.main_dir, name.lower(), version.lower())
-    base_funcs.update_ai_models_lock(name, version, save_path)
+    base_funcs.update_ai_models_lock(name, version, save_path, "add")
     
     # parse aimodels.json as a json
     try:

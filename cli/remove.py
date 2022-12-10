@@ -35,6 +35,7 @@ def remove(name_version: str):
         # case insensitive
         if package_name.lower() == name.lower() and package_version.lower() == version.lower():
             aimodels.pop(package_name)
+            base_funcs.update_ai_models_lock(name, version, None, "remove")
             typer.echo(f"Removed {name_version} from aimodels.json")
             for package in aimmApp.installed["packages"]:
                 if package["name"].lower() == name.lower() and package["version"].lower() == version.lower():

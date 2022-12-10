@@ -134,33 +134,12 @@ def get_model_path(name_version):
 
 
 # a function that updates aimodels-lock.json
-def update_ai_models_lock(name, version, path):
+def update_ai_models_lock(name, version, path, operation):
     # make name and version case insensitive
     name = name.lower()
     version = version.lower()
-    # get current working directory
-    cwd = os.getcwd()
-    aimodels_lock_file = os.path.join(cwd, "aimodels-lock.json")
-    # get a list of files in path
-    files = os.listdir(path)
-    # path should use forward slashes instead of backslashes
-    path = path.replace("\\", "/")
-    # check if aimodels-lock.json exists
-    if not os.path.exists(aimodels_lock_file):
-        # create aimodels-lock.json
-        aimodels_lock = {
-            "packages": {
-                f"{name}:{version}": {
-                    "path": path,
-                    "files": files
-                },
-            },
-            "credentials": {}
-        }
-        # write aimodels-lock.json
-        with open("aimodels-lock.json", "w") as f:
-            json.dump(aimodels_lock, f, indent=4)
-    else:
+    
+    if operation == "remove":
         # read aimodels-lock.json
         try:
             with open("aimodels-lock.json", "r") as f:
@@ -168,46 +147,84 @@ def update_ai_models_lock(name, version, path):
         except json.JSONDecodeError:
             typer.echo("Error: aimodels-lock.json is corrupted")
             sys.exit(1)
-        # check if name and version already exist if not append
-        if f"{name}:{version}" not in aimodels_lock["packages"]:
-            try:
-                aimodels_lock["packages"][f"{name}:{version}"] = {
-                    "path": path,
-                    "files": files
-                }
-            except:
-                typer.echo("Error: aimodels-lock.json is corrupted")
-                sys.exit(1)
+        # check if name and version already exist if not
+        if f"{name}:{version}" in aimodels_lock["packages"]:
+            # remove package from aimodels-lock.json
+            del aimodels_lock["packages"][f"{name}:{version}"]
             # write aimodels-lock.json
-            try:
-                with open("aimodels-lock.json", "w") as f:
-                    json.dump(aimodels_lock, f, indent=4)
-            except Exception as e:
-                typer.echo(f"Error: {e}")
-                sys.exit(1)
-                
+            with open("aimodels-lock.json", "w") as f:
+                json.dump(aimodels_lock, f, indent=4)
+    elif operation == "add":
+        # get current working directory
+        cwd = os.getcwd()
+        aimodels_lock_file = os.path.join(cwd, "aimodels-lock.json")
+        # get a list of files in path
+        files = os.listdir(path)
+        # path should use forward slashes instead of backslashes
+        path = path.replace("\\", "/")
+        # check if aimodels-lock.json exists
+        if not os.path.exists(aimodels_lock_file):
+            # create aimodels-lock.json
+            aimodels_lock = {
+                "packages": {
+                    f"{name}:{version}": {
+                        "path": path,
+                        "files": files
+                    },
+                },
+                "credentials": {}
+            }
+            # write aimodels-lock.json
+            with open("aimodels-lock.json", "w") as f:
+                json.dump(aimodels_lock, f, indent=4)
         else:
+            # read aimodels-lock.json
             try:
-                aimodels_lock["packages"][f"{name}:{version}"] = {
-                    "path": path,
-                    "files": files
-                }
-            except:
+                with open("aimodels-lock.json", "r") as f:
+                    aimodels_lock = json.load(f)
+            except json.JSONDecodeError:
                 typer.echo("Error: aimodels-lock.json is corrupted")
                 sys.exit(1)
-    # add to .gitignore
-    gitignore_file = os.path.join(cwd, ".gitignore")
-    gitignore_text = "# For local aimodels packages\naimodels-lock.json\n"
-    if not os.path.exists(gitignore_file):
-        with open(".gitignore", "w") as f:
-            f.write(gitignore_text)
-    else:
-        with open(".gitignore", "r") as f:
-            gitignore = f.read()
-        if "aimodels-lock.json" not in gitignore:
-            # append to end
-            with open(".gitignore", "a") as f:
+            # check if name and version already exist if not append
+            if f"{name}:{version}" not in aimodels_lock["packages"]:
+                try:
+                    aimodels_lock["packages"][f"{name}:{version}"] = {
+                        "path": path,
+                        "files": files
+                    }
+                except:
+                    typer.echo("Error: aimodels-lock.json is corrupted")
+                    sys.exit(1)
+                # write aimodels-lock.json
+                try:
+                    with open("aimodels-lock.json", "w") as f:
+                        json.dump(aimodels_lock, f, indent=4)
+                except Exception as e:
+                    typer.echo(f"Error: {e}")
+                    sys.exit(1)
+                    
+            else:
+                try:
+                    aimodels_lock["packages"][f"{name}:{version}"] = {
+                        "path": path,
+                        "files": files
+                    }
+                except:
+                    typer.echo("Error: aimodels-lock.json is corrupted")
+                    sys.exit(1)
+        # add to .gitignore
+        gitignore_file = os.path.join(cwd, ".gitignore")
+        gitignore_text = "# For local aimodels packages\naimodels-lock.json\n"
+        if not os.path.exists(gitignore_file):
+            with open(".gitignore", "w") as f:
                 f.write(gitignore_text)
+        else:
+            with open(".gitignore", "r") as f:
+                gitignore = f.read()
+            if "aimodels-lock.json" not in gitignore:
+                # append to end
+                with open(".gitignore", "a") as f:
+                    f.write(gitignore_text)
 
 def check_for_creds(download_url):
     domain = get_domain_from_url(download_url)
