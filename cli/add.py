@@ -14,7 +14,7 @@ def add(name_version: str, mut_path: bool = typer.Option(False, "--unsafe-url"))
     """
     # if model not installed, install it
     # adds name as key and version as value to aimodels.json
-    name, version = base_funcs.extract_name_version(name_version)
+    name, version = base_funcs.lowercase_name_version(name_version)
     if version is None:
         version = base_funcs.get_last_version(name)
     
@@ -28,7 +28,7 @@ def add(name_version: str, mut_path: bool = typer.Option(False, "--unsafe-url"))
         if install.header == True:
             sys.exit(1)
     # add to aimodels-lock.json
-    save_path = os.path.join(aimmApp.main_dir, name.lower(), version.lower())
+    save_path = os.path.join(aimmApp.main_dir, name, version)
     base_funcs.update_ai_models_lock(name, version, save_path, "add")
     
     # parse aimodels.json as a json
@@ -42,18 +42,18 @@ def add(name_version: str, mut_path: bool = typer.Option(False, "--unsafe-url"))
     # append name and version to aimodels.json if not already there
     add_it = True
     for package_name, package_version in aimodels.items():
-        if package_name.lower() == name.lower():
+        if package_name.lower() == name:
             for v in package_version:
-                if v.lower() == version.lower():
+                if v.lower() == version:
                     typer.echo(f"Already in aimodels.json: {name}:{version}")
                     add_it = False
                     return
     if add_it:
         # if the name is already there then add the version to the version list
-        if name.lower() in aimodels:
-            aimodels[name.lower()].append(version.lower())
+        if name in aimodels:
+            aimodels[name].append(version)
         else:
-            aimodels[name.lower()] = [version.lower()]
+            aimodels[name] = [version]
         try:
             with open("aimodels.json", "w") as f:
                 # prettify json

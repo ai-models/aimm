@@ -13,13 +13,13 @@ def uninstall(name_version: Optional[str] = typer.Argument(None)):
     """
     Uninstall an installed model.
     """
-    name, version = base_funcs.extract_name_version(name_version)
+    name, version = base_funcs.lowercase_name_version(name_version)
     
     # check installed.json if multiple versions of name are installed, specify else uninstall
     if version is None:
         versions = []
         for package in aimmApp.installed["packages"]:
-            if package["name"].lower() == name.lower():
+            if package["name"].lower() == name:
                 versions.append(package["version"])
         if len(versions) > 1:
             typer.echo(f"Multiple versions of {name} installed, please specify a version.")
@@ -42,7 +42,7 @@ def uninstall(name_version: Optional[str] = typer.Argument(None)):
             typer.echo("Error: No packages installed")
             return
         for package in aimmApp.installed["packages"]:
-            if name.lower() in package["name"].lower() and package["version"] == version:
+            if name in package["name"].lower() and package["version"] == version:
                 model_dir = package["paths"]
                 typer.echo(f'Uninstalling {package["name"]}:{package["version"]}')
                 typer.echo(f'from {model_dir}...')

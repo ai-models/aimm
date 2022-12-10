@@ -13,7 +13,7 @@ def remove(name_version: str):
     Remove a model from local aimodels.json.
     """
     # removes name:version from aimodels.json
-    name, version = base_funcs.extract_name_version(name_version)
+    name, version = base_funcs.lowercase_name_version(name_version)
     
     # if aimodels.json doesn't exist exit
     if not os.path.exists("aimodels.json"):
@@ -31,23 +31,24 @@ def remove(name_version: str):
     # remove name and version from aimodels.json if there
     if version is None:
         for package_name, package_version in aimodels.items():
-            if package_name.lower() == name.lower():
+            if package_name.lower() == name:
                 if len(package_version) > 1:
                     typer.echo(f"Multiple versions of {name} in aimodels.json, please specify a version.")
                     while True:
                         typer.echo(f"Available versions: {package_version}")
                         input_version = typer.prompt("Version to remove")
-                        if input_version.lower() in package_version:
+                        input_version = input_version.lower()
+                        if input_version in package_version:
                             version = input_version
                             break
     for package_name, package_version in aimodels.items():
         # case insensitive
-        if package_name.lower() == name.lower() and any(v.lower() == version.lower() for v in package_version):
-            aimodels[package_name].remove(version.lower())
+        if package_name.lower() == name and any(v.lower() == version for v in package_version):
+            aimodels[package_name].remove(version)
             base_funcs.update_ai_models_lock(name, version, None, "remove")
             typer.echo(f"Removed {name_version} from aimodels.json")
             for package in aimmApp.installed["packages"]:
-                if package["name"].lower() == name.lower() and package["version"].lower() == version.lower():
+                if package["name"].lower() == name and package["version"].lower() == version:
                     typer.echo(f'The package is still available system-wide, to uninstall (delete files):\n\t aimm uninstall {package["name"]}:{package["version"]}')
                     break
             break

@@ -68,6 +68,13 @@ def extract_name_version(name_version):
             sys.exit(1)
     return name, version
 
+def lowercase_name_version(name_version):
+    name, version = extract_name_version(name_version)
+    if version is None:
+        return name.lower(), version
+    else:
+        return name.lower(), version.lower()
+
 def get_last_version(name):
     url = f"{aimm.API_SERVER}/api/models?filters[$and][0][model_name][$eqi]={name}&publicationState=live&populate=deep"
     # parse api as a json
@@ -122,7 +129,7 @@ def get_domain_from_url(download_url) -> str:
 
 
 def get_model_path(name_version):
-    name, version = extract_name_version(name_version)
+    name, version = lowercase_name_version(name_version)
     if version is None:
         version = get_last_version(name)
     for package in aimmApp.installed["packages"]:
@@ -251,4 +258,3 @@ def get_creds(download_url):
             aimodels_lock = json.load(f)
         # return username and password
         return aimodels_lock["credentials"][domain]["username"], aimodels_lock["credentials"][domain]["password"]
-

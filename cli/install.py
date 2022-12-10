@@ -40,10 +40,10 @@ def install(name_version: Optional[str] = typer.Argument(None),
             typer.echo("   To allow mutable files, run command again with argument:\n"+
             "\t --unsafe-url")
         return
-    name, version = base_funcs.extract_name_version(name_version)
+    name, version = base_funcs.lowercase_name_version(name_version)
     
     if version is None:
-        version = base_funcs.get_last_version(name)
+        version = base_funcs.get_last_version(name).lower()
         install(f"{name}:{version}", auth_user, auth_pass, mut_path)
         return
 
@@ -95,8 +95,8 @@ def install(name_version: Optional[str] = typer.Argument(None),
                     if not file["download_url"]:
                         typer.echo(f"Error: Model {name}:{version} not found")
                         return
-                    
-                    save_path = os.path.join(aimmApp.main_dir, name.lower(), version.lower())
+                    name, version = base_funcs.lowercase_name_version(f"{name}:{version}")
+                    save_path = os.path.join(aimmApp.main_dir, name, version)
                     if not os.path.exists(save_path):
                         os.makedirs(save_path)
                     # if auth_required is set, check for creds
