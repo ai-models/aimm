@@ -7,19 +7,6 @@ USERNAME="user"
 HOSTNAME="aimodels"
 DEFAULT_ECHO= f"[{USERNAME}@{HOSTNAME}]$ "
 
-def setup(path):
-  setup_commands = ''
-  print('setting up')
-  setup = scan_json(f"{path}", 'setup_commands')
-  if setup:
-    print('running setup commands')
-    for command in setup:
-      setup_commands = setup_commands + command + ' && '
-  print(setup_commands)
-  os.system(setup_commands)
-  print('setup complete')
-  return setup_commands
-
 def typing_effect(text):
     for char in text:
         print(char, end='', flush=True)
@@ -28,11 +15,11 @@ def typing_effect(text):
 def scan_json(path_to_file,key=None):
     with open(path_to_file, 'r', encoding='utf-8') as f:
         json_data = json.load(f)
-    if key in json_data:
-        return json_data[key]
+    return json_data[key]
 
 def print_data(json_data):
-    print('AIMM Demo')
+    time.sleep(1)
+    print('AIMM Demo:')
     for entry in json_data:
         if 'comment' in entry:
             # comments should be gray
@@ -56,7 +43,5 @@ def print_data(json_data):
 arguments = sys.argv
 if len(arguments) >= 2:
     path = arguments[1]
-    setup(path)
     data = scan_json(path,'commands')
     print_data(data)
-
