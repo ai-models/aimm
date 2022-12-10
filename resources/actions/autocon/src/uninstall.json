@@ -1,11 +1,12 @@
 {
   "setup-commands": [
+    "python aimm.py init",
     "python aimm.py install bsrgan"
   ],
   "commands": [
     {
       "comment": "Remove model to system",
-      "command": "aimm uninstall Coqui_English_STT:yesno-v0.0.1",
+      "command": "aimm uninstall bsrgan",
       "wait": 1
     }
   ],
