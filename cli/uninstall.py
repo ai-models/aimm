@@ -22,7 +22,7 @@ def uninstall(name_version: Optional[str] = typer.Argument(None)):
             if package["name"].lower() == name.lower():
                 versions.append(package["version"])
         if len(versions) > 1:
-            typer.echo(f"Multiple versions of {name} installed, please specify a version:")
+            typer.echo(f"Multiple versions of {name} installed, please specify a version.")
             while True:
                 typer.echo(f"Available versions: {versions}")
                 input_version = input("Please enter version: ")

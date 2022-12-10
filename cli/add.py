@@ -42,13 +42,18 @@ def add(name_version: str, mut_path: bool = typer.Option(False, "--unsafe-url"))
     # append name and version to aimodels.json if not already there
     add_it = True
     for package_name, package_version in aimodels.items():
-        if package_name.lower() == name.lower() and package_version == version:
-            typer.echo(f"Already in aimodels.json: {name}:{version}")
-            add_it = False
-            return
+        if package_name.lower() == name.lower():
+            for v in package_version:
+                if v.lower() == version.lower():
+                    typer.echo(f"Already in aimodels.json: {name}:{version}")
+                    add_it = False
+                    return
     if add_it:
-        aimodels.update({name: version})
-        
+        # if the name is already there then add the version to the version list
+        if name.lower() in aimodels:
+            aimodels[name.lower()].append(version.lower())
+        else:
+            aimodels[name.lower()] = [version.lower()]
         try:
             with open("aimodels.json", "w") as f:
                 # prettify json

@@ -30,11 +30,20 @@ def remove(name_version: str):
 
     # remove name and version from aimodels.json if there
     if version is None:
-        version = base_funcs.get_last_version(name)
+        for package_name, package_version in aimodels.items():
+            if package_name.lower() == name.lower():
+                if len(package_version) > 1:
+                    typer.echo(f"Multiple versions of {name} in aimodels.json, please specify a version.")
+                    while True:
+                        typer.echo(f"Available versions: {package_version}")
+                        input_version = typer.prompt("Version to remove")
+                        if input_version.lower() in package_version:
+                            version = input_version
+                            break
     for package_name, package_version in aimodels.items():
         # case insensitive
-        if package_name.lower() == name.lower() and package_version.lower() == version.lower():
-            aimodels.pop(package_name)
+        if package_name.lower() == name.lower() and any(v.lower() == version.lower() for v in package_version):
+            aimodels[package_name].remove(version.lower())
             base_funcs.update_ai_models_lock(name, version, None, "remove")
             typer.echo(f"Removed {name_version} from aimodels.json")
             for package in aimmApp.installed["packages"]:

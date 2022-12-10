@@ -28,14 +28,14 @@ def install(name_version: Optional[str] = typer.Argument(None),
         if len(aimodels) == 0:
             typer.echo("No models in aimodels.json")
             sys.exit(1)
-        for package_name, package_version in aimodels.items():
-            name = package_name
-            version = package_version
-            if base_funcs.should_install(name, version):
-                install(f"{name}:{version}", auth_user, auth_pass, mut_path)
-                installed=True
-            else:
-                typer.echo(f"{name}:{version} already installed")
+        for package_name in aimodels:
+            for package_version in aimodels[package_name]:
+                name = package_name
+                version = package_version
+                if base_funcs.should_install(name, version):
+                    install(f"{name}:{version}", auth_user, auth_pass, mut_path)
+                else:
+                    typer.echo(f"{name}:{version} already installed")
         if unsafe:
             typer.echo("   To allow mutable files, run command again with argument:\n"+
             "\t --unsafe-url")
