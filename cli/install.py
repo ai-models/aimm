@@ -110,9 +110,6 @@ def install(name_version: Optional[str] = typer.Argument(None),
                         base_funcs.download_file(file["download_url"], save_path, auth_user, auth_pass)
                     else:
                         base_funcs.download_file(file["download_url"], save_path)
-                    
-                # add to aimodels-lock.json
-                base_funcs.update_ai_models_lock(name, version, save_path)
                 # make a list of links
                 links = []
                 # only execute if there are links
@@ -132,6 +129,4 @@ def install(name_version: Optional[str] = typer.Argument(None),
                     json.dump(aimmApp.installed, file, indent=4)
                 typer.echo(f"Installed {name}:{version}!")
     else: 
-        save_path = os.path.join(aimmApp.main_dir, name.lower(), version.lower())
-        base_funcs.update_ai_models_lock(name, version, save_path)
         typer.echo(f"Found Local: {name}:{version}")

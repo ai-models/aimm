@@ -27,10 +27,9 @@ def add(name_version: str, mut_path: bool = typer.Option(False, "--unsafe-url"))
         install.install(name_version,mut_path=mut_path)
         if install.header == True:
             sys.exit(1)
-    else:
-        # add to aimodels-lock.json
-        save_path = os.path.join(aimmApp.main_dir, name, version)
-        base_funcs.update_ai_models_lock(name, version, save_path)
+    # add to aimodels-lock.json
+    save_path = os.path.join(aimmApp.main_dir, name.lower(), version.lower())
+    base_funcs.update_ai_models_lock(name, version, save_path)
     
     # parse aimodels.json as a json
     try:
