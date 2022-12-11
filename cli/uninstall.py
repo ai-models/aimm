@@ -13,26 +13,25 @@ def uninstall(name_version: Optional[str] = typer.Argument(None)):
     """
     Uninstall an installed model.
     """
-    name, version = base_funcs.extract_name_version(name_version)
+    name, version = base_funcs.lowercase_name_version(name_version)
     
     # check installed.json if multiple versions of name are installed, specify else uninstall
     if version is None:
         versions = []
         for package in aimmApp.installed["packages"]:
-            if package["name"].lower() == name.lower():
+            if package["name"].lower() == name:
                 versions.append(package["version"])
         if len(versions) > 1:
-            typer.echo(f"Multiple versions of {name} installed, please specify a version:")
-            list()
+            typer.echo(f"Multiple versions of {name} installed, please specify a version.")
             while True:
-                version = input("Please enter version: ")
-                if version in versions:
+                typer.echo(f"Available versions: {versions}")
+                input_version = input("Please enter version: ")
+                if input_version in versions:
                     break
-                else:
-                    typer.echo("Invalid version")
-            uninstall(f"{name}:{version}")
+                typer.echo("Invalid version")
+            uninstall(f"{name}:{input_version}")
         elif len(versions) == 0:
-            typer.echo(f"Model package not installed")
+            typer.echo("Model package not installed")
             sys.exit(1)
         else:
             version = versions[0]
@@ -42,26 +41,25 @@ def uninstall(name_version: Optional[str] = typer.Argument(None)):
         if aimmApp.installed["packages"] == []:
             typer.echo("Error: No packages installed")
             return
-        else:
-            for package in aimmApp.installed["packages"]:
-                if name in package["name"] or package["version"] == version:
-                    typer.echo(f"Uninstalling {name_version}...")
-
-                    # update installed.json
-                    for entry in aimmApp.installed["packages"]:
-                        if entry["name"] == name and entry["version"] == version:
-                            aimmApp.installed["packages"].remove(entry)
-
-                    with open(aimmApp.installed_json, "w") as file:
-                        json.dump(aimmApp.installed, file, indent=4)
-                    # remove the model
-                    model_dir = os.path.join(aimmApp.main_dir, name)
-                    try:
-                        shutil.rmtree(model_dir  + "/" + version)
-                    except Exception as e:
-                        typer.echo(f"Error: {e}")
-                        sys.exit(1)
-                    typer.echo(f"Uninstalled {name_version}!")
-                    deleted = True
+        for package in aimmApp.installed["packages"]:
+            if name in package["name"].lower() and package["version"] == version:
+                model_dir = package["paths"]
+                typer.echo(f'Uninstalling {package["name"]}:{package["version"]}')
+                typer.echo(f'from {model_dir}...')
+                try:
+                    shutil.rmtree(model_dir)
+                except Exception as e:
+                    typer.echo(f"Error: {e}")
+                    sys.exit(1)
+                # update installed.json
+                try:
+                    aimmApp.installed["packages"].remove(package)
+                except Exception as e:
+                    typer.echo(f"Error: {e}")
+                with open(aimmApp.installed_json, "w") as file:
+                    json.dump(aimmApp.installed, file, indent=4)
+                typer.echo(f"Uninstalled {package['name']}:{package['version']}!")
+                
+                deleted = True
         if not deleted:
             typer.echo(f"Error: Model not found")

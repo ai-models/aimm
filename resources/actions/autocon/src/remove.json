@@ -1,4 +1,8 @@
 {
+  "setup-commands": [
+    "python aimm.py init",
+    "python aimm.py install bsrgan"
+  ],
   "commands": [
     {
       "comment": "Remove model from system",

@@ -11,6 +11,7 @@ def info(name: str, fetch : bool = typer.Option(False, "--fetch", help="Fetch th
     """
     Show information about a model. 
     """
+    name = name.lower()
     if not base_funcs.is_valid(name,None):
         typer.echo(f"Error: {name} not valid")
         sys.exit(1)

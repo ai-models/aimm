@@ -1,4 +1,8 @@
 {
+  "setup-commands": [
+    "python aimm.py init",
+    "ECHO TEST"
+  ],
   "commands": [
     {
       "comment": "Add model to aimodels.json and install",

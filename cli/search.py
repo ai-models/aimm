@@ -27,6 +27,8 @@ def search(name: str, include_adult: bool = typer.Option(False, "--include-adult
     if len(data["data"]) == 0:
         typer.echo("No results found")
         sys.exit(1)
+    # total results count
+    total_count = data["meta"]["pagination"]["total"]
     # print the first 5 results
     count = 0
     version_list = []
@@ -119,3 +121,6 @@ def search(name: str, include_adult: bool = typer.Option(False, "--include-adult
                             typer.echo("    Other versions:")
                             typer.echo("      "+", ".join(list(set(version_list))))
                         count += 1
+    if total_count > 5:
+        typer.echo(f"  ...and {total_count-5} more results, please refine search or visit: https://aimodels.org/models?q={name}")
+        

@@ -1,9 +1,10 @@
 import re
 
 
-HUGGINGFACE_REGEX = r"https:\/\/huggingface\.co\/\w+\/.+\/+resolve+\/[0-9a-zA-z]{40}\/.+"
-GITHUB_REGEX = r"https:\/\/github\.com+\/+.+\/+.+\/+releases+\/.+"
-
+# HUGGINGFACE_REGEX = r"https:\/\/huggingface\.co\/\w+\/.+\/+resolve+\/[0-9a-zA-z]{40}\/.+"
+# # GITHUB_REGEX = r"https:\/\/github\.com+\/+.+\/+.+\/+releases+\/.+"
+# # regex for github path with commit hash
+GITHUB_REGEX = r"https:\/\/github\.com\/\w+\/.+\/tree\/[0-9a-zA-z]{40}\/.+"
 
 def is_url_safe(url) -> bool:
     """

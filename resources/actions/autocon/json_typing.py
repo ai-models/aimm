@@ -2,7 +2,6 @@ import json
 import os
 import sys
 import time
-from termcolor import colored
 
 USERNAME="user"
 HOSTNAME="aimodels"
@@ -20,7 +19,7 @@ def scan_json(path_to_file,key=None):
 
 def print_data(json_data):
     time.sleep(1)
-    print('AIMM Demo: Basic Usage')
+    print('AIMM Demo:')
     for entry in json_data:
         if 'comment' in entry:
             # comments should be gray

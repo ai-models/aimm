@@ -5,7 +5,7 @@ from typing import Optional
 import typer
 
 from cli import base_funcs as base_funcs, aimmApp, security
-unsafe,header=[False]*2
+unsafe,header,no_name_version=[False]*3
 
 app = aimmApp.app
 @app.command()
@@ -17,32 +17,33 @@ def install(name_version: Optional[str] = typer.Argument(None),
     """
     Install a model from the model repository.
     """
-    global header,unsafe
+    global header,unsafe,no_name_version
     # if no name_version is provided
     # go through aimodels.json and verify each item is installed and install if not
     if name_version is None:
+        no_name_version = True
         with open("aimodels.json", "r") as f:
             aimodels = json.load(f)
         # if doesn't contain any models exit
         if len(aimodels) == 0:
             typer.echo("No models in aimodels.json")
             sys.exit(1)
-        for package_name, package_version in aimodels.items():
-            name = package_name
-            version = package_version
-            if base_funcs.should_install(name, version):
-                install(f"{name}:{version}", auth_user, auth_pass, mut_path)
-                installed=True
-            else:
-                typer.echo(f"{name}:{version} already installed")
-        if installed:
+        for package_name in aimodels:
+            for package_version in aimodels[package_name]:
+                name = package_name
+                version = package_version
+                if base_funcs.should_install(name, version):
+                    install(f"{name}:{version}", auth_user, auth_pass, mut_path)
+                else:
+                    typer.echo(f"{name}:{version} already installed")
+        if unsafe:
             typer.echo("   To allow mutable files, run command again with argument:\n"+
-            "\t --allow-mutable-paths")
+            "\t --unsafe-url")
         return
-    name, version = base_funcs.extract_name_version(name_version)
+    name, version = base_funcs.lowercase_name_version(name_version)
     
     if version is None:
-        version = base_funcs.get_last_version(name)
+        version = base_funcs.get_last_version(name).lower()
         install(f"{name}:{version}", auth_user, auth_pass, mut_path)
         return
 
@@ -77,13 +78,16 @@ def install(name_version: Optional[str] = typer.Argument(None),
                                     "    Example of immutable paths:\n" +
                                     "    - github.com/{user}/{repo_name}/tree/{commit_hash}\n" +
                                     "    - huggingface.co/spaces/{space_name}/{repo_name}/tree/{commit_hash}\n\n" +
-                                    "    Mutable paths in your request:\n")
+                                    "    Mutable paths in your request:")
                         
                         header=True
-                    typer.echo(f"    - {name}:{version}\n")
+                    typer.echo(f"    - {name}:{version}")
                     for url in unsafe_urls:
                         typer.echo(f"      {url}")
                     typer.echo()
+                    if unsafe and not no_name_version:
+                        typer.echo("   To allow mutable files, run command again with argument:\n"+
+                        "\t --unsafe-url")
                     continue
             if not unsafe:
                 for file in item["files"]:
@@ -91,7 +95,7 @@ def install(name_version: Optional[str] = typer.Argument(None),
                     if not file["download_url"]:
                         typer.echo(f"Error: Model {name}:{version} not found")
                         return
-                    
+                    name, version = base_funcs.lowercase_name_version(f"{name}:{version}")
                     save_path = os.path.join(aimmApp.main_dir, name, version)
                     if not os.path.exists(save_path):
                         os.makedirs(save_path)
@@ -110,9 +114,6 @@ def install(name_version: Optional[str] = typer.Argument(None),
                         base_funcs.download_file(file["download_url"], save_path, auth_user, auth_pass)
                     else:
                         base_funcs.download_file(file["download_url"], save_path)
-                    
-                # add to aimodels-lock.json
-                base_funcs.update_ai_models_lock(name, version, save_path)
                 # make a list of links
                 links = []
                 # only execute if there are links
@@ -132,6 +133,4 @@ def install(name_version: Optional[str] = typer.Argument(None),
                     json.dump(aimmApp.installed, file, indent=4)
                 typer.echo(f"Installed {name}:{version}!")
     else: 
-        save_path = os.path.join(aimmApp.main_dir, name, version)
-        base_funcs.update_ai_models_lock(name, version, save_path)
         typer.echo(f"Found Local: {name}:{version}")

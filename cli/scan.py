@@ -1,10 +1,8 @@
 import hashlib
 import json
 import os
-
-import picklescan
 import typer
-
+from picklescan import scanner
 from cli import aimmApp, base_funcs
 
 app = aimmApp.app
@@ -27,11 +25,11 @@ def get_maximum_danger(result_globals) -> str:
         elif safety.value < module.safety.value:
             safety = module.safety
     match safety:
-        case picklescan.scanner.SafetyLevel.Innocuous:
+        case scanner.SafetyLevel.Innocuous:
             safety = "innocuous"
-        case picklescan.scanner.SafetyLevel.Suspicious:
+        case scanner.SafetyLevel.Suspicious:
             safety = "suspicious"
-        case picklescan.scanner.SafetyLevel.Dangerous:
+        case scanner.SafetyLevel.Dangerous:
             safety = "dangerous"
     return safety
 
@@ -44,7 +42,7 @@ def scan(name_version: str, raw: bool = typer.Option(False, "--raw", "-r")):
     if model_path:
         for file in os.listdir(model_path):
             path = os.path.join(model_path, file)
-            result = picklescan.scanner.scan_file_path(path)
+            result = scanner.scan_file_path(path)
             if not raw:
                 print(f"Scanning {path}...")
                 print(f"scanned files: {result.scanned_files}")

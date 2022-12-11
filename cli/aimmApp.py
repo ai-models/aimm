@@ -79,11 +79,9 @@ def check_for_updates(repo, current_version):
         r = requests.get(url, timeout=10)
         if r.status_code == 200:
             latest_version = r.json()["tag_name"]
-            latest_version_list = latest_version.split(".")
-            current_version_list = current_version.split(".")
-            if (latest_version_list[0] > current_version_list[0]) or (latest_version_list[1] > current_version_list[1]) or (latest_version_list[2] > current_version_list[2]):
+            if latest_version != current_version:
                 typer.echo(f"Update available: {current_version} → {latest_version}")
-                typer.echo("  Latest version: https://github.com/visioninit/aimm/releases/latest")
+                typer.echo(f"  Latest version: https://github.com/{repo}/releases/latest")
             else:
                 typer.echo("No updates available.")
         else:
@@ -96,8 +94,13 @@ def show_licenses(verbose: bool = False):
     # check if running as a pyinstaller executable
     if getattr(sys, 'frozen', False):
         path = sys._MEIPASS
-    else:
+    # check if running as a python script
+    elif __file__:
         path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    # is running as pynsist
+    else:
+        path = sys.executable
+        path = os.path.dirname(path)
     if sys.platform == "win32":
         temp = os.getenv("TEMP")
     elif sys.platform in ("linux", "darwin"):
