@@ -1,5 +1,6 @@
 import sys
 import json
+from typing import Optional
 import typer
 
 from cli import base_funcs as base_funcs, aimmApp
@@ -7,10 +8,15 @@ from cli import base_funcs as base_funcs, aimmApp
 app = aimmApp.app
 # show default args
 @app.command(context_settings={"show_default": True})
-def info(name: str, fetch : bool = typer.Option(False, "--fetch", help="Fetch the latest info from the model repository")):
+def info(name: Optional[str] = typer.Argument(None), fetch : bool = typer.Option(False, "--fetch", help="Fetch the latest info from the model repository")):
     """
     Show information about a model. 
     """
+    if name is None:
+        typer.echo("Usage: aimm info [OPTIONS] NAME\n"
+                   "Try 'aimm info --help' for help.\n\n"
+                   "Error: Missing argument 'NAME_VERSION'.")
+        sys.exit(1)
     name = name.lower()
     if not base_funcs.is_valid(name,None):
         typer.echo(f"Error: {name} not valid")

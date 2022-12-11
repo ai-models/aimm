@@ -1,12 +1,27 @@
 import os
 import sys
 import json
+from typing import Optional
 import typer
 from cli import aimmApp
 
 app = aimmApp.app
 credentials_app = typer.Typer()
 app.add_typer(credentials_app, name="credentials", help="Manage credentials in the app.")
+
+# check if credentials app has command or not
+for arg in sys.argv:
+    if "credentials" in arg:
+        next_cmd = sys.argv.index(arg) + 1
+        total_args = len(sys.argv) - 1
+        if next_cmd > total_args:
+            if sys.argv[next_cmd-1] not in ["add", "remove", "list"]:
+                typer.echo("Usage: aimm credentials [OPTIONS] COMMAND [ARGS]\n"
+                           "Try 'aimm credentials --help' for help.\n\n"
+                           "Error: Missing command.")
+                sys.exit(1)
+            else:
+                pass
 
 # get current working directory
 cwd = os.getcwd()
@@ -24,11 +39,15 @@ def parse_username_domain(username_domain) -> tuple:
     return username, domain
 
 @credentials_app.command()
-def add(username_domain: str):
+def add(username_domain: Optional[str] = typer.Argument(None)):
     """
     Add a credential to the app. The format is user@domain
     """
-    
+    if username_domain is None:
+        typer.echo("Usage: aimm credentials add [OPTIONS] NAME\n"
+                   "Try 'aimm credentials add --help' for help.\n\n"
+                   "Error: Missing argument 'NAME_VERSION'.")
+        sys.exit(1)
     # example of argument: "user@domain"
     username, domain = parse_username_domain(username_domain)
         
@@ -65,11 +84,15 @@ def add(username_domain: str):
 
 
 @credentials_app.command()
-def remove(username_domain: str):
+def remove(username_domain: Optional[str] = typer.Argument(None)):
     """
     Remove a credential from the app. The format is user@domain
     """
-    
+    if username_domain is None:
+        typer.echo("Usage: aimm credentials remove [OPTIONS] NAME\n"
+                   "Try 'aimm credentials remove --help' for help.\n\n"
+                   "Error: Missing argument 'NAME_VERSION'.")
+        sys.exit(1)
     # example of argument: "user@domain"
     username, domain = parse_username_domain(username_domain)
 

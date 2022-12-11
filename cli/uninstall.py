@@ -13,6 +13,11 @@ def uninstall(name_version: Optional[str] = typer.Argument(None)):
     """
     Uninstall an installed model.
     """
+    if name_version is None:
+        typer.echo("Usage: aimm uninstall [OPTIONS] NAME\n"
+                   "Try 'aimm uninstall --help' for help.\n\n"
+                   "Error: Missing argument 'NAME_VERSION'.")
+        sys.exit(1)
     name, version = base_funcs.lowercase_name_version(name_version)
     
     # check installed.json if multiple versions of name are installed, specify else uninstall

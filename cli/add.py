@@ -1,6 +1,7 @@
 import os
 import sys
 import json
+from typing import Optional
 import typer
 
 from cli import base_funcs, aimmApp
@@ -8,10 +9,15 @@ from cli import install as install
 
 app = aimmApp.app
 @app.command()
-def add(name_version: str, mut_path: bool = typer.Option(False, "--unsafe-url")):
+def add(name_version: Optional[str] = typer.Argument(None), mut_path: bool = typer.Option(False, "--unsafe-url")):
     """
     Add a model to local aimodels.json.
     """
+    if name_version is None:
+        typer.echo("Usage: aimm add [OPTIONS] NAME\n"
+                   "Try 'aimm add --help' for help.\n\n"
+                   "Error: Missing argument 'NAME_VERSION'.")
+        sys.exit(1)
     # if model not installed, install it
     # adds name as key and version as value to aimodels.json
     name, version = base_funcs.lowercase_name_version(name_version)

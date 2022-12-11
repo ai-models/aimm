@@ -1,6 +1,8 @@
 import hashlib
 import json
 import os
+import sys
+from typing import Optional
 import typer
 from picklescan import scanner
 from cli import aimmApp, base_funcs
@@ -34,10 +36,15 @@ def get_maximum_danger(result_globals) -> str:
     return safety
 
 @app.command()
-def scan(name_version: str, raw: bool = typer.Option(False, "--raw", "-r")):
+def scan(name_version: Optional[str] = typer.Argument(None), raw: bool = typer.Option(False, "--raw", "-r")):
     """
     Scan a file for malicious code.
     """
+    if name_version is None:
+        typer.echo("Usage: aimm scan [OPTIONS] NAME\n"
+                   "Try 'aimm scan --help' for help.\n\n"
+                   "Error: Missing argument 'NAME_VERSION'.")
+        sys.exit(1)
     model_path = base_funcs.get_model_path(name_version)
     if model_path:
         for file in os.listdir(model_path):

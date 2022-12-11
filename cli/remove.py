@@ -1,6 +1,7 @@
 import os
 import sys
 import json
+from typing import Optional
 import typer
 
 from cli import base_funcs as base_funcs, aimmApp
@@ -8,10 +9,15 @@ from cli import base_funcs as base_funcs, aimmApp
 app = aimmApp.app
 
 @app.command()
-def remove(name_version: str):
+def remove(name_version: Optional[str] = typer.Argument(None)):
     """
     Remove a model from local aimodels.json.
     """
+    if name_version is None:
+        typer.echo("Usage: aimm remove [OPTIONS] NAME\n"
+                   "Try 'aimm remove --help' for help.\n\n"
+                   "Error: Missing argument 'NAME_VERSION'.")
+        sys.exit(1)
     # removes name:version from aimodels.json
     name, version = base_funcs.lowercase_name_version(name_version)
     

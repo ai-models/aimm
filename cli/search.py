@@ -1,6 +1,7 @@
 import sys
 import json
 from urllib.request import urlopen
+from typing import Optional
 import typer
 
 import aimm
@@ -8,10 +9,16 @@ from cli import base_funcs as base_funcs, aimmApp
 
 app = aimmApp.app
 @app.command()
-def search(name: str, include_adult: bool = typer.Option(False, "--include-adult"), only_adult: bool = typer.Option(False, "--only-adult")):
+def search(name: Optional[str] = typer.Argument(None), include_adult: bool = typer.Option(False, "--include-adult"), only_adult: bool = typer.Option(False, "--only-adult")):
     """
     Search for a model.
     """
+    if name is None:
+        typer.echo("Usage: aimm search [OPTIONS] NAME\n"
+                   "Try 'aimm search --help' for help.\n\n"
+                   "Error: Missing argument 'NAME'.")
+        sys.exit(1)
+    
     if not base_funcs.is_valid(name,None):
         typer.echo(f"Error: {name} not valid")
         sys.exit(1)
