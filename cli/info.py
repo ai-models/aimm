@@ -7,7 +7,7 @@ from cli import base_funcs as base_funcs, aimmApp
 app = aimmApp.app
 # show default args
 @app.command(context_settings={"show_default": True})
-def info(name: Optional[str] = typer.Argument(None), fetch : bool = typer.Option(False, "--fetch", help="Fetch the latest info from the model repository")):
+def info(name: str, fetch : bool = typer.Option(False, "--fetch", help="Fetch the latest info from the model repository")):
     """
     Show information about a model. 
     """
