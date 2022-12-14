@@ -3,7 +3,7 @@ from cli import aimmApp
 
 PROGRAM_NAME = "aimm"
 WEBSITE = "https://aimodels.org"
-API_SERVER = "https://api.aimodels.org"
+API_SERVER = "https://ai-models-web-backend-nyotuddeyq-ue.a.run.app"
 GITHUB_REPO = "visioninit/aimm"
 VERSION = "0.5.0"
 
