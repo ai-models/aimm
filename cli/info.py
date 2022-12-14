@@ -1,6 +1,5 @@
 import sys
 import json
-from typing import Optional
 import typer
 
 from cli import base_funcs as base_funcs, aimmApp

@@ -21,7 +21,7 @@
     },
     {
       "comment": "[4/15] Add model to aimodels.json and install",
-      "command": "aimm add bsrgan",
+      "command": "aimm add bsrgan --allow-mutable",
       "wait": 1
     },
     {
@@ -36,7 +36,7 @@
     },
     {
       "comment": "[7/15] Add model to aimodels.json and install",
-      "command": "aimm add Coqui_English_STT:yesno-v0.0.1",
+      "command": "aimm add Coqui_English_STT:yesno-v0.0.1 --allow-mutable",
       "wait": 1
     },
     {

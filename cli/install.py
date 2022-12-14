@@ -13,7 +13,7 @@ app = aimmApp.app
 def install(name_version: Optional[str] = typer.Argument(None),
             auth_user: Optional[str] = typer.Option(None, "--auth-user"),
             auth_pass: Optional[str] = typer.Option(None, "--auth-pass"),
-            mut_path: bool = typer.Option(False, "--unsafe-url")):
+            mut_path: bool = typer.Option(False, "--allow-mutable")):
     """
     Install a model from the model repository.
     """
@@ -38,7 +38,7 @@ def install(name_version: Optional[str] = typer.Argument(None),
                     typer.echo(f"{name}:{version} already installed")
         if unsafe:
             typer.echo("   To allow mutable files, run command again with argument:\n"+
-            "\t --unsafe-url")
+            "\t --allow-mutable")
         return
     name, version = base_funcs.lowercase_name_version(name_version)
     
@@ -87,7 +87,7 @@ def install(name_version: Optional[str] = typer.Argument(None),
                     typer.echo()
                     if unsafe and not no_name_version:
                         typer.echo("   To allow mutable files, run command again with argument:\n"+
-                        "\t --unsafe-url")
+                        "\t --allow-mutable")
                     continue
             if not unsafe:
                 for file in item["files"]:
