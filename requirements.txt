@@ -6,7 +6,7 @@ colorama==0.4.6
 idna==2.10
 pretty-downloader==0.2.0
 prettytable==3.5.0
-requests==2.25.1
+requests==2.31.0
 tqdm==4.57.0
 typer==0.7.0
 urllib3==1.26.12
