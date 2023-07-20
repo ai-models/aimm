@@ -1,5 +1,5 @@
 <div align="center">
-  
+# Project on hold
 # <img src="https://avatars.githubusercontent.com/u/117051901?s=60&v=4" alt="Logo" width="30" height="30"> Aimm (AI Model Manager)
 ### **Tool for managing AI Models that works like pip<sup><sub>TM</sub></sup> or npm<sup><sub>TM</sub></sup>**
 ###  [AI Models](https://aimodels.org)
@@ -33,7 +33,7 @@ AI Model Manager, it's like pip or npm - but for AI models!
 
 ## 📦 Installation
 
-Visit [Downloads - AIModels.org](https://aimodels.org/download) and select and install the version right for you. (This is still pre-release alpha)
+Visit [AI Models](https://aimodels.org) and select and install the version right for you. (This is still pre-release alpha)
 
 ## 💻 Quickstart
 
