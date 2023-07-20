@@ -2,7 +2,7 @@
   
 # <img src="https://avatars.githubusercontent.com/u/117051901?s=60&v=4" alt="Logo" width="30" height="30"> Aimm (AI Model Manager)
 ### **Tool for managing AI Models that works like pip<sup><sub>TM</sub></sup> or npm<sup><sub>TM</sub></sup>**
-###  Pre-release alpha: [Downloads - AIModels.org](https://aimodels.org/download)
+###  [AI Models](https://aimodels.org)
 #### Roadmap and overview at [VisionInit Github](https://github.com/visioninit)
 </div>
 
